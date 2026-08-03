@@ -34,7 +34,7 @@
 
 7. Foreign Keys
    
-   customer_id, order_id, product_id, category_id, sub_category_id, geography_id, payment_id, customer_id, date_id. 
+   product_id, category_id, subcategory_id, geography_id, payment_id, customer_id, date_id. 
    
 8. Relationships
 
