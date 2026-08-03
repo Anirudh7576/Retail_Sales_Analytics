@@ -25,11 +25,11 @@
 
  3. Technical Mapping
 
-   | Business Problem    | Technology Used |                       Why                             |
-   | ------------------- | --------------- | ----------------------------------------------------- |
-   | Data quality        | Snowflake       | Validate and clean data in the SILVER layer.          |
-   | Workflow automation | Airflow         | Schedule and monitor ELT jobs.                        |
-   | Historical storage  | Amazon S3       | Store raw source files for auditing and reprocessing. |
-   | Fast analytics      | Snowflake       | Separate compute and storage for scalable analytics.  |
-   | Reporting           | Power BI        | Interactive dashboards for business users.            |
+    | Business Problem    | Technology Used |                       Why                             |
+    | ------------------- | --------------- | ----------------------------------------------------- |
+    | Data quality        | Snowflake       | Validate and clean data in the SILVER layer.          |
+    | Workflow automation | Airflow         | Schedule and monitor ELT jobs.                        |
+    | Historical storage  | Amazon S3       | Store raw source files for auditing and reprocessing. |
+    | Fast analytics      | Snowflake       | Separate compute and storage for scalable analytics.  |
+    | Reporting           | Power BI        | Interactive dashboards for business users.            |
  
