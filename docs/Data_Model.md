@@ -1,4 +1,5 @@
 1. Purpose
+
    The purpose of the data model is to define the structure of the data warehouse, identify the relationships between tables, and provide a scalable schema that supports efficient reporting and analytical queries.
 
 2. Data Warehouse Schema
