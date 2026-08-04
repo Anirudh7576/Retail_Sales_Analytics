@@ -1,31 +1,33 @@
-Source Systems
-     │
-     ▼
-Generate Dummy Data (Python)
-     │
-     ▼
-Upload Files to AWS S3
-     │
-     ▼
-Airflow detects new files
-     │
-     ▼
-Load data into Snowflake RAW
-     │
-     ▼
-Perform data validation
-     │
-     ▼
-Transform RAW → SILVER
-     │
-     ▼
-Apply business transformations
-     │
-     ▼
-Load SILVER → GOLD
-     │
-     ▼
-Refresh Power BI Dataset
-     │
-     ▼
-Business Dashboards
+                  Source Systems
+       (CRM, Website, POS, Mobile App)
+                     │
+                     ▼
+      Python Data Generator (Project Simulation)
+                     │
+                     ▼
+              Upload Files to Amazon S3
+                     │
+                     ▼
+          Airflow Scheduled ELT Pipeline
+                     │
+                     ▼
+       Load Source Data into Snowflake RAW
+                     │
+                     ▼
+      Data Validation & Quality Checks
+             │                     │
+             │                     ▼
+             │           Rejected Records
+             │          (Error Table / Log)
+             ▼
+ Transform RAW → SILVER (Data Cleansing)
+                     │
+                     ▼
+ Transform SILVER → GOLD
+ (Business Rules & Aggregations)
+                     │
+                     ▼
+        Refresh Power BI Dataset
+                     │
+                     ▼
+        Business Dashboards & Reports
