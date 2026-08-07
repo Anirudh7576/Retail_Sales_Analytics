@@ -62,7 +62,14 @@ CATEGORY_REQUIRED_FIELDS = [
     "category_name",
     "category_description"
 ]
+from scripts.common.validation import (
+    check_required_fields,
+    check_unique,
+)
 
+from scripts.common.file_utils import save_json
+
+from scripts.common.constants import CATEGORY_MASTER, CATEGORY_REQUIRED_FIELDS
 from datetime import timedelta
 # ===================================
 # Generate Category Dimension
@@ -91,88 +98,88 @@ def generate_categories() -> list:
 # Generic Validation Functions
 # ===================================
 
-def check_required_fields(records: list,
-                          required_fields: list) -> bool:
-    """
-    Validate that all required fields exist
-    and are not blank.
-    """
+# def check_required_fields(records: list,
+#                           required_fields: list) -> bool:
+#     """
+#     Validate that all required fields exist
+#     and are not blank.
+#     """
 
-    for record in records:
+#     for record in records:
 
-        for field in required_fields:
+#         for field in required_fields:
 
-            if field not in record:
-                raise ValueError(
-                    f"Missing required field '{field}'. "
-                    f"Record: {record}"
-                )
+#             if field not in record:
+#                 raise ValueError(
+#                     f"Missing required field '{field}'. "
+#                     f"Record: {record}"
+#                 )
 
-            if record[field] in (None, ""):
-                raise ValueError(
-                    f"Blank value found for '{field}'. "
-                    f"Record: {record}"
-                )
+#             if record[field] in (None, ""):
+#                 raise ValueError(
+#                     f"Blank value found for '{field}'. "
+#                     f"Record: {record}"
+#                 )
 
-    return True
-
-
-def check_unique(records: list,
-                 field_name: str) -> bool:
-    """
-    Validate uniqueness of a field.
-    """
-
-    seen_values = set()
-
-    for record in records:
-
-        value = record[field_name]
-
-        if value in seen_values:
-            raise ValueError(
-                f"Duplicate value found for "
-                f"'{field_name}': {value}"
-            )
-
-        seen_values.add(value)
-
-    return True
-#====================================
-# Save file
-#====================================
-
-import json
-from pathlib import Path
-from datetime import datetime
+#     return True
 
 
-def save_file(dim_category: list) -> None:
-    """
-    Save category data as a JSON file with a timestamp.
-    """
+# def check_unique(records: list,
+#                  field_name: str) -> bool:
+#     """
+#     Validate uniqueness of a field.
+#     """
 
-    # Project root
-    project_root = Path(__file__).resolve().parents[2]
+#     seen_values = set()
 
-    # Target directory
-    target_path = project_root / "data" / "generated"
+#     for record in records:
 
-    # Create directory if it doesn't exist
-    target_path.mkdir(parents=True, exist_ok=True)
+#         value = record[field_name]
 
-    # Generate filename
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+#         if value in seen_values:
+#             raise ValueError(
+#                 f"Duplicate value found for "
+#                 f"'{field_name}': {value}"
+#             )
 
-    file_name = f"categories_{timestamp}.json"
+#         seen_values.add(value)
 
-    file_path = target_path / file_name
+#     return True
+# #====================================
+# # Save file
+# #====================================
 
-    # Save JSON
-    with open(file_path, "w", encoding="utf-8") as file:
-        json.dump(dim_category, file, indent=4)
+# import json
+# from pathlib import Path
+# from datetime import datetime
 
-    print(f"File saved successfully: {file_path}")
+
+# def save_file(dim_category: list) -> None:
+#     """
+#     Save category data as a JSON file with a timestamp.
+#     """
+
+#     # Project root
+#     project_root = Path(__file__).resolve().parents[2]
+
+#     # Target directory
+#     target_path = project_root / "data" / "generated"
+
+#     # Create directory if it doesn't exist
+#     target_path.mkdir(parents=True, exist_ok=True)
+
+#     # Generate filename
+#     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+#     file_name = f"categories_{timestamp}.json"
+
+#     file_path = target_path / file_name
+
+#     # Save JSON
+#     with open(file_path, "w", encoding="utf-8") as file:
+#         json.dump(dim_category, file, indent=4)
+
+#     print(f"File saved successfully: {file_path}")
 
 # ===================================
 # Main
@@ -184,23 +191,34 @@ def main():
 
         categories = generate_categories()
 
+        # Validation
         check_required_fields(
             categories,
             CATEGORY_REQUIRED_FIELDS
         )
 
-        check_unique(categories, "category_id")
+        check_unique(
+            categories,
+            "category_id"
+        )
 
-        check_unique(categories, "category_name")
+        check_unique(
+            categories,
+            "category_name"
+        )
 
-        print("\nGenerated Category Records\n")
+        # Save JSON
+        save_json(
+            records=categories,
+            file_prefix="categories"
+        )
 
-        for category in categories:
-            print(category)
+        print("\nGenerated category Records\n")
 
-        print("\nCategory generation completed successfully.")
+        for record in categories:
+            print(record)
 
-        save_file(categories)
+        print("\ncategory generation completed successfully.")
 
     except Exception as error:
 
