@@ -30,10 +30,10 @@ def generate_subcategories() -> list:
     Generate subcategory dimension data.
     """
 
-    # Generate category dimension
+    # Generate categories
     categories = generate_categories()
 
-    # Build category lookup dictionary
+    # Create category lookup dictionary
     category_lookup = {
         category["category_name"]: category["category_id"]
         for category in categories
@@ -46,24 +46,16 @@ def generate_subcategories() -> list:
         start=101
     ):
 
-        # Create a copy of the master record
-        subcategory_record = subcategory.copy()
-
-        # Add generated primary key
-        subcategory_record["subcategory_id"] = subcategory_id
-
-        # Add foreign key
-        subcategory_record["category_id"] = category_lookup[
-            subcategory_record["category_name"]
-        ]
-
-        # Remove helper column
-        subcategory_record.pop("category_name")
+        subcategory_record = {
+            "subcategory_id": subcategory_id,
+            "category_id": category_lookup[subcategory["category_name"]],
+            "subcategory_name": subcategory["subcategory_name"],
+            "subcategory_description": subcategory["subcategory_description"]
+        }
 
         dim_subcategory.append(subcategory_record)
 
     return dim_subcategory
-
 # ==========================================================
 # Main
 # ==========================================================

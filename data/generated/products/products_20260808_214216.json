@@ -1,0 +1,26 @@
+[
+    {
+        "product_id": 1001,
+        "subcategory_id": 101,
+        "product_name": "iPhone 16",
+        "brand": "Apple",
+        "unit_cost": 72000,
+        "unit_price": 89999
+    },
+    {
+        "product_id": 1002,
+        "subcategory_id": 101,
+        "product_name": "Galaxy S25",
+        "brand": "Samsung",
+        "unit_cost": 65000,
+        "unit_price": 79999
+    },
+    {
+        "product_id": 1003,
+        "subcategory_id": 102,
+        "product_name": "MacBook Air M4",
+        "brand": "Apple",
+        "unit_cost": 85000,
+        "unit_price": 99999
+    }
+]

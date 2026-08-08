@@ -1,3 +1,6 @@
+#==================================================================================================================
+# "Category Data"
+#==================================================================================================================
 CATEGORY_MASTER = [
     {
         "category_name": "Electronics",
@@ -42,13 +45,15 @@ CATEGORY_MASTER = [
 ]
 
 # ===================================
-# Validation Configuration
+# Category data Validation Configuration
 # ===================================
 CATEGORY_REQUIRED_FIELDS = [
     "category_id",
     "category_name",
     "category_description"
 ]
+# ==================================================================================================================
+# "Sub category data"
 # ==================================================================================================================
 
 SUBCATEGORY_MASTER = [
@@ -228,6 +233,9 @@ SUBCATEGORY_MASTER = [
     }
 ]
 
+# ===========================================
+# Sub Category data Validation Configuration
+# ===========================================
 SUBCATEGORY_REQUIRED_FIELDS = [
     "subcategory_id",
     "category_id",
@@ -235,3 +243,38 @@ SUBCATEGORY_REQUIRED_FIELDS = [
     "subcategory_description"
 ]
 # ======================================================================================
+# "Products data"
+# ======================================================================================
+PRODUCT_MASTER = [
+    {
+        "subcategory_name": "Mobile Phones",
+        "product_name": "iPhone 16",
+        "brand": "Apple",
+        "unit_cost": 72000,
+        "unit_price": 89999
+    },
+    {
+        "subcategory_name": "Mobile Phones",
+        "product_name": "Galaxy S25",
+        "brand": "Samsung",
+        "unit_cost": 65000,
+        "unit_price": 79999
+    },
+    {
+        "subcategory_name": "Laptops",
+        "product_name": "MacBook Air M4",
+        "brand": "Apple",
+        "unit_cost": 85000,
+        "unit_price": 99999
+    }
+]
+# =================================================================
+PRODUCT_REQUIRED_FIELDS = [
+    "product_id",
+    "subcategory_id",
+    "product_name",
+    "brand",
+    "unit_cost",
+    "unit_price"
+]
+# =================================================================

@@ -1,5 +1,6 @@
 from scripts.data_generation.generate_categories import main as category_main
 from scripts.data_generation.generate_subcategories import main as subcategory_main
+from scripts.data_generation.generate_products import main as products_main
 
 
 def main():
@@ -7,8 +8,11 @@ def main():
     print("Category data generation started")
     category_main()
 
-    print("subcategory data generation completed")
+    print("subcategory data generation started")
     subcategory_main()
+
+    print("products data generation started")
+    products_main()
 
     print("Data generation completed")
 
