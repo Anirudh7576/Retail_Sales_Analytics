@@ -278,3 +278,62 @@ PRODUCT_REQUIRED_FIELDS = [
     "unit_price"
 ]
 # =================================================================
+# GEOGRAPHY DATA
+# =================================================================
+GEOGRAPHY_MASTER = [
+    {
+        "city": "Hyderabad",
+        "state": "Telangana",
+        "country": "India",
+        "region": "South"
+    },
+    {
+        "city": "Bengaluru",
+        "state": "Karnataka",
+        "country": "India",
+        "region": "South"
+    },
+    {
+        "city": "Chennai",
+        "state": "Tamil Nadu",
+        "country": "India",
+        "region": "South"
+    },
+    {
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "country": "India",
+        "region": "West"
+    },
+    {
+        "city": "Pune",
+        "state": "Maharashtra",
+        "country": "India",
+        "region": "West"
+    },
+    {
+        "city": "Delhi",
+        "state": "Delhi",
+        "country": "India",
+        "region": "North"
+    },
+    {
+        "city": "Kolkata",
+        "state": "West Bengal",
+        "country": "India",
+        "region": "East"
+    }
+]
+# ====================================================================
+# GEOGRAPY_REQUIRED FIELDS
+# ====================================================================
+GEOGRAPHY_REQUIRED_FIELDS = [
+    "geography_id",
+    "city",
+    "state",
+    "country",
+    "region",
+    "postal_code"
+]
+# ====================================================================
+
