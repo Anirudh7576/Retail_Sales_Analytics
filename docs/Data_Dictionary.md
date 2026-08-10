@@ -6,17 +6,34 @@
     | order_id        | VARCHAR      | Business Order ID |
     | customer_id     | NUMBER       | FK                |
     | product_id      | NUMBER       | FK                |
-    | category_id     | NUMBER       | FK                |
-    | subcategory_id  | NUMBER       | FK                |
     | geography_id    | NUMBER       | FK                |
     | payment_id      | NUMBER       | FK                |
     | date_id         | NUMBER       | FK                |
     | quantity        | NUMBER       | Units sold        |
     | unit_price      | NUMBER(10,2) | Selling price     |
+    | unit_cost       | NUMBER(10,2) | Buyying price     |
     | discount_amount | NUMBER(10,2) | Discount          |
     | tax_amount      | NUMBER(10,2) | Tax               |
     | sales_amount    | NUMBER(10,2) | Final amount      |
     | profit_amount   | NUMBER(10,2) | Profit            |
+
+    <!-- | Column            | How we'll generate it                               |
+| ----------------- | --------------------------------------------------- |
+| `sales_key`       | Sequential ID                                       |
+| `order_id`        | Generated business ID                               |
+| `customer_id`     | Random/controlled selection from Customer dimension |
+| `product_id`      | Random/controlled selection from Product dimension  |
+| `geography_id`    | Selection from Geography dimension                  |
+| `payment_id`      | Selection from Payment dimension                    |
+| `date_id`         | Selection from Date dimension                       |
+| `quantity`        | Random quantity                                     |
+| `unit_price`      | From Product                                        |
+| `unit_cost`       | From Product                                        |
+| `discount_amount` | Generated percentage/amount                         |
+| `tax_amount`      | Calculated                                          |
+| `sales_amount`    | Calculated                                          |
+| `profit_amount`   | Calculated                                          | -->
+
 
 
 2. DIM_PRODUCTS
@@ -44,6 +61,7 @@
     | category_id          | NUMBER    | Primary Key                 |
     | category_name        | VARCHAR   | Electronics, Clothing, etc. |
     | category_description | VARCHAR   | Category description        |
+
 
 4. DIM_SUBCATGORY
 
@@ -118,10 +136,6 @@
                             │
                             │
     DIM_PRODUCT ────────────┐
-                            │
-    DIM_CATEGORY ───────────┤
-                            │
-    DIM_SUBCATEGORY ────────┤
                             │
     DIM_CUSTOMER ───────────┤
                             │

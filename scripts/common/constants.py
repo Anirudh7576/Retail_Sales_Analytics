@@ -405,5 +405,25 @@ DATE_REQUIRED_FIELDS = [
     "year"
 ]
 # =====================================================================
+# FACT_SALES_REQUIRED_FIELDS 
+# =====================================================================
 
+FACT_SALES_REQUIRED_FIELDS = [
+    "sales_key",
+    "order_id",
+    "customer_id",
+    "product_id",
+    "geography_id",
+    "payment_id",
+    "date_id",
+    "quantity",
+    "unit_price",
+    "unit_cost",
+    "discount_amount",
+    "tax_amount",
+    "sales_amount",
+    "profit_amount"
+]
+
+# ===================================================================
 
