@@ -3,6 +3,9 @@ import random
 
 fake = Faker("en_IN")
 
+# ==============================================
+# generate postal code for generate_geography.py
+# ==============================================
 def generate_postalcode() -> str:
 
     print("generating postal code")
@@ -10,3 +13,8 @@ def generate_postalcode() -> str:
 
 
 
+# ==============================================
+# generate phone number for generate_customers.py
+# ==============================================
+def generate_phone_number() -> str:
+    return fake.numerify("##########")
