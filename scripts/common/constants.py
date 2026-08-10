@@ -335,5 +335,41 @@ GEOGRAPHY_REQUIRED_FIELDS = [
     "region",
     "postal_code"
 ]
+
+
 # ====================================================================
+# PAYMENTS DATA
+#=====================================================================
+PAYMENT_MASTER = [
+    {
+        "payment_method": "UPI",
+        "payment_type": "Online"
+    },
+    {
+        "payment_method": "Credit Card",
+        "payment_type": "Online"
+    },
+    {
+        "payment_method": "Debit Card",
+        "payment_type": "Online"
+    },
+    {
+        "payment_method": "Net Banking",
+        "payment_type": "Online"
+    },
+    {
+        "payment_method": "Cash",
+        "payment_type": "Offline"
+    }
+]
+#=====================================================================
+# PAYMENTS_REQUIRED_FIELDS
+#=====================================================================
+PAYMENT_REQUIRED_FIELDS = [
+    "payment_id",
+    "payment_method",
+    "payment_type"
+]
+#=====================================================================
+
 

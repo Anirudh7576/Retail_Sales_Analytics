@@ -2,6 +2,7 @@ from scripts.data_generation.generate_categories import main as category_main
 from scripts.data_generation.generate_subcategories import main as subcategory_main
 from scripts.data_generation.generate_products import main as products_main
 from scripts.data_generation.generate_geography import main as geography_main
+from scripts.data_generation.generate_payments import main as payments_main
 
 def main():
 
@@ -17,7 +18,9 @@ def main():
     print("geography data generation started")
     geography_main()
 
-   
+    print("payments data generation started")
+    payments_main()
+
     print("Data generation completed")
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 from scripts.common.constants import (GEOGRAPHY_MASTER, GEOGRAPHY_REQUIRED_FIELDS)
 from scripts.common.validation import (check_required_fields, check_unique)
 from scripts.common.file_utils import save_json
-from scripts.common.faker_utils import (generate_postalcode, generate_address)
+from scripts.common.faker_utils import generate_postalcode
 
 from faker import Faker
 fake = Faker("en_IN")
@@ -15,8 +15,11 @@ def generate_geography():
     for geography_id, location in enumerate(GEOGRAPHY_MASTER, start = 10001):
 
         geography_record = {
-        "geography_id" : geography_id,
-        **location,
+        "geography_id": geography_id,
+        "city": location["city"],
+        "state": location["state"],
+        "country": location["country"],
+        "region": location["region"],
         "postal_code": generate_postalcode()
         }
 
@@ -46,10 +49,6 @@ def main():
         )
 
         print("\n validating geography data")
-
-        for record in geography:
-            print(record)
-
 
         save_json(
             geography,

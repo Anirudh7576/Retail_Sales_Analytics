@@ -1,14 +1,12 @@
 from faker import Faker
+import random
 
 fake = Faker("en_IN")
 
 def generate_postalcode() -> str:
 
     print("generating postal code")
-    return fake.postcode()
+    return f"5{random.randint(10000,99999)}"
 
-def generate_address() -> str:
 
-    print("generating address")
-    return fake.address()
 
