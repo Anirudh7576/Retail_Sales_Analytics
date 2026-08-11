@@ -5,7 +5,10 @@ from scripts.data_generation.generate_date_dimension import generate_date_dimens
 from scripts.data_generation.generate_payments import generate_payments
 
 from scripts.common.constants import FACT_SALES_REQUIRED_FIELDS
-from scripts.common.validation import check_required_fields, check_unique
+from scripts.common.validation import (
+    check_required_fields, 
+    check_unique
+)
 from scripts.common.file_utils import save_json
 
 import random

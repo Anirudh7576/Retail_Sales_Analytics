@@ -1,5 +1,8 @@
 from scripts.common.constants import CUSTOMER_REQUIRED_FIELDS
-from scripts.common.validation import check_required_fields, check_unique
+from scripts.common.validation import (
+    check_required_fields, 
+    check_unique
+)
 from scripts.common.file_utils import save_json
 from scripts.common.faker_utils import generate_phone_number
 
@@ -50,9 +53,6 @@ def main():
             customers,
             "customer_id"
         )
-
-        for record in customers:
-            print(record)
 
         save_json(
             customers,

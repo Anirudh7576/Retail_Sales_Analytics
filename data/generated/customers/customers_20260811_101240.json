@@ -1,0 +1,92 @@
+[
+    {
+        "customer_id": 50001,
+        "first_name": "Sathvik",
+        "last_name": "Pall",
+        "email": "pbanik@example.net",
+        "phone": "5828480625",
+        "gender": "Male",
+        "date_of_birth": "1990-11-16"
+    },
+    {
+        "customer_id": 50002,
+        "first_name": "Jatin",
+        "last_name": "Lanka",
+        "email": "mbhavsar@example.net",
+        "phone": "8641407137",
+        "gender": "Male",
+        "date_of_birth": "2005-10-27"
+    },
+    {
+        "customer_id": 50003,
+        "first_name": "Sachi",
+        "last_name": "Salvi",
+        "email": "agarwalturvi@example.org",
+        "phone": "9664785069",
+        "gender": "Male",
+        "date_of_birth": "2007-03-17"
+    },
+    {
+        "customer_id": 50004,
+        "first_name": "Chaaya",
+        "last_name": "Krishna",
+        "email": "mitali92@example.org",
+        "phone": "4605931104",
+        "gender": "Female",
+        "date_of_birth": "1978-10-16"
+    },
+    {
+        "customer_id": 50005,
+        "first_name": "Dakshesh",
+        "last_name": "Kant",
+        "email": "sarrafimaran@example.com",
+        "phone": "4175745653",
+        "gender": "Male",
+        "date_of_birth": "1977-10-22"
+    },
+    {
+        "customer_id": 50006,
+        "first_name": "Gautam",
+        "last_name": "Yohannan",
+        "email": "vbhattacharyya@example.org",
+        "phone": "6974915522",
+        "gender": "Female",
+        "date_of_birth": "2007-05-15"
+    },
+    {
+        "customer_id": 50007,
+        "first_name": "Madhav",
+        "last_name": "Savant",
+        "email": "ayush43@example.net",
+        "phone": "7431486836",
+        "gender": "Female",
+        "date_of_birth": "1987-11-09"
+    },
+    {
+        "customer_id": 50008,
+        "first_name": "Eiravati",
+        "last_name": "Dasgupta",
+        "email": "munijanya@example.net",
+        "phone": "3094976148",
+        "gender": "Female",
+        "date_of_birth": "2007-03-24"
+    },
+    {
+        "customer_id": 50009,
+        "first_name": "Krish",
+        "last_name": "Pingle",
+        "email": "xpanchal@example.org",
+        "phone": "7496066101",
+        "gender": "Female",
+        "date_of_birth": "1966-12-29"
+    },
+    {
+        "customer_id": 50010,
+        "first_name": "Isha",
+        "last_name": "Ramakrishnan",
+        "email": "daksha17@example.com",
+        "phone": "2214565948",
+        "gender": "Male",
+        "date_of_birth": "2005-08-17"
+    }
+]

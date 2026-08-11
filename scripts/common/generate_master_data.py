@@ -1,34 +1,38 @@
-from scripts.data_generation.generate_categories import main as category_main
-from scripts.data_generation.generate_subcategories import main as subcategory_main
-from scripts.data_generation.generate_products import main as products_main
-from scripts.data_generation.generate_geography import main as geography_main
-from scripts.data_generation.generate_payments import main as payments_main
-from scripts.data_generation.generate_customers import main as customers_main
-from scripts.data_generation.generate_date_dimension import main as date_dimension_main
+from scripts.data_generation.generate_categories import main as dim_category_main
+from scripts.data_generation.generate_subcategories import main as dim_subcategory_main
+from scripts.data_generation.generate_products import main as dim_products_main
+from scripts.data_generation.generate_geography import main as dim_geography_main
+from scripts.data_generation.generate_payments import main as dim_payments_main
+from scripts.data_generation.generate_customers import main as dim_customers_main
+from scripts.data_generation.generate_date_dimension import main as dim_date_main
+from scripts.data_generation.generate_sales import main as fact_sales_main
 
 def main():
 
     print("Category data generation started")
-    category_main()
+    dim_category_main()
 
     print("subcategory data generation started")
-    subcategory_main()
+    dim_subcategory_main()
 
     print("products data generation started")
-    products_main()
+    dim_products_main()
 
     print("geography data generation started")
-    geography_main()
+    dim_geography_main()
 
     print("payments data generation started")
-    payments_main()
+    dim_payments_main()
 
     print("customers data generation started")
-    customers_main()
+    dim_customers_main()
 
     print("date dimension date generation started")
-    date_dimension_main()
+    dim_date_main()
 
+    print("fact sales data generation started")
+    fact_sales_main()
+    
     print("Data generation completed")
 
 

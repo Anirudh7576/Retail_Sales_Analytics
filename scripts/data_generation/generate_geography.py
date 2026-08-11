@@ -1,5 +1,19 @@
-from scripts.common.constants import (GEOGRAPHY_MASTER, GEOGRAPHY_REQUIRED_FIELDS)
-from scripts.common.validation import (check_required_fields, check_unique)
+"""
+Project : Retail Sales Analytics
+
+Author : Anirudh Krishna
+
+Purpose : Generate Category Dimension data and validate it.
+"""
+
+from scripts.common.constants import (
+    GEOGRAPHY_MASTER,
+    GEOGRAPHY_REQUIRED_FIELDS
+    )
+from scripts.common.validation import (
+    check_required_fields, 
+    check_unique
+    )
 from scripts.common.file_utils import save_json
 from scripts.common.faker_utils import generate_postalcode
 
@@ -7,7 +21,7 @@ from faker import Faker
 fake = Faker("en_IN")
 
 # =====================================================================================
-# 
+# generate geography
 # =====================================================================================
 def generate_geography():
     dim_geography = []

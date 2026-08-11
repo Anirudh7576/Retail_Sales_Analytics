@@ -6,11 +6,22 @@ Author : Anirudh Krishna
 Purpose : Generate Date Dimension data and validate it.
 """
 
-from scripts.common.constants import (DATE_START,DATE_END, DATE_REQUIRED_FIELDS)
-from scripts.common.validation import (check_required_fields, check_unique)
+from scripts.common.constants import (
+    DATE_START,
+    DATE_END, 
+    DATE_REQUIRED_FIELDS
+    )
+from scripts.common.validation import (
+    check_required_fields, 
+    check_unique
+    )
 from scripts.common.file_utils import save_json
 
 from datetime import date, timedelta
+
+# ======================================================================
+# generate date dimension data
+# ======================================================================
 
 def generate_date_dimension()-> list:
     dim_date = []
@@ -40,9 +51,6 @@ def generate_date_dimension()-> list:
         current_date += timedelta(days= 1)
 
     return dim_date
-
-result = generate_date_dimension()
-print(result)
 
 # ===================================================
 # validation

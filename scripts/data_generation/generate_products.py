@@ -1,15 +1,31 @@
-from scripts.common.constants import (PRODUCT_MASTER, PRODUCT_REQUIRED_FIELDS,)
-from scripts.data_generation.generate_subcategories import generate_subcategories 
+"""
+Project : Retail Sales Analytics
+
+Author : Anirudh Krishna
+
+Purpose : Generate Category Dimension data and validate it.
+"""
+from scripts.common.constants import (
+    PRODUCT_MASTER, 
+    PRODUCT_REQUIRED_FIELDS,
+    )
+from scripts.common.validation import (
+    check_required_fields, 
+    check_unique
+    )
 
 from scripts.common.file_utils import save_json
-from scripts.common.validation import (check_required_fields, check_unique)
+
+from scripts.data_generation.generate_subcategories import generate_subcategories 
 
 from faker import Faker
 import random
 
 fake = Faker()
 
-
+# =====================================================================================
+# generate products data
+# =====================================================================================
 def generate_products() -> list:
 
     subcategories = generate_subcategories()
@@ -75,13 +91,6 @@ def main():
             records = products,
             file_prefix = "products"
         )
-
-        print("\nGenerating products file\n")
-
-        for product in products:
-            print(product)
-
-        print("\nproduct generation successfully")
 
     except Exception as error:
 

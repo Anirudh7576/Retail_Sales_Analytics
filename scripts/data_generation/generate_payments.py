@@ -1,6 +1,23 @@
-from scripts.common.constants import PAYMENT_MASTER, PAYMENT_REQUIRED_FIELDS
-from scripts.common.validation import check_required_fields, check_unique
+"""
+Project : Retail Sales Analytics
+
+Author : Anirudh Krishna
+
+Purpose : Generate Category Dimension data and validate it.
+"""
+from scripts.common.constants import (
+    PAYMENT_MASTER, 
+    PAYMENT_REQUIRED_FIELDS
+    )
+from scripts.common.validation import (
+    check_required_fields, 
+    check_unique
+    )
 from scripts.common.file_utils import save_json
+
+# ======================================================================
+# generate payments data
+# ======================================================================
 
 def generate_payments() -> list:
 
@@ -45,6 +62,9 @@ def main():
             "payment_method"
         )
 
+        for payment in payments:
+            print(payment)
+            
         save_json(
             payments,
             file_prefix= "payments"

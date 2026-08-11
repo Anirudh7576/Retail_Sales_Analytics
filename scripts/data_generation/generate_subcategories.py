@@ -20,7 +20,6 @@ from scripts.common.file_utils import save_json
 
 from scripts.data_generation.generate_categories import generate_categories
 
-
 # ==========================================================
 # Generate Subcategory Dimension
 # ==========================================================
@@ -87,13 +86,6 @@ def main():
             records=subcategories,
             file_prefix="subcategories"
         )
-
-        print("\nGenerated Subcategory Records\n")
-
-        for record in subcategories:
-            print(record)
-
-        print("\nSubcategory generation completed successfully.")
 
     except Exception as error:
 
