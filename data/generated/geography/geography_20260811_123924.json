@@ -1,0 +1,58 @@
+[
+    {
+        "geography_id": 10001,
+        "city": "Hyderabad",
+        "state": "Telangana",
+        "country": "India",
+        "region": "South",
+        "postal_code": "556662"
+    },
+    {
+        "geography_id": 10002,
+        "city": "Bengaluru",
+        "state": "Karnataka",
+        "country": "India",
+        "region": "South",
+        "postal_code": "531799"
+    },
+    {
+        "geography_id": 10003,
+        "city": "Chennai",
+        "state": "Tamil Nadu",
+        "country": "India",
+        "region": "South",
+        "postal_code": "519598"
+    },
+    {
+        "geography_id": 10004,
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "country": "India",
+        "region": "West",
+        "postal_code": "572660"
+    },
+    {
+        "geography_id": 10005,
+        "city": "Pune",
+        "state": "Maharashtra",
+        "country": "India",
+        "region": "West",
+        "postal_code": "523923"
+    },
+    {
+        "geography_id": 10006,
+        "city": "Delhi",
+        "state": "Delhi",
+        "country": "India",
+        "region": "North",
+        "postal_code": "548520"
+    },
+    {
+        "geography_id": 10007,
+        "city": "Kolkata",
+        "state": "West Bengal",
+        "country": "India",
+        "region": "East",
+        "postal_code": "572633"
+    }
+]

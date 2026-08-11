@@ -61,9 +61,6 @@ def main():
             payments,
             "payment_method"
         )
-
-        for payment in payments:
-            print(payment)
             
         save_json(
             payments,

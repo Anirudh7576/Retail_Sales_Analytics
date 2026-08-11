@@ -11,26 +11,9 @@ from datetime import datetime
 from pathlib import Path
 
 
-def save_json(records: list, file_prefix: str) -> None:
+def save_json(records: list, file_prefix: str, folder_type: str = "generated") -> None:
     """
-    Save records as a timestamped JSON file.
-
-    Parameters
-    ----------
-    records : list
-        List of dictionaries to save.
-
-    file_prefix : str
-        Prefix used for both the folder name and file name.
-
-        Example:
-            categories
-            subcategories
-            products
-            customers
-            geography
-            payment
-            sales
+    Save records as a timestamped JSON file
     """
 
     # =====================================================
@@ -38,18 +21,12 @@ def save_json(records: list, file_prefix: str) -> None:
     # =====================================================
     project_root = Path(__file__).resolve().parents[2]
 
-    # =====================================================
-    # Output Folder
-    # Example:
-    # data/generated/categories/
-    # data/generated/subcategories/
-    # =====================================================
     output_folder = (
         project_root
         / "data"
-        / "generated"
+        / folder_type
         / file_prefix
-    )
+      )
 
     # Create folder if it doesn't exist
     output_folder.mkdir(parents=True, exist_ok=True)
@@ -79,3 +56,50 @@ def save_json(records: list, file_prefix: str) -> None:
 
     print(f"\nJSON file saved successfully.")
     print(f"Location : {file_path}\n")
+
+# =================================================================
+# Read the latest JSON file for given dimension
+# =================================================================
+def get_latest_json(folder_name:str, file_prefix:str) -> str:
+
+    project_root = Path(__file__).resolve().parents[2]
+
+    folder = (
+             project_root
+             /"data"
+             /"generated"
+             /folder_name
+    )
+
+    files = list(
+        folder.glob(f"{file_prefix}_*json")
+
+    )
+
+    if not files:
+        raise FileNotFoundError(
+            f"No json file found for {file_prefix} in",
+            f" the {folder_name}"
+        )
+
+    latest_file = max(
+        files,
+        key= lambda file: file.stat().st_mtime 
+    )
+
+    with open(latest_file,
+              "r",
+              encoding = "utf-8"
+              ) as file:
+        
+        records = json.load(file)
+
+    print(
+        f"reading latest {file_prefix} file",
+        f"{latest_file}.name"
+    )
+
+    return records 
+
+        
+

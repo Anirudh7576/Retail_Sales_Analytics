@@ -1,31 +1,82 @@
-from scripts.data_generation.generate_products import generate_products
-from scripts.data_generation.generate_customers import generate_customers
-from scripts.data_generation.generate_geography import generate_geography
-from scripts.data_generation.generate_date_dimension import generate_date_dimension
-from scripts.data_generation.generate_payments import generate_payments
+"""
+Project : Retail Sales Analytics
+
+Author : Anirudh Krishna
+
+Purpose : Generate Category Dimension data and validate it.
+"""
+# from scripts.data_generation.generate_products import generate_products
+# from scripts.data_generation.generate_customers import generate_customers
+# from scripts.data_generation.generate_geography import generate_geography
+# from scripts.data_generation.generate_date_dimension import generate_date_dimension
+# from scripts.data_generation.generate_payments import generate_payments
 
 from scripts.common.constants import FACT_SALES_REQUIRED_FIELDS
 from scripts.common.validation import (
     check_required_fields, 
-    check_unique
+    check_unique,
+    check_foreign_keys
 )
-from scripts.common.file_utils import save_json
+from scripts.common.file_utils import (
+    save_json, 
+    get_latest_json
+)
 
 import random
 from datetime import date
 
+# =============================================================================
+# load dimension data
+# =============================================================================
+def load_dimension_data():
+    customers = get_latest_json(
+                "customers",
+                "customers"
+            )
+
+    products = get_latest_json(
+                "products",
+                "products"
+            )
+
+    geographies = get_latest_json(
+                "geography",
+                "geography"
+            )
+
+    dates = get_latest_json(
+                "dates",
+                "dates"
+            )
+
+    payments = get_latest_json(
+                "payments",
+                "payments"
+            )
+
+    return {
+        "customers"  : customers,
+        "products"   : products,
+        "geographies" : geographies,
+        "dates"      : dates,
+        "payments"   : payments
+    }
 # ==============================================================================
 # create dimension data
 # ==============================================================================
 
 def generate_sales(number_of_rows:int =  1) -> list:
+    # =======================================================================
+    # load latest dimensions
+    # =======================================================================
+    dimensions = load_dimension_data()
 
-    customers = generate_customers()
-    products = generate_products()
-    geographies = generate_geography()
-    dates = generate_date_dimension()
-    payments = generate_payments()
-   
+    customers   = dimensions["customers"]
+    products    = dimensions["products"]
+    geographies = dimensions["geographies"]
+    dates       = dimensions["dates"]
+    payments    = dimensions["payments"]
+    
     # =========================================================================
     # create lookup data
     # =========================================================================
@@ -59,6 +110,7 @@ def generate_sales(number_of_rows:int =  1) -> list:
     fact_sales = []
 
     for sales_key in range(1, number_of_rows + 1):
+
         # select  a product
         product = random.choice(product_records)
         quantity = random.randint(1,5)
@@ -84,8 +136,7 @@ def generate_sales(number_of_rows:int =  1) -> list:
         )
 
         profit_amount = round(
-            taxable_amount - (quantity * unit_cost),
-            2
+            taxable_amount - (quantity * unit_cost), 2
         )
 
         sales_record = {
@@ -111,36 +162,128 @@ def generate_sales(number_of_rows:int =  1) -> list:
 
     return fact_sales
 
-def main():
+# ==========================================================
+# Validate FACT_SALES
+# ==========================================================
 
-    sales = generate_sales()
+def validate_sales(
+    fact_sales: list,
+    dimensions: dict
+) -> bool:
+
+    """
+    Validate FACT_SALES records.
+    """
+
+    # ------------------------------------------------------
+    # Required fields
+    # ------------------------------------------------------
+
+    check_required_fields(
+        fact_sales,
+        FACT_SALES_REQUIRED_FIELDS
+    )
+
+    # ------------------------------------------------------
+    # Unique fields
+    # ------------------------------------------------------
+
+    check_unique(
+        fact_sales,
+        "sales_key"
+    )
+
+    check_unique(
+        fact_sales,
+        "order_id"
+    )
+
+    # ------------------------------------------------------
+    # Foreign keys
+    # ------------------------------------------------------
+
+    check_foreign_keys(
+        fact_sales,
+        "customer_id",
+        dimensions["customers"],
+        "customer_id"
+    )
+
+    check_foreign_keys(
+        fact_sales,
+        "product_id",
+        dimensions["products"],
+        "product_id"
+    )
+
+    check_foreign_keys(
+        fact_sales,
+        "geography_id",
+        dimensions["geographies"],
+        "geography_id"
+    )
+
+    check_foreign_keys(
+        fact_sales,
+        "payment_id",
+        dimensions["payments"],
+        "payment_id"
+    )
+
+    check_foreign_keys(
+        fact_sales,
+        "date_id",
+        dimensions["dates"],
+        "date_id"
+    )
+
+    return True
+
+
+# ==========================================================
+# Main
+# ==========================================================
+
+def main():
 
     try:
 
-        check_required_fields(
-            sales,
-            FACT_SALES_REQUIRED_FIELDS
+        print(
+            "\nFACT_SALES generation started..."
         )
 
-        check_unique(
-            sales,
-            "sales_key"
+        # Load dimensions
+        dimensions = load_dimension_data()
+
+        # Generate fact data
+        fact_sales = generate_sales()
+
+        # Validate
+        validate_sales(
+            fact_sales,
+            dimensions
         )
 
+        # Save
         save_json(
-            sales,
-            file_prefix= "sales"
+            fact_sales,
+            "sales",
+            "generated"
+
         )
 
     except Exception as error:
-        print(f"file is not valid: {error}")
+
+        save_json(
+            fact_sales,
+            "sales",
+            "rejected")
+
+        print(
+            f"\nFACT_SALES process failed: "
+            f"{error}"
+        )
+
 
 if __name__ == "__main__":
     main()
-
-        
-
-
-
-
-

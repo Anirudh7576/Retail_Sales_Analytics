@@ -48,3 +48,28 @@ def check_unique(records: list, field_name: str) -> bool:
         seen_values.add(value)
 
     return True
+
+def check_foreign_keys(
+        fact_records: list,
+        fact_field : str,
+        dim_records :list,
+        dim_field : str
+        ):
+     """
+    Validate that every foreign-key value in the fact
+    records exists in the corresponding dimension.
+    """
+     valid_values = [
+         record[dim_field]
+         for record in dim_records
+     ]
+
+     for record in fact_records:
+         value = record[fact_field]
+
+         if value not in valid_values:
+             raise ValueError(
+                 f"Invalid {fact_field} : {value}."
+                 f"Record {record}"
+             )
+     return True
