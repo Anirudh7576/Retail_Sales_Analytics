@@ -10,15 +10,26 @@ import json
 from datetime import datetime
 from pathlib import Path
 
-
-def save_json(records: list, file_prefix: str, folder_type: str = "generated") -> None:
+def save_json(records: list, file_prefix: str, folder_type: str ) -> None:
     """
     Save records as a timestamped JSON file
     """
+    allower_folders = {
+        "generated",
+        "rejected",
+        "archive"
+    }
 
+    if folder_type not in allower_folders:
+        raise ValueError(
+            f"invalid folder type {folder_type}"
+            f"allowed folders {allower_folders}"
+        )
+    
     # =====================================================
     # Project Root
     # =====================================================
+
     project_root = Path(__file__).resolve().parents[2]
 
     output_folder = (
@@ -57,9 +68,10 @@ def save_json(records: list, file_prefix: str, folder_type: str = "generated") -
     print(f"\nJSON file saved successfully.")
     print(f"Location : {file_path}\n")
 
-# =================================================================
-# Read the latest JSON file for given dimension
-# =================================================================
+    # =================================================================
+    # Read the latest JSON file for given dimension
+    # =================================================================
+     
 def get_latest_json(folder_name:str, file_prefix:str) -> str:
 
     project_root = Path(__file__).resolve().parents[2]

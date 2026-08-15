@@ -46,7 +46,6 @@ def generate_date_dimension()-> list:
 
         }
 
-
         dim_date.append(date_record)
         current_date += timedelta(days= 1)
 
@@ -74,10 +73,17 @@ def main():
 
         save_json(
             dates,
-            file_prefix = "dates"
+            file_prefix = "dates",
+            folder_type= "generated"
         )
 
     except Exception as error:
+        if dates is not dates:
+            save_json(
+                dates,
+                file_prefix= "dates",
+                folder_type= "rejected"
+            )
         print(f"the generation_dates not valid and has a error : {error}")
 
 if __name__ == "__main__":

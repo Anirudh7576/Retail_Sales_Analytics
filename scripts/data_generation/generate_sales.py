@@ -3,7 +3,7 @@ Project : Retail Sales Analytics
 
 Author : Anirudh Krishna
 
-Purpose : Generate Category Dimension data and validate it.
+Purpose : Generate Sales fact data and validate it.
 """
 # from scripts.data_generation.generate_products import generate_products
 # from scripts.data_generation.generate_customers import generate_customers
@@ -22,12 +22,19 @@ from scripts.common.file_utils import (
     get_latest_json
 )
 
+from scripts.common.business_rules import (
+    check_sales_business_rules, 
+    check_sales_calculations
+)
+
+from scripts.common.logger import logger 
+
 import random
 from datetime import date
 
-# =============================================================================
-# load dimension data
-# =============================================================================
+    # =============================================================================
+    # load dimension data
+    # =============================================================================
 def load_dimension_data():
     customers = get_latest_json(
                 "customers",
@@ -61,15 +68,14 @@ def load_dimension_data():
         "dates"      : dates,
         "payments"   : payments
     }
-# ==============================================================================
-# create dimension data
-# ==============================================================================
+    # ==============================================================================
+    # create dimension data
+    # ==============================================================================
 
-def generate_sales(number_of_rows:int =  1) -> list:
+def generate_sales(dimensions: str, number_of_rows:int) -> list:
     # =======================================================================
     # load latest dimensions
     # =======================================================================
-    dimensions = load_dimension_data()
 
     customers   = dimensions["customers"]
     products    = dimensions["products"]
@@ -121,23 +127,17 @@ def generate_sales(number_of_rows:int =  1) -> list:
         discount_percentage = random.uniform(0, 0.15)
         gross_amount = quantity * unit_price
 
-        discount_amount = round(
-            gross_amount * discount_percentage ,2)
+        discount_amount = gross_amount * discount_percentage 
 
         # example GST/Tax by 18%
         taxable_amount = gross_amount - discount_amount
 
-        tax_amount = round(
-            taxable_amount * 0.18, 2
-        )
+        tax_amount = taxable_amount * 0.18
+        
 
-        sales_amount = round(
-            taxable_amount + tax_amount
-        )
+        sales_amount = taxable_amount + tax_amount
 
-        profit_amount = round(
-            taxable_amount - (quantity * unit_cost), 2
-        )
+        profit_amount = taxable_amount - (quantity * unit_cost)
 
         sales_record = {
 
@@ -239,24 +239,32 @@ def validate_sales(
 
     return True
 
-
 # ==========================================================
 # Main
 # ==========================================================
 
 def main():
 
+    print("\n FACT_SALES generation started")
+
+    fact_sales = []
+
     try:
 
-        print(
-            "\nFACT_SALES generation started..."
-        )
+        logger.info(
+            "FACT_SALES generation started..."
+            )
+        
 
         # Load dimensions
         dimensions = load_dimension_data()
 
         # Generate fact data
-        fact_sales = generate_sales()
+        fact_sales = generate_sales(
+            dimensions,
+            number_of_rows= 10
+
+        )
 
         # Validate
         validate_sales(
@@ -264,26 +272,43 @@ def main():
             dimensions
         )
 
+        check_sales_business_rules(
+            fact_sales
+        )
+
+        check_sales_calculations(
+            fact_sales
+        )
+
         # Save
         save_json(
             fact_sales,
             "sales",
             "generated"
-
         )
+
+        logger.info("FACT_SALES saved successfully")
 
     except Exception as error:
-
-        save_json(
-            fact_sales,
-            "sales",
-            "rejected")
-
-        print(
-            f"\nFACT_SALES process failed: "
-            f"{error}"
+        logger.exception(
+            f"\nFACT_SALES process failed: {error}"
         )
 
+        # --------------------------------------------------
+        # Save rejected data ONLY if generation succeeded
+        # --------------------------------------------------
+
+        if fact_sales is not None:
+            save_json(
+                fact_sales,
+                "sales",
+                "rejected")
+
+
+            logger.info(
+                f"\nFACT_SALES process failed: "
+                f"{error}"
+            )
 
 if __name__ == "__main__":
     main()

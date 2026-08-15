@@ -62,18 +62,33 @@ def main():
             "category_name"
         )
 
-        # Save JSON
+       # Save
         save_json(
-            records=categories,
-            file_prefix="categories"
-        )
-
+                   categories,
+                   "categories",
+                   "generated"
+               )
+       
     except Exception as error:
-
-        print(f"\nProcess failed : {error}")
-
-
+        print(
+                   f"\n dimension categories process failed: {error}"
+               )
+       
+    # --------------------------------------------------
+    # Save rejected data ONLY if generation succeeded
+    # --------------------------------------------------
+       
+        if categories is not None:
+            save_json(
+                categories,
+                "categories",
+                "rejected")
+        
+        
+        print(
+                f"\nFACT_SALES process failed: "
+                f"{error}"
+                    )
+       
 if __name__ == "__main__":
-    main()
-
-    
+           main()

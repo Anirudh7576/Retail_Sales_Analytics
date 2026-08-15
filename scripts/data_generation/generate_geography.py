@@ -66,11 +66,19 @@ def main():
 
         save_json(
             geography,
-            file_prefix= "geography"
+            file_prefix= "geography",
+            folder_type= "generated"
         )
         print("geography file saved")
 
     except Exception as error:
+        if geography is not None:
+            save_json(
+                geography,
+                file_prefix= "geography",
+                folder_type= "rejected"
+            )
+
         print(f"Found an error :{error}")
 
 if __name__ == "__main__":

@@ -1,3 +1,11 @@
+"""
+Project : Retail Sales Analytics
+
+Author : Anirudh Krishna
+
+Purpose : Execute fact and dimension functions 
+"""
+
 from scripts.data_generation.generate_categories import main as dim_category_main
 from scripts.data_generation.generate_subcategories import main as dim_subcategory_main
 from scripts.data_generation.generate_products import main as dim_products_main

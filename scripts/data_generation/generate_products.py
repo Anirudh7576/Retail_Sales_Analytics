@@ -37,7 +37,7 @@ def generate_products() -> list:
 
     dim_product = []
 
-    for product_id in range(1001, 10001):
+    for product_id in range(1001, 1002):
 
         template = random.choice(PRODUCT_MASTER)
 
@@ -89,10 +89,17 @@ def main():
 
         save_json(
             records = products,
-            file_prefix = "products"
+            file_prefix = "products",
+            folder_type= "generated"
         )
 
     except Exception as error:
+        if products is not None:
+            save_json(
+                records= products,
+                file_prefix= "products",
+                folder_type= "rejected"
+            )
 
         print(f"process failed :{error}")
 

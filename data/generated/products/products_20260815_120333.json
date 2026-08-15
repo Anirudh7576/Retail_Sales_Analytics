@@ -1,0 +1,10 @@
+[
+    {
+        "product_id": 1001,
+        "subcategory_id": 102,
+        "product_name": "MacBook Air M4 71235",
+        "brand": "Apple",
+        "unit_cost": 84364,
+        "unit_price": 104742
+    }
+]

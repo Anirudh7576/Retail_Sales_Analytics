@@ -56,11 +56,19 @@ def main():
 
         save_json(
             customers,
-            file_prefix = "customers"
+            file_prefix = "customers",
+            folder_type="generated"
         )
 
     except Exception as error:
-        print(f"file not validated because the error is : {error}")
+        if customers is not None:
+
+             save_json(
+                 customers,
+                 file_prefix= "customers",
+                 folder_type= "rejected"
+             )
+             print(f"file not validated because the error is : {error}")
 
 if __name__ == "__main__":
     main()

@@ -84,10 +84,17 @@ def main():
         # Save JSON
         save_json(
             records=subcategories,
-            file_prefix="subcategories"
+            file_prefix="subcategories",
+            folder_type= "generated"
         )
-
     except Exception as error:
+
+        if subcategories is not None:
+            save_json(
+                subcategories,
+                file_prefix= "subcategories",
+                folder_type= "rejected"
+            )
 
         print(f"\nProcess failed : {error}")
 

@@ -1,0 +1,18 @@
+[
+    {
+        "sales_key": "SALE1",
+        "order_id": "ORD000001",
+        "customer_id": 50006,
+        "product_id": 4297,
+        "geography_id": 10006,
+        "payment_id": 100005,
+        "date_id": 20260310,
+        "quantity": 3,
+        "unit_price": 44132,
+        "unit_cost": 29555,
+        "discount_amount": 47.76,
+        "tax_amount": 23822.68,
+        "sales_amount": 156171,
+        "profit_amount": 43683.24
+    }
+]

@@ -1,0 +1,59 @@
+2026-08-12 14:18:18,818 | INFO | FACT_SALES generation started...
+2026-08-12 14:18:18,880 | ERROR | 
+FACT_SALES process failed: Incorrect sales amount for SALE1. Expected: 261837.69, Actual: 261838
+Traceback (most recent call last):
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\generate_sales.py", line 285, in main
+    check_sales_calculations(
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\common\business_rules.py", line 68, in check_sales_calculations
+    raise ValueError (
+ValueError: Incorrect sales amount for SALE1. Expected: 261837.69, Actual: 261838
+2026-08-12 14:18:18,880 | INFO | 
+FACT_SALES process failed: Incorrect sales amount for SALE1. Expected: 261837.69, Actual: 261838
+2026-08-12 14:21:56,752 | INFO | FACT_SALES generation started...
+2026-08-12 14:21:56,937 | ERROR | 
+FACT_SALES process failed: Incorrect sales amount for SALE1. Expected: 116127.49, Actual: 116127
+Traceback (most recent call last):
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\generate_sales.py", line 285, in main
+    check_sales_calculations(
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\common\business_rules.py", line 65, in check_sales_calculations
+    raise ValueError (
+ValueError: Incorrect sales amount for SALE1. Expected: 116127.49, Actual: 116127
+2026-08-12 14:21:56,941 | INFO | 
+FACT_SALES process failed: Incorrect sales amount for SALE1. Expected: 116127.49, Actual: 116127
+2026-08-12 14:23:25,645 | INFO | FACT_SALES generation started...
+2026-08-12 14:23:25,725 | ERROR | 
+FACT_SALES process failed: Incorrect sales amount for SALE1. Expected: 120068.45, Actual: 120068
+Traceback (most recent call last):
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\generate_sales.py", line 285, in main
+    check_sales_calculations(
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\common\business_rules.py", line 62, in check_sales_calculations
+    raise ValueError (
+ValueError: Incorrect sales amount for SALE1. Expected: 120068.45, Actual: 120068
+2026-08-12 14:23:25,731 | INFO | 
+FACT_SALES process failed: Incorrect sales amount for SALE1. Expected: 120068.45, Actual: 120068
+2026-08-12 14:24:20,179 | INFO | FACT_SALES generation started...
+2026-08-12 14:24:20,271 | ERROR | 
+FACT_SALES process failed: Incorrect sales amount for SALE1. Expected: 324616.24, Actual: 324616
+Traceback (most recent call last):
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\generate_sales.py", line 285, in main
+    check_sales_calculations(
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\common\business_rules.py", line 62, in check_sales_calculations
+    raise ValueError (
+ValueError: Incorrect sales amount for SALE1. Expected: 324616.24, Actual: 324616
+2026-08-12 14:24:20,274 | INFO | 
+FACT_SALES process failed: Incorrect sales amount for SALE1. Expected: 324616.24, Actual: 324616
+2026-08-15 11:51:53,465 | INFO | FACT_SALES generation started...
+2026-08-15 11:51:53,622 | ERROR | 
+FACT_SALES process failed: Incorrect sales amount for SALE1. Expected: 68899.44, Actual: 68899
+Traceback (most recent call last):
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\generate_sales.py", line 285, in main
+    check_sales_calculations(
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\common\business_rules.py", line 62, in check_sales_calculations
+    raise ValueError (
+ValueError: Incorrect sales amount for SALE1. Expected: 68899.44, Actual: 68899
+2026-08-15 11:51:53,669 | INFO | 
+FACT_SALES process failed: Incorrect sales amount for SALE1. Expected: 68899.44, Actual: 68899
+2026-08-15 11:58:33,045 | INFO | FACT_SALES generation started...
+2026-08-15 11:58:33,156 | INFO | FACT_SALES saved successfully
+2026-08-15 12:03:33,065 | INFO | FACT_SALES generation started...
+2026-08-15 12:03:33,243 | INFO | FACT_SALES saved successfully

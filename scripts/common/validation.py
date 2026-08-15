@@ -55,6 +55,7 @@ def check_foreign_keys(
         dim_records :list,
         dim_field : str
         ):
+     
      """
     Validate that every foreign-key value in the fact
     records exists in the corresponding dimension.
@@ -73,3 +74,4 @@ def check_foreign_keys(
                  f"Record {record}"
              )
      return True
+

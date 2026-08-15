@@ -64,10 +64,17 @@ def main():
             
         save_json(
             payments,
-            file_prefix= "payments"
+            file_prefix= "payments",
+            folder_type= "generated"
         )
 
     except Exception as error:
+        if payments is not None:
+            save_json(
+                payments,
+                file_prefix= "payments",
+                folder_type= "rejected"
+            )
         print(f"Found an error : {error}")
 
 if __name__ == "__main__":
