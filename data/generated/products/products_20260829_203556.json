@@ -1,0 +1,10 @@
+[
+    {
+        "product_id": 1001,
+        "subcategory_id": 102,
+        "product_name": "MacBook Air M4 96178",
+        "brand": "Apple",
+        "unit_cost": 83785,
+        "unit_price": 90240
+    }
+]

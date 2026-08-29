@@ -1,0 +1,27 @@
+[
+    {
+        "payment_id": 100001,
+        "payment_method": "UPI",
+        "payment_type": "Online"
+    },
+    {
+        "payment_id": 100002,
+        "payment_method": "Credit Card",
+        "payment_type": "Online"
+    },
+    {
+        "payment_id": 100003,
+        "payment_method": "Debit Card",
+        "payment_type": "Online"
+    },
+    {
+        "payment_id": 100004,
+        "payment_method": "Net Banking",
+        "payment_type": "Online"
+    },
+    {
+        "payment_id": 100005,
+        "payment_method": "Cash",
+        "payment_type": "Offline"
+    }
+]
