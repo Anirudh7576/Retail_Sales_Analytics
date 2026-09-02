@@ -110,22 +110,85 @@
 
 # print("JSON file downloaded successfully")
 
-import json
+# import json
 
-data = {
-    "name": "Anirudh",
-    "age": 35
-}
+# data = {
+#     "name": "Anirudh",
+#     "age": 35
+# }
 
-json_string = json.dumps(data, indent=4)
+# json_string = json.dumps(data, indent=4)
 
-print(json_string)
+# print(json_string)
 
-import json
+# import json
 
-json_string = '{"name": "Anirudh", "age": 35}'
+# json_string = '{"name": "Anirudh", "age": 35}'
 
-data = json.loads(json_string)
+# data = json.loads(json_string)
 
-print(data)
-print(data["name"])
+# print(data)
+# print(data["name"])
+# ==============================================
+
+    
+
+# import pandas as pd
+# from pathlib import Path
+
+# folder_path = Path(r"C:/Users/Anirudh Gogikar/Downloads/kaggle")
+# archive_path = Path(r"C:/Users/Anirudh Gogikar/Downloads/archive")
+
+# for file_path in folder_path.glob("*.csv"):
+#     df = pd.read_csv(file_path)
+#     print(file_path.name)
+# =====================================================================
+# import pandas as pd
+# from pathlib import Path
+# import shutil
+
+# source_path = Path(r"C:/Users/Anirudh Gogikar/Downloads/kaggle")
+# archive_path = Path(r"C:/Users/Anirudh Gogikar/Downloads/archive")
+
+# archive_path.mkdir(parents= True, exist_ok = True)
+
+# for file_path in source_path.iterdir():
+
+#     if file_path.is_file():
+
+#         try:
+
+#             destination = archive_path/file_path.name
+
+#             shutil.move(file_path, destination)
+
+#             print(f"move file {file_path.name}")
+
+#         except:
+
+#             print("file does not exist")
+# ==================================================
+import pandas as pd
+from pathlib import Path
+import shutil
+from datetime import datetime
+
+source_path = Path(r"C:/Users/Anirudh Gogikar/Downloads/kaggle")
+archive_path = Path(r"C:/Users/Anirudh Gogikar/Downloads/archive")
+
+archive_path.mkdir(parents = True , exist_ok = True)
+            
+for file_path in source_path.glob("*.csv"):
+
+    if file_path.is_file:
+
+        try:
+
+            destination = archive_path/f"{file_path.name} {datetime.now}"
+
+            shutil.move(file_path, destination)
+
+            print(f"moved file: {file_path.name}")
+
+        except:
+            print("no file found")

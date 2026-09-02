@@ -7,7 +7,6 @@ BUCKET_NAME = "retail-sales-analytics-898565151550-us-east-1-an"
 
 s3 = boto3.client("s3")
 
-
 def upload_latest_file(local_folder: str, s3_folder: str) -> None:
 
     folder = Path(local_folder)
@@ -119,7 +118,4 @@ if __name__ == "__main__":
             local_folder,
             s3_folder
         )
-
-
-    
 
