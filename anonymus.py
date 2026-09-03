@@ -168,27 +168,94 @@
 
 #             print("file does not exist")
 # ==================================================
-import pandas as pd
-from pathlib import Path
-import shutil
-from datetime import datetime
+# import pandas as pd
+# from pathlib import Path
+# import shutil
+# from datetime import datetime
 
-source_path = Path(r"C:/Users/Anirudh Gogikar/Downloads/kaggle")
-archive_path = Path(r"C:/Users/Anirudh Gogikar/Downloads/archive")
+# source_path = Path(r"C:/Users/Anirudh Gogikar/Downloads/kaggle")
+# archive_path = Path(r"C:/Users/Anirudh Gogikar/Downloads/archive")
 
-archive_path.mkdir(parents = True , exist_ok = True)
+# archive_path.mkdir(parents = True , exist_ok = True)
             
-for file_path in source_path.glob("*.csv"):
+# for file_path in source_path.iterdir():
 
-    if file_path.is_file:
+#     if file_path.is_file():
 
-        try:
+#         try:
 
-            destination = archive_path/f"{file_path.name} {datetime.now}"
+#             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
-            shutil.move(file_path, destination)
+#             destination = archive_path/f"{file_path.stem}_{timestamp}{file_path.suffix}"
 
-            print(f"moved file: {file_path.name}")
+#             shutil.move(file_path, destination)
 
-        except:
-            print("no file found")
+#             print(f"moved file: {file_path.name}")
+
+#         except Exception as e:
+#             print(f"no file found {file_path.name}, {e}")
+# ====================================================================
+# import pandas as pd
+# from pathlib import Path
+# import shutil
+# from datetime import datetime
+
+# destination_path = Path(r"C:/Users/Anirudh Gogikar/Downloads/kaggle")
+# source_path = Path(r"C:/Users/Anirudh Gogikar/Downloads/archive")
+
+# destination_path.mkdir(parents = True , exist_ok = True)
+            
+# for file_path in source_path.iterdir():
+
+#     if (file_path.is_file() and file_path.name.startswith("csv_file_loading")):
+
+
+#         try:
+
+#             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+#             destination = destination_path/f"{file_path.stem}_{timestamp}{file_path.suffix}"
+
+#             shutil.move(file_path, destination)
+
+#             print(f"moved file: {file_path.name}")
+
+#         except Exception as e:
+#             print(f"no file found {file_path.name}, {e}")
+# ==============================================================
+# from pathlib import Path
+# import pandas as pd
+
+# destination_path = Path(r"C:/Users/Anirudh Gogikar/Downloads/kaggle/csv_file_loading_20260902_163008.csv")
+
+# df = pd.read_csv(destination_path)
+# print(len(df))
+# =============================================================
+# import pandas as pd
+# from pathlib import Path
+
+# destination_path = Path(r"C:/Users/Anirudh Gogikar/Downloads/kaggle/csv_file_loading_20260902_163008.csv")
+
+# df = pd.read_csv(destination_path)
+# df = df.drop_duplicates()
+
+# print(len(df))
+# =============================================================
+from pathlib import Path
+import pandas as pd
+
+source_path = Path(r"C:/Users/Anirudh Gogikar/Downloads/archive")
+destination_path = Path(r"C:/Users/Anirudh Gogikar/Downloads/merged.csv")
+
+dataframes = []
+
+for file_path in source_path.glob("*csv"):
+    df = pd.read_csv(file_path)
+    dataframes.append(df)
+
+merged_df = pd.concat(dataframes, ignore_index = True)
+merged_df.to_csv(destination_path, index = False)
+
+
+
+
