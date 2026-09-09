@@ -241,21 +241,90 @@
 
 # print(len(df))
 # =============================================================
-from pathlib import Path
+# from pathlib import Path
+# import pandas as pd
+
+# source_path = Path(r"C:/Users/Anirudh Gogikar/Downloads/archive")
+# destination_path = Path(r"C:/Users/Anirudh Gogikar/Downloads/merged.csv")
+
+# dataframes = []
+
+# for file_path in source_path.glob("*csv"):
+#     df = pd.read_csv(file_path)
+#     dataframes.append(df)
+
+# merged_df = pd.concat(dataframes, ignore_index = True)
+# merged_df.to_csv(destination_path, index = False)
+# ==============================================================
+# Handle missing file exception
+# from pathlib import Path
+
+# source_path = Path(r"C:/Users/Anirudh Gogikar/Downloads/archive")
+
+# def handle_missing_file():
+#     try:
+#         for file_name in source_path.iterdir():
+
+#             if (file_name.is_file() and file_name.name.startswith("csv_file_loading")):
+
+#                 print(f"file found {file_name.name}")
+
+#     except FileNotFoundError:
+#         print("file not found")
+
+#     except PermissionError:
+#         print("permissions are not found")
+
+#     except Exception as error:
+
+#         print(f"Error file name: {file_name.name}")
+
+# ===============================================================
+# import pyodbc
+# import pandas as pd
+
+# server = r"LAPTOP-QHJSLGBV\SQLEXPRESS01"
+# database = "AdventureWorksDW2025"
+
+# connection = pyodbc.connect(
+#     f"DRIVER={{ODBC Driver 18 for SQL Server}};"
+#     f"SERVER={server};"
+#     f"DATABASE={database};"
+#     f"Trusted_Connection=yes;"
+#     f"TrustServerCertificate=yes;"
+# )
+
+# print("Connected successfully!")
+
+# query = "select top 10 * from [dbo].[vTargetMail]"
+
+# df = pd.read_sql(query, connection)
+# print(df)
+
+# connection.close()
+
 import pandas as pd
+from sqlalchemy import create_engine
+from urllib.parse import quote_plus
 
-source_path = Path(r"C:/Users/Anirudh Gogikar/Downloads/archive")
-destination_path = Path(r"C:/Users/Anirudh Gogikar/Downloads/merged.csv")
+server = r"LAPTOP-QHJSLGBV\SQLEXPRESS01"
+database = "AdventureWorksDW2025"
 
-dataframes = []
+connection_string = (
+    "DRIVER={ODBC Driver 18 for SQL Server};"
+    f"SERVER={server};"
+    f"DATABASE={database};"
+    "Trusted_Connection=yes;"
+    "TrustServerCertificate=yes;"
+)
 
-for file_path in source_path.glob("*csv"):
-    df = pd.read_csv(file_path)
-    dataframes.append(df)
+engine = create_engine(
+    "mssql+pyodbc:///?odbc_connect=" + quote_plus(connection_string)
+)
 
-merged_df = pd.concat(dataframes, ignore_index = True)
-merged_df.to_csv(destination_path, index = False)
+query = "SELECT TOP 100 * FROM dbo.DimCustomer"
 
+df = pd.read_sql(query, engine)
 
-
+print(df)
 
