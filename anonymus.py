@@ -283,16 +283,16 @@
 # import pyodbc
 # import pandas as pd
 
-# server = r"LAPTOP-QHJSLGBV\SQLEXPRESS01"
+# server = r"LAPTOP-QHJSLGBV\SQLEXPRESS012"
 # database = "AdventureWorksDW2025"
 
 # connection = pyodbc.connect(
-#     f"DRIVER={{ODBC Driver 18 for SQL Server}};"
-#     f"SERVER={server};"
-#     f"DATABASE={database};"
-#     f"Trusted_Connection=yes;"
-#     f"TrustServerCertificate=yes;"
-# )
+#             f"DRIVER={{ODBC Driver 18 for SQL Server}};"
+#             f"SERVER={server};"
+#             f"DATABASE={database};"
+#             f"Trusted_Connection=yes;"
+#             f"TrustServerCertificate=yes;"
+#         )
 
 # print("Connected successfully!")
 
@@ -301,30 +301,400 @@
 # df = pd.read_sql(query, connection)
 # print(df)
 
-# connection.close()
+# connection.close()        
+# =======================================================
 
-import pandas as pd
-from sqlalchemy import create_engine
-from urllib.parse import quote_plus
+# import pandas as pd
+# from sqlalchemy import create_engine
+# from urllib.parse import quote_plus
 
-server = r"LAPTOP-QHJSLGBV\SQLEXPRESS01"
-database = "AdventureWorksDW2025"
+# server = r"LAPTOP-QHJSLGBV\SQLEXPRESS01"
+# database = "AdventureWorksDW2025"
 
-connection_string = (
-    "DRIVER={ODBC Driver 18 for SQL Server};"
-    f"SERVER={server};"
-    f"DATABASE={database};"
-    "Trusted_Connection=yes;"
-    "TrustServerCertificate=yes;"
-)
+# connection_string = (
+#     "DRIVER={ODBC Driver 18 for SQL Server};"
+#     f"SERVER={server};"
+#     f"DATABASE={database};"
+#     "Trusted_Connection=yes;"
+#     "TrustServerCertificate=yes;"
+# )
 
-engine = create_engine(
-    "mssql+pyodbc:///?odbc_connect=" + quote_plus(connection_string)
-)
+# engine = create_engine(
+#     "mssql+pyodbc:///?odbc_connect=" + quote_plus(connection_string)
+# )
 
-query = "SELECT TOP 100 * FROM dbo.DimCustomer"
+# query = "SELECT TOP 100 * FROM dbo.DimCustomer"
 
-df = pd.read_sql(query, engine)
+# df = pd.read_sql(query, engine)
 
-print(df)
+# print(df)
+# ========================================================================
 
+# import pandas as pd
+# from sqlalchemy import create_engine
+# from urllib.parse import quote_plus
+# from pathlib import Path
+
+# # --------------------------------------------------
+# # 1. SQL Server connection
+# # --------------------------------------------------
+
+# server = r"LAPTOP-QHJSLGBV\SQLEXPRESS01"
+# database = "AdventureWorksDW2025"
+
+# connection_string = (
+#     "DRIVER={ODBC Driver 18 for SQL Server};"
+#     f"SERVER={server};"
+#     f"DATABASE={database};"
+#     "Trusted_Connection=yes;"
+#     "TrustServerCertificate=yes;"
+# )
+
+# engine = create_engine(
+#     "mssql+pyodbc:///?odbc_connect="
+#     + quote_plus(connection_string)
+# )
+
+# # --------------------------------------------------
+# # 2. Last successfully processed ID
+# # --------------------------------------------------
+
+# watermark_file = Path("last_processed_id.txt")
+
+# if watermark_file.exists():
+#     last_processed_id = int(
+#         watermark_file.read_text().strip()
+#     )
+# else:
+#     last_processed_id = 0
+
+# print(f"Last processed SalesID: {last_processed_id}")
+
+# # --------------------------------------------------
+# # 3. Incremental query
+# # --------------------------------------------------
+
+# query = """
+# SELECT
+#     SalesID,
+#     CustomerID,
+#     ProductID,
+#     SalesDate,
+#     Quantity,
+#     SalesAmount
+# FROM dbo.FactSales
+# WHERE SalesID > %(last_id)s
+# ORDER BY SalesID
+# """
+# # --------------------------------------------------
+# # 4. Read data in chunks
+# # --------------------------------------------------
+
+# total_processed = 0
+# max_processed_id = last_processed_id
+
+# for chunk in pd.read_sql(
+#     query,
+#     engine,
+#     params={"last_id": last_processed_id},
+#     chunksize=100_000
+# ):
+
+#     print(f"Received {len(chunk)} rows")
+
+#     # --------------------------------------------------
+#     # 5. Transform / validate
+#     # --------------------------------------------------
+
+#     chunk["SalesAmount"] = chunk["SalesAmount"].fillna(0)
+
+#     chunk = chunk.drop_duplicates(
+#         subset=["SalesID"]
+#     )
+
+#     # --------------------------------------------------
+#     # 6. Process the chunk
+#     # --------------------------------------------------
+
+#     # Example:
+#     # chunk.to_csv(...)
+#     # upload to S3
+#     # insert into Snowflake
+#     # etc.
+
+#     print(
+#         f"Processing SalesID "
+#         f"{chunk['SalesID'].min()} "
+#         f"to "
+#         f"{chunk['SalesID'].max()}"
+#     )
+
+#     # --------------------------------------------------
+#     # 7. Update watermark
+#     # --------------------------------------------------
+
+#     max_processed_id = max(
+#         max_processed_id,
+#         chunk["SalesID"].max()
+#     )
+
+#     total_processed += len(chunk)
+
+
+# # --------------------------------------------------
+# # 8. Save watermark
+# # --------------------------------------------------
+
+# if max_processed_id > last_processed_id:
+
+#     watermark_file.write_text(
+#         str(max_processed_id)
+#     )
+
+# print("--------------------------------")
+# print(f"Rows processed: {total_processed}")
+# print(f"New watermark : {max_processed_id}")
+# print("--------------------------------")
+
+# engine.dispose()
+
+# # ===========================================
+# 1. Daily file processing at 8:00 AM
+
+# from datetime import datetime
+# from airflow import DAG
+# from airflow.provides.standard.operators.python import PythonOperator
+# from airflow.provides.standard.operators.empty import EmptyOperator
+
+# # check the file
+# def check_file():
+#     import os
+
+#     source_path = ""
+
+#     if os.path.exists(source_path):
+#         print("source file exist")
+
+#     else:
+#         raise FileNotFoundError (
+#             print(f"source file not exist in : {source_path} ")
+#         )
+
+# # process the file
+# def process_file():
+
+#     import pandas as pd
+
+#     df = pd.read_csv(source_path)
+
+#     print("file processing starting")
+
+#     print(f"number of rows are : {len(df)}")
+
+#     df["total"] = df["amount"] - df["discount"]
+
+#     print(df)
+
+# #  load the file in datalake
+# def load_file():
+#     import pandas as pd
+#     destination_path = ""
+#     df = pd.write_csv(destination_path)
+
+#     print("files are loaded")
+
+# #  create a DAG
+# with DAG (
+#     task_id = "sales_file",
+#     shedule = "* 8 0 0 0",
+#     start_date = datetime(2026,9,11),
+#     catchup = False,
+#     tags = ["sales", "total"]
+# ) as dag:
+
+#     start = EmptyOperator(
+#         task_id = "start"
+#     )
+
+#     file_check_task = PythonOperator(
+#         task_id = "check file exist",
+#         python_callable = check_file
+#     )
+
+#     process_file_task = PythonOperator(
+#         task_id = "process file",
+#         python_callable = process_file
+#     )
+
+#     load_file_destination_task = PythonOperator(
+#         take_id = "load_file",
+#         python_callable = load_file
+#     )
+
+#     end = PythonOperator(
+#         task_id = "end"
+#     )
+
+# start >> file_check_task
+# file_check_task >> process_file_task
+# process_file_task >> load_file_destination_task
+# load_file_destination_task >> end
+
+# ======================================================================
+# define task dependencies 
+# from datetime import datetime
+# from airflow import DAG
+# from airflow.providers.standard.operators.python import PythonOperator
+# from airflow.providers.standard.operators.empty import EmptyOperator
+# from airflow.providers.standard.operators.python import PythonSensor
+
+# def check_file():
+#     s3_path = "s3/folders/orders/orders.csv"
+#     latest_file = max(s3_path)
+
+#     import os
+
+#     os.path.exists(latest_file)
+
+#     print(f"latest file : {latest_file}")
+
+# def validate_file():
+
+#     import pandas as pd
+#     s3_path = "s3/folders/orders/orders.csv"
+#     latest_file = max(s3_path)
+
+#     df= pd.read_csv(latest_file)
+#     total_rows = len(df)
+
+#     if total_rows == 0:
+#         raise ValueError (
+#             print("File does not exist rows")
+#         )
+
+# def snowflake_load():
+#     import pandas as pd
+#     snowflake_path = "snowflake/fact_orders"
+
+#     df = pd.write_csv(snowflake_path)
+
+#     print(f"data loaded into : {snowflake_path}")
+
+# with DAG(
+#     task_id = "read_validate_load",
+#     start_date = datetime(2026,9,11),
+#     catchup = False,
+#     tags = ["read", "validate", "load"]
+# ) as dag:
+
+#     start = EmptyOperator(
+#         task_id = "start"
+#     )
+
+#     read_task = PythonSensor(
+#         task_id = "read the latest file",
+#         python_callable = check_file
+#     )
+
+#     validate_task = PythonOperator(
+#         task_id = "validate file",
+#         python_callable = validate_file
+#     )
+
+#     load_file_task = PythonOperator(
+#         task_id = "load file",
+#         python_callable = snowflake_load
+#     )
+
+#     end = PythonOperator(
+#         task_id = "end"
+#     )
+
+# start >> read_task
+# read_task >> validate_task
+# validate_task >> load_file_task
+# load_file_task >> end
+# ==================================================
+# Retry failed operation
+
+import requests
+import time
+
+url = "https://raw.githubusercontent.com/softhints/Pandas-Exercises-Projects/refs/heads/main/data/europe_pop.csv."
+
+max_attempts = 3
+
+try:
+
+    for attempt in range(1, max_attempts + 1):
+
+        print(f"For a attempts : {attempt}/{max_attempts}")
+
+        response = requests.get(url,
+                                timeout = 10)
+
+        response.raise_for_status()
+
+        print("file downloaded successfully")
+        print(f"HTTP status is : {response.status_code}")
+
+        break
+
+except requests.exceptions.RequestException as error:
+
+    print(f"request failed :{error}")
+
+    if attempt == max_attempts:
+        print("Reached to max attempts")
+        raise
+
+    print("wait for 5 sec")
+    time.sleep(5)
+# =============================================================================
+
+import requests
+import time
+
+url = "https://raw.githubusercontent.com/softhints/Pandas-Exercises-Projects/refs/heads/main/data/europe_pop.csv."
+
+max_attempts = 3
+
+try:
+
+    for attempt in range(1, max_attempts + 1):
+
+        print(f"For a attempts : {attempt}/{max_attempts}")
+
+        response = requests.get(url,
+                                timeout = 10)
+
+        if response.raise_for_status() == 404:
+            raise FileNotFoundError(
+                print(f"file not found : {url}")
+            )
+
+        response.raise_for_status()
+
+        print("file downloaded successfully")
+        print(f"HTTP status is : {response.status_code}")
+
+        with open("europe.csv", "wb") as file:
+            file.write(response.content)
+
+        print("file saved successfully")
+
+        break
+
+except FileNotFoundError as error:
+    print(f"File not exist : {error}")
+
+except requests.exceptions.RequestException as error:
+
+    print(f"request failed :{error}")
+
+    if attempt == max_attempts:
+        print("Reached to max attempts")
+        raise
+
+    print("wait for 5 sec")
+    time.sleep(5)
