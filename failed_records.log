@@ -1,0 +1,4 @@
+2026-09-15 12:18:50,719 - ERROR - Failed record: {'customer_id': 'ABC', 'name': 'Rahul'} | Reason: invalid literal for int() with base 10: 'ABC'
+2026-09-15 12:18:50,719 - ERROR - Failed record: {'name': 'John'} | Reason: 'customer_id'
+2026-09-15 12:46:40,744 - ERROR - Failed record: {'customer_id': 'ABC', 'name': 'Rahul'} | Reason: invalid literal for int() with base 10: 'ABC'
+2026-09-15 12:46:40,744 - ERROR - Failed record: {'name': 'John'} | Reason: 'customer_id'

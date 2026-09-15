@@ -617,84 +617,249 @@
 # ==================================================
 # Retry failed operation
 
-import requests
-import time
+# import requests
+# import time
 
-url = "https://raw.githubusercontent.com/softhints/Pandas-Exercises-Projects/refs/heads/main/data/europe_pop.csv."
+# url = "https://raw.githubusercontent.com/softhints/Pandas-Exercises-Projects/refs/heads/main/data/europe_pop.csv."
 
-max_attempts = 3
+# max_attempts = 3
 
-try:
+# try:
 
-    for attempt in range(1, max_attempts + 1):
+#     for attempt in range(1, max_attempts + 1):
 
-        print(f"For a attempts : {attempt}/{max_attempts}")
+#         print(f"For a attempts : {attempt}/{max_attempts}")
 
-        response = requests.get(url,
-                                timeout = 10)
+#         response = requests.get(url,
+#                                 timeout = 10)
 
-        response.raise_for_status()
+#         response.raise_for_status()
 
-        print("file downloaded successfully")
-        print(f"HTTP status is : {response.status_code}")
+#         print("file downloaded successfully")
+#         print(f"HTTP status is : {response.status_code}")
 
-        break
+#         break
 
-except requests.exceptions.RequestException as error:
+# except requests.exceptions.RequestException as error:
 
-    print(f"request failed :{error}")
+#     print(f"request failed :{error}")
 
-    if attempt == max_attempts:
-        print("Reached to max attempts")
-        raise
+#     if attempt == max_attempts:
+#         print("Reached to max attempts")
+#         raise
 
-    print("wait for 5 sec")
-    time.sleep(5)
+#     print("wait for 5 sec")
+#     time.sleep(5)
 # =============================================================================
 
-import requests
-import time
+# import requests
+# import time
 
-url = "https://raw.githubusercontent.com/softhints/Pandas-Exercises-Projects/refs/heads/main/data/europe_pop.csv."
+# url = "https://raw.githubusercontent.com/softhints/Pandas-Exercises-Projects/refs/heads/main/data/europe_pop.csv"
 
-max_attempts = 3
+# max_retries = 3
 
-try:
+# for attempt in range(1, max_retries + 1):
 
-    for attempt in range(1, max_attempts + 1):
+#     try:
+#         print(f"Downloading file - Attempt {attempt}/{max_retries}")
 
-        print(f"For a attempts : {attempt}/{max_attempts}")
+#         response = requests.get(
+#             url,
+#             timeout=10
+#         )
 
-        response = requests.get(url,
-                                timeout = 10)
+#         if response.status_code == 404:
+#             raise FileNotFoundError(
+#                 f"File does not exist: {url}"
+#             )
 
-        if response.raise_for_status() == 404:
-            raise FileNotFoundError(
-                print(f"file not found : {url}")
-            )
+#         response.raise_for_status()
 
-        response.raise_for_status()
+#         print("File downloaded successfully")
 
-        print("file downloaded successfully")
-        print(f"HTTP status is : {response.status_code}")
+#         # Process the file here
+#         with open("europe_pop.csv", "wb") as file:
+#             file.write(response.content)
 
-        with open("europe.csv", "wb") as file:
-            file.write(response.content)
+#         print("File saved successfully")
 
-        print("file saved successfully")
+#         break
 
-        break
+#     except FileNotFoundError as error:
 
-except FileNotFoundError as error:
-    print(f"File not exist : {error}")
+#         print(f"Permanent error: {error}")
+#         raise
 
-except requests.exceptions.RequestException as error:
+#     except requests.exceptions.RequestException as error:
 
-    print(f"request failed :{error}")
+#         print(f"Network error: {error}")
 
-    if attempt == max_attempts:
-        print("Reached to max attempts")
-        raise
+#         if attempt == max_retries:
+#             print("Maximum retry attempts reached")
+#             raise
 
-    print("wait for 5 sec")
-    time.sleep(5)
+#         wait_time = 5 * attempt
+
+#         print(
+#             f"Retrying after {wait_time} seconds..."
+#         )
+
+#         time.sleep(wait_time)
+# =============================================================
+#  Handle API requests
+
+# if response.status_code == 400:
+#     raise ValueError("Bad API request")
+
+# if response.status_code == 401:
+#     raise ValueError("Unatherized - check API credentials")
+
+# if response.status_code == 404:
+#     raise ValueError("API endpoint not found")
+# =============================================================
+#  Handle timeout exceptions
+
+# import requests
+# import time
+
+# url = "https://api.example.com/customers"
+
+# max_retries = 3
+
+# for attempt in range(1, max_retries + 1):
+
+#     try:
+#         print(f"API request - Attempt {attempt}/{max_retries}")
+
+#         response = requests.get(
+#             url,
+#             timeout=10
+#         )
+
+#         response.raise_for_status()
+
+#         data = response.json()
+
+#         print("API request successful")
+#         print(data)
+
+#         break
+
+#     except requests.exceptions.Timeout as error:
+
+#         print("API is not responding within 10 seconds")
+
+#         if attempt == max_retries:
+#             print("Maximum retry attempts reached")
+#             raise
+
+#         print("Retrying in 5 seconds...")
+#         time.sleep(5)
+
+#     except requests.exceptions.RequestException as error:
+
+#         print(f"API request failed: {error}")
+
+#         if attempt == max_retries:
+#             print("Maximum retry attempts reached")
+#             raise
+
+#         print("Retrying in 5 seconds...")
+#         time.sleep(5)
+# ==========================================================
+# Handle authentication failure
+
+# headers = "BEARER token"
+
+# response = requests.get(url,
+#                         headers,
+#                         timeout = 5)
+
+# if response.status_code == 401:
+#     print("Authentication error : {headers}")
+
+#     raise PermissionError("API authentication error")
+# ============================================================
+# Handle invalid json
+# my logic => check for record => if it is starts with certain prefix then and is json => else except FileNotFoundError
+
+# from pathlib import Path
+# import json
+# url = Path("https://raw.githubusercontent.com/softhints/Pandas-Exercises-Projects/refs/heads/main/data/europe_pop.csv")
+
+# for file in url.iterdir():
+
+#     try:
+#         if (
+#             file.is_file() and 
+#             file.name.starswith() == "customer" and 
+#             file.suffix.lower() == ".json"):
+
+#             with file.open("r", encoding= "utf-8") as json_data:
+#                 data= json.load(json_data)
+
+#             print("load file successfully")
+
+#     except json.JSONDecoderError as error:
+
+#         print(f"invalid JSON file :{file.name}")
+#         print(f"JSON error: {error}")
+
+#     except FileNotFoundError:
+
+#         print(f"file is not found: {file}")
+
+# ========================================================================
+# skip bad record while processing
+# import json
+
+# with open("r", "customers.csv", encoding = "utf-8") as file:
+#     records = json.load(file)
+
+
+#     for row in records:
+#         try:
+
+#             row["customer_id"] = int(row["customer_id"])
+#             row["name"] = str(row["name"])
+
+#             print("file loaded succesfully")
+
+#         except (KeyError, ValueError) as error:
+
+#             print(f"data is invalid : {error}")
+
+#             continue
+# =======================================================================
+# log failed records
+
+import json
+import logging
+
+logging.basicConfig(
+    filename="failed_records.log",
+    level=logging.ERROR,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
+records = [
+    {"customer_id": 101, "name": "Anirudh"},
+    {"customer_id": "ABC", "name": "Rahul"},
+    {"name": "John"},
+    {"customer_id": 104, "name": "David"}
+]
+
+for record in records:
+    try:
+        customer_id = int(record["customer_id"])
+        customer_name = record["name"]
+
+        print(f"Processing customer: {customer_id} - {customer_name}")
+
+    except (ValueError, KeyError) as error:
+        logging.error(
+            f"Failed record: {record} | Reason: {error}"
+        )
+
+        continue
