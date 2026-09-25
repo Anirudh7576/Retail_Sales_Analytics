@@ -834,32 +834,304 @@
 # =======================================================================
 # log failed records
 
-import json
-import logging
+# import json
+# import logging
 
-logging.basicConfig(
-    filename="failed_records.log",
-    level=logging.ERROR,
-    format="%(asctime)s - %(levelname)s - %(message)s"
-)
+# logging.basicConfig(
+#     filename="failed_records.log",
+#     level=logging.ERROR,
+#     format="%(asctime)s - %(levelname)s - %(message)s"
+# )
 
-records = [
-    {"customer_id": 101, "name": "Anirudh"},
-    {"customer_id": "ABC", "name": "Rahul"},
-    {"name": "John"},
-    {"customer_id": 104, "name": "David"}
-]
+# records = [
+#     {"customer_id": 101, "name": "Anirudh"},
+#     {"customer_id": "ABC", "name": "Rahul"},
+#     {"name": "John"},
+#     {"customer_id": 104, "name": "David"}
+# ]
 
-for record in records:
-    try:
-        customer_id = int(record["customer_id"])
-        customer_name = record["name"]
+# for record in records:
+#     try:
+#         customer_id = int(record["customer_id"])
+#         customer_name = record["name"]
 
-        print(f"Processing customer: {customer_id} - {customer_name}")
+#         print(f"Processing customer: {customer_id} - {customer_name}")
 
-    except (ValueError, KeyError) as error:
-        logging.error(
-            f"Failed record: {record} | Reason: {error}"
-        )
+#     except (ValueError, KeyError) as error:
+#         logging.error(
+#             f"Failed record: {record} | Reason: {error}"
+#         )
 
-        continue
+#         continue
+# =========================================
+# rollback database transaction
+
+# import pyodbc
+
+# connection = pyodbc.connect(
+#     "DRIVER={ODBC Driver 18 for SQL Server};"
+#     r"SERVER=LAPTOP-QHJSLGBV\SQLEXPRESS01;"
+#     "DATABASE=AdventureWorksDW2025;"
+#     "Trusted_Connection=yes;"
+#     "TrustServerCertificate=yes;"
+
+# )
+
+# cusror = connection.cursor()
+
+# try:
+
+#     # process the data
+#     cusror.commit()
+
+# except Exception as error:
+
+#     cusror.rollback()
+
+# finally:
+#     cusror.close()
+#     connection.close()
+# ===========================================
+#  Raise custom exception
+
+# try:
+#     number = int("ABC")
+
+# except Exception as error:
+#     raise ValueError(f"Failed to convert value: {error}")
+# =============================================
+# Global exception handler
+
+# import sys
+# import logging
+
+# logging.basicConfig(
+#     filename = "global_exception.log",
+#     level = logging.ERROR,
+#     format = "%(asctime)s - %(levelname)s - %(messages)s"
+# )
+
+# def global_exception_handler(exception_type, excetion_value, traceback):
+
+#     logging.error(
+
+#         "Unhandled error",
+
+#         exc_info= (exception_type, excetion_value, traceback)
+#     )
+
+
+#     print("unexpected file error found, please check log file")
+
+
+# sys.excepthook = global_exception_handler
+# ======================================================
+# Handle missing file exception
+
+# import pandas as pd
+# from pathlib import Path
+
+# url = Path(r"C:/Users/Anirudh Gogikar/Downloads/customer")
+
+# try:
+
+#     for file in url.iterdir():
+
+#         if (file.is_file() and file.name.startswith("..")):
+
+#             # with open(file, "r") as data:
+#             #     df = pd.read_csv(data)
+
+#             print(f"file name: {file.name}")
+
+# except FileNotFoundError as error:
+
+#     print(f"file missing : {error}")
+
+# from pathlib import Path
+
+# source_path = Path(r"C:/Users/Anirudh Gogikar/Downloads/customer")
+
+# file_path = source_path/"erged.csv"
+
+# try:
+
+#     if not source_path.exists():
+#         raise FileNotFoundError(
+#         f"file does not exist: {source_path}")
+   
+
+#     if not file_path.exists:
+#         raise FileNotFoundError(
+#         f"file does not exist: {file_path}")
+    
+
+# except FileNotFoundError as error:
+#     print(f"File does not exist : {error}")
+
+# except PermissionError as error:
+#     print(f"Authentication issue : {error}")
+
+# except Exception as error:
+#     print(f"Unexcepted error : {error}")
+# ==============================================================
+# from pathlib import Path
+# import pandas as pd
+# import shutil
+# import logging
+
+# source_path = Path(r"C:/Users/Anirudh Gogikar/Downloads/customer")
+
+# failed_path = source_path / "check invalid data"
+# failed_path.mkdir(parents=True, exist_ok=True)
+
+# logging.basicConfig(
+#     filename="csv_validation.log",
+#     level=logging.ERROR,
+#     format="%(asctime)s - %(levelname)s - %(message)s"
+# )
+
+# expected_columns = ["date","year", "month", "week"]
+
+# for file_path in source_path.glob("*.csv"):
+
+#     try:
+#         print(f"Processing: {file_path.name}")
+
+#         # Read CSV
+#         df = pd.read_csv(file_path)
+
+#         if list(df.columns) != expected_columns:
+#             raise ValueError(
+#                 f"Invalid CSV header. Expected: {expected_columns}, "
+#                 f"Found: {list(df.columns)}"
+#             )
+
+#         print("CSV is valid")
+#         print(df)
+
+
+#     except pd.errors.ParserError as error:
+
+#         logging.error(
+#             f"Invalid CSV format: {file_path.name} | Reason: {error}"
+#         )
+
+#         # Move invalid file to failed folder
+#         destination = failed_path / file_path.name
+
+#         shutil.move(file_path, destination)
+
+#         print(
+#             f"Invalid CSV format: {file_path.name}"
+#         )
+#         print(
+#             f"Moved to failed folder: {destination}"
+#         )
+
+#     except FileNotFoundError:
+
+#         logging.error(
+#             f"File not found: {file_path}"
+#         )
+
+#         print(f"File not found: {file_path}")
+
+#     except PermissionError:
+
+#         logging.error(
+#             f"Permission denied: {file_path}"
+#         )
+
+#         print(f"Permission denied: {file_path}")
+
+#     except Exception as error:
+
+#         logging.error(
+#             f"Unexpected error: {file_path.name} | "
+#             f"Reason: {error}"
+#         )
+
+#         print(
+#             f"Unexpected error: {file_path.name}"
+#         )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# from pathlib import Path
+# import pandas as pd
+# import logging
+
+# source_path1 = ""
+
+# logging.basicConfig(
+#     filename= "invalid_details_file.csv",
+#     level = logging.ERROR,
+#     format = "%(asctime)s - %(error)s - %(message)s"
+# )
+
+# failed_path1 =  source_path1/"failed"
+# Path.mkdir(parents = True, exist_ok= True)
+
+# existed_columns = ["day", "year", "week","month"]
+
+# for file_name in source_path1.glob("*.csv"):
+
+# try:
+
+#         df = pd.read_csv(file_name)
+
+#         print("File processing started")
+
+#         if list(df.columns) != existed_columns:
+#              raise ValueError(
+#                   print(f"file name : {file_name.name}")
+#              )
+
+#         print(f"")
+
+# ===================================================================
+# create reusable ETL function
+
+# logic >> extract data from AWS S3 (intiate credentials)/ sql server >> transform the data >> load it into snowflake.
+
+# import boto3
+# import pandas as pd
+# from io import BytesIO
+
+# s3 = boto3.client("s3")
+
+# bucket_name = "retail-sales-analytics-898565151550-us-east-1-an"
+# s3_key = "landing/sales/sales_20260829_203556.json"
+
+# response = s3.get_object(
+#     Bucket = bucket_name,
+#     Key = s3_key
+# )
+
+# df = pd.read_json(
+#         BytesIO(response["Body"].read())
+# )
+
+# df["absolute_amount"] = abs(df["profit_amount"])
+# df = df.drop_duplicates()
+# print(df)
+
+# =================================================================================
