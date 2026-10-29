@@ -35,7 +35,7 @@
 
 7. Foreign Keys
    
-   product_id, category_id, subcategory_id, geography_id, payment_id, customer_id, date_id. 
+   FACT_SALES : product_id, category_id, subcategory_id, geography_id, payment_id, customer_id, date_id. 
    
 8. Relationships
 

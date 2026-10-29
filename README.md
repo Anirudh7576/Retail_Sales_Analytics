@@ -7,9 +7,9 @@ An end-to-end ELT Data Engineering project built using:
 - Apache Airflow
 - AWS S3
 - Snowflake
-- PostgreSQL
+- Microsoft SQL
 - Python
-- Power BI
+- Power BI (Reports are not updated yet)
 - GitHub
 
 ## Architecture

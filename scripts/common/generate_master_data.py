@@ -12,6 +12,7 @@ from scripts.data_generation.generate_customers import main as dim_customers_mai
 from scripts.data_generation.generate_date_dimension import main as dim_date_main
 from scripts.data_generation.generate_sales import main as fact_sales_main
 
+
 def main():
 
     print("Category data generation started")

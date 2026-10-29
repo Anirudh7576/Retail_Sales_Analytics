@@ -1,4 +1,4 @@
-Sales CSV
+Sales JSON
 Product JSON
 Category JSON
 Subcategory JSON
@@ -6,7 +6,7 @@ Geography JSON
 Payment JSON
         │
         ▼
-        AWS S3
+     AWS S3
         │
         ▼
      Apache Airflow
@@ -21,4 +21,4 @@ Payment JSON
  Snowflake GOLD
         │
         ▼
-      Power BI
+    Power BI

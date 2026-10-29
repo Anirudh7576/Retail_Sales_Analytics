@@ -2,7 +2,6 @@ from pathlib import Path
 import boto3
 from botocore.exceptions import ClientError
 
-
 BUCKET_NAME = "retail-sales-analytics-898565151550-us-east-1-an"
 
 s3 = boto3.client("s3")

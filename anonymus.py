@@ -1056,25 +1056,6 @@
 #             f"Unexpected error: {file_path.name}"
 #         )
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # from pathlib import Path
 # import pandas as pd
 # import logging
@@ -1135,3 +1116,230 @@
 # print(df)
 
 # =================================================================================
+# Create a DAG runs every day at 8 am
+
+# from datetime import datetime
+# import requests 
+
+# from airflow.providers.standard.operators.python import PythonOperator
+# from airflow import DAG
+
+# def run_categories_pipeline():
+    
+#       print("Run python categories file everyday at 8:00 AM")
+
+# def run_products_pipeline():
+#      print("Run python products file everyday at 8:00 AM")
+
+# def run_geography_pipeline():
+#      print("Run python geography file everyday at 8:00 AM")
+
+# def run_fact_sales_pipeline():
+#      print("Run python fact sales file everyday ")
+
+# with DAG(
+#     dag_id = "Daily sales pipeline",
+#     start_date = datetime(2026,9,29),
+#     schedule = "0 8 * * *",
+#     catchup = False,
+#     tags = ["sales"]
+# ) as dag:
+
+#     run_categories_task = PythonOperator(
+
+#         task_id = "categories_pipeline",
+#         python_callable = run_categories_pipeline
+ 
+#     )
+
+#     run_products_task = PythonOperator(
+#          task_id = "products_pipeline",
+#          python_callable  = run_products_pipeline
+#     )
+
+#     run_geography_task = PythonOperator(
+#          task_id = "geography_pipeline",
+#          python_callable = run_geography_pipeline
+#     )
+
+#     run_fact_sales_task = PythonOperator(
+#          task_id = "fact sales pipeline",
+#          python_callable = run_fact_sales_pipeline
+#     )
+
+# run_categories_task >> run_fact_sales_pipeline
+# run_products_task >> run_fact_sales_pipeline
+# run_geography_task >> run_fact_sales_pipeline
+# ===================================================================================
+# create a DAG using BranchPythonOperator
+# from datetime import datetime
+
+# from airflow import DAG
+# from airflow.providers.standard.operators.python import (PythonOperator, BranchPythonOperator)
+# from airflow.providers.standard.operators.empty import EmptyOperator
+
+# def check_valid_file():
+#      print("started vaidattion of file")
+#      return True
+
+# def status_valid_file():
+#      status_valid_file == check_valid_file()
+
+#      if status_valid_file:
+#           print("file is valid")
+
+#      else:
+#           print("Invalid file")
+
+# def valid_file_to_snowflake():
+#      print("files are moved to snowflake raw table")
+
+# def rejected_to_folder():
+#      print("Invalid files are moved to rejected folder")
+     
+# with DAG(
+#      dag_id = "check_valid_files",
+#      schedule = "0 8 * * *",
+#      start_date = datetime(2026,10,1),
+#      catchup = False,
+#      tags = ["valid_files, rejected_files"] 
+# ) as dag:
+
+#      start_task = EmptyOperator(
+#           task_id = "start"
+#      )
+
+    
+#      valid_file_status_task = BranchPythonOperator(
+#           task_id = "file_status",
+#           python_callable = status_valid_file
+
+#      )
+
+#      load_snowflake_task = PythonOperator(
+#           task_id = "load_to_snowflake",
+#           python_callable = valid_file_to_snowflake
+#      )
+
+#      rejected_folder_task = PythonOperator(
+#           task_id = "rejected_to_folder",
+#           python_callable = rejected_to_folder
+#      )
+
+#      end_task = PythonOperator(
+#           task_id = "End"
+#      )
+
+# start >>  valid_file_status_task
+
+# valid_file_status_task >> load_snowflake_task
+# valid_file_status_task >> rejected_folder_task
+
+# load_snowflake_task  >> end
+# rejected_folder_task >> end
+
+# ======================================================================================== 
+# Create reusable ETL function
+
+from io import BytesIO 
+import pandas as pd
+from snowflake.connectors.pandas_tools import write_pandas
+
+def extract_from_s3(s3_client, bucket_name, s3_key):
+    response = s3_client.get_object(
+        Bucket = bucket_name,
+        Key = s3_key
+    )
+
+    df = pd.read_csv(
+        BytesIO(response["body"].read())
+    )
+
+    return df
+
+def transformation(df):
+
+    df = df.copy()
+    df = df.drop_duplicates()
+
+    return df
+
+def load_to_snowflake(
+        connection,
+        df,
+        table_name,
+        schema_name
+):
+    success, chunks, rows, output = write_pandas(
+        conn = connection,
+        df = df,
+        table_name = table_name,
+        schema_name = schema_name,
+        auto_create_table = False,
+        overwrite = False
+
+    )
+
+    if not success:
+        raise RuntimeError(
+            f"failed to load data {schema_name}.{table_name}"
+        )
+
+    print(
+        f"loaded {rows} rows into"
+        f"{schema_name}.{table_name}"
+    )
+
+def run_etl(       
+        s3_client,
+        snowflake_connection,
+        bucket_name,
+        s3_key,
+        table_name,
+        schema_name):
+
+    print(f"extranction data from bucket name: {bucket_name}")
+
+    df = extract_from_s3(
+        s3,
+        bucket,
+        key
+
+    )
+    print(f"extacted rows {len(df)}")
+
+    df = transformation(df)
+
+    print(f"total rows tansformed {len(df)}")
+
+    load_to_snowflake(
+        connection,
+        df,
+        schema_name,
+        table_name
+    )
+
+    print("ETL completed succesfully")
+    
+# ========================
+import boto3
+s3 = boto3.client(
+    "s3",
+    region_name = "ap-south-1"
+)
+
+run_etl(
+    s3_client = s3,
+    snowflake_connection= connection,
+    bucket_name= "name of s3 bucket",
+    s3_key= "key",
+    table_name= "SALES",
+    schema_name= "RAW"
+)
+
+# =========================================================================================
+# Create utility module
+# Create configuration reader
+# Create date utility functions
+# Create file loader function
+

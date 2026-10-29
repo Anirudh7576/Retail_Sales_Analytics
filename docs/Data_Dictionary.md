@@ -132,15 +132,15 @@
 
 9. Relationship Diagram
 
-                            DIM_DATE
-                            │
-                            │
-    DIM_PRODUCT ────────────┐
-                            │
-    DIM_CUSTOMER ───────────┤
-                            │
-    DIM_GEOGRAPHY ──────────┤
-                            │
-    DIM_PAYMENT ────────────┤
-                            │
-                    FACT_SALES
+                                                                    DIM_DATE
+                                                                    │
+                                                                    │
+    DIM_CATEGORY --->  DIM_SUBCATEGORY -->  DIM_PRODUCT ────────────┐
+                                                                    │
+                                            DIM_CUSTOMER ───────────┤
+                                                                    │
+                                            DIM_GEOGRAPHY ──────────┤
+                                                                    │
+                                            DIM_PAYMENT ────────────┤
+                                                                    │
+                                                            FACT_SALES
