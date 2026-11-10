@@ -88,7 +88,7 @@ The platform will initially support four major analytical areas.
 
 ## 5. Project Scope and Assumptions
 
-1. The project uses synthetic data inspired by FMCG business operations in India. It does not contain actual Reckitt confidential or production data.
+1. The project uses synthetic data inspired by FMCG business operations in India.
 2. The initial sales model represents secondary sales: distributor-to-retailer transactions.
 3. Distributor, retailer, product, geography and warehouse information are maintained as master data.
 4. The initial ingestion approach uses batch processing from Amazon S3 orchestrated by Apache Airflow.
