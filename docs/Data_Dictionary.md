@@ -514,4 +514,3 @@ The following standards will be followed when creating Snowflake tables.
 | FACT_INVENTORY | Fact | Inventory snapshots |
 | FACT_SHIPMENTS | Fact | Shipment and delivery transactions |
 
-**Release 1 includes all the above tables.** Payment, returns, promotions, suppliers and procurement can be added in subsequent releases.
