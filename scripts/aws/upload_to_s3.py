@@ -2,7 +2,7 @@ from pathlib import Path
 import boto3
 from botocore.exceptions import ClientError
 
-BUCKET_NAME = "retail-sales-analytics-898565151550-us-east-1-an"
+BUCKET_NAME = "retail-sales-analytics2"
 
 s3 = boto3.client("s3")
 
@@ -111,7 +111,7 @@ if __name__ == "__main__":
 
         local_folder, s3_folder = paths
 
-        print("\n uploding dataset {dateset}")
+        print("\n uploding dataset {dataset}")
 
         upload_latest_file(
             local_folder,

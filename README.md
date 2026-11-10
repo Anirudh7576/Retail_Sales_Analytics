@@ -9,7 +9,7 @@ An end-to-end ELT Data Engineering project built using:
 - Snowflake
 - Microsoft SQL
 - Python
-- Power BI (Reports are not updated yet)
+- Power BI (Reports are not published yet)
 - GitHub
 
 ## Architecture
@@ -19,3 +19,5 @@ Source → S3 → Airflow → Snowflake (RAW → SILVER → GOLD) → Power BI
 ## Status
 
 🚧 Project under development.git
+
+

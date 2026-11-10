@@ -8,7 +8,7 @@ def check_required_fields(records: list,
     for record in records:
 
         for field in required_fields:
-
+            
             if field not in record:
                 raise ValueError(
                     f"Missing required field '{field}'. "
@@ -20,15 +20,13 @@ def check_required_fields(records: list,
                     f"Blank value found for '{field}'. "
                     f"Record: {record}"
                 )
-
+  
     return True
-
 
 def check_unique(records: list, field_name: str) -> bool:
     """
     Validate uniqueness of a field.
     """
-
     seen_values = set()
 
     for record in records:
@@ -50,10 +48,12 @@ def check_unique(records: list, field_name: str) -> bool:
     return True
 
 def check_foreign_keys(
+        
         fact_records: list,
         fact_field : str,
         dim_records :list,
         dim_field : str
+
         ):
      
      """
