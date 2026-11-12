@@ -1,0 +1,22 @@
+[
+    {
+        "category_id": 1,
+        "category_name": "Self Care",
+        "category_description": "Personal care and hygiene products"
+    },
+    {
+        "category_id": 2,
+        "category_name": "Germ Protection",
+        "category_description": "Products for germ protection and disinfection"
+    },
+    {
+        "category_id": 3,
+        "category_name": "Household Care",
+        "category_description": "Household cleaning and maintenance products"
+    },
+    {
+        "category_id": 4,
+        "category_name": "Intimate Wellness",
+        "category_description": "Products for intimate health and wellness"
+    }
+]

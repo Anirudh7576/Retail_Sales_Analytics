@@ -61,3 +61,7 @@ FACT_SALES process failed: Incorrect sales amount for SALE1. Expected: 68899.44,
 2026-08-29 20:35:56,789 | INFO | FACT_SALES saved successfully
 2026-11-01 19:46:55,230 | INFO | FACT_SALES generation started...
 2026-11-01 19:46:55,339 | INFO | FACT_SALES saved successfully
+2026-11-12 13:23:46 | INFO | fmcg_sales | Testing INFO message.
+2026-11-12 13:23:46 | WARNING | fmcg_sales | Testing WARNING message.
+2026-11-12 13:23:46 | ERROR | fmcg_sales | Testing ERROR message.
+2026-11-12 13:23:46 | INFO | fmcg_sales | Logger test completed.

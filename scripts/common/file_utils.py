@@ -1,7 +1,6 @@
-"""
-Project : Retail Sales Analytics
 
-Author : Anirudh Krishna
+"""
+Project : FMCG Sales and Supply Chain Analytics
 
 Purpose : Common utility functions for file operations.
 """
@@ -10,53 +9,96 @@ import json
 from datetime import datetime
 from pathlib import Path
 
-def save_json(records: list, file_prefix: str, folder_type: str ) -> None:
+
+# ============================================================
+# PROJECT ROOT
+# ============================================================
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+
+# ============================================================
+# SAVE JSON FILE
+# ============================================================
+
+def save_json(
+    records: list,
+    file_prefix: str,
+    folder_type: str,
+    data_group: str = ""
+) -> Path:
     """
-    Save records as a timestamped JSON file
+    Save records as a timestamped JSON file.
+
+    Example:
+    data/generated/master/categories/categories_20261112.json
     """
-    allower_folders = {
+
+    allowed_folders = {
         "generated",
         "rejected",
         "archive"
     }
 
-    if folder_type not in allower_folders:
+    if folder_type not in allowed_folders:
         raise ValueError(
-            f"invalid folder type {folder_type}"
-            f"allowed folders {allower_folders}"
+            f"Invalid folder type: {folder_type}. "
+            f"Allowed folders: {allowed_folders}"
         )
-    
-    # =====================================================
-    # Project Root
-    # =====================================================
 
-    project_root = Path(__file__).resolve().parents[2]
+    if not isinstance(records, list):
+        raise TypeError("Records must be a list.")
+
+    if not file_prefix or Path(file_prefix).name != file_prefix:
+        raise ValueError("Invalid file prefix.")
+
+    # --------------------------------------------------------
+    # Validate optional data group
+    # --------------------------------------------------------
+
+    group_path = Path(data_group)
+
+    if group_path.is_absolute() or ".." in group_path.parts:
+        raise ValueError("Invalid data group path.")
+
+    # --------------------------------------------------------
+    # Output folder
+    # --------------------------------------------------------
 
     output_folder = (
-        project_root
+        PROJECT_ROOT
         / "data"
         / folder_type
+        / group_path
         / file_prefix
-      )
+    )
 
-    # Create folder if it doesn't exist
-    output_folder.mkdir(parents=True, exist_ok=True)
+    output_folder.mkdir(
+        parents=True,
+        exist_ok=True
+    )
 
-    # =====================================================
-    # File Name
-    # Example:
-    # categories_20260806_103015.json
-    # =====================================================
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    # --------------------------------------------------------
+    # Generate unique timestamped filename
+    # --------------------------------------------------------
+
+    timestamp = datetime.now().strftime(
+        "%Y%m%d_%H%M%S_%f"
+    )
 
     file_name = f"{file_prefix}_{timestamp}.json"
 
     file_path = output_folder / file_name
 
-    # =====================================================
+    # --------------------------------------------------------
     # Save JSON
-    # =====================================================
-    with open(file_path, "w", encoding="utf-8") as file:
+    # --------------------------------------------------------
+
+    with open(
+        file_path,
+        "w",
+        encoding="utf-8"
+    ) as file:
 
         json.dump(
             records,
@@ -65,53 +107,68 @@ def save_json(records: list, file_prefix: str, folder_type: str ) -> None:
             ensure_ascii=False
         )
 
-    print(f"\nJSON file saved successfully.")
-    print(f"Location : {file_path}\n")
+    print("\nJSON file saved successfully.")
+    print(f"Location: {file_path}")
 
-    # =================================================================
-    # Read the latest JSON file for given dimension
-    # =================================================================
-     
-def get_latest_json(folder_name:str, file_prefix:str) -> str:
+    return file_path
 
-    project_root = Path(__file__).resolve().parents[2]
+
+# ============================================================
+# READ LATEST JSON FILE
+# ============================================================
+
+def get_latest_json(
+    folder_name: str,
+    file_prefix: str
+) -> list:
+    """
+    Read the latest JSON file for a given dataset.
+
+    Example:
+    get_latest_json("master/categories", "categories")
+    """
+
+    relative_folder = Path(folder_name)
+
+    if (
+        relative_folder.is_absolute()
+        or ".." in relative_folder.parts
+    ):
+        raise ValueError("Invalid folder path.")
 
     folder = (
-             project_root
-             /"data"
-             /"generated"
-             /folder_name
+        PROJECT_ROOT
+        / "data"
+        / "generated"
+        / relative_folder
     )
 
     files = list(
-        folder.glob(f"{file_prefix}_*json")
-
+        folder.glob(f"{file_prefix}_*.json")
     )
 
     if not files:
         raise FileNotFoundError(
-            f"No json file found for {file_prefix} in",
-            f" the {folder_name}"
+            f"No JSON file found for '{file_prefix}' "
+            f"in '{folder}'."
         )
 
     latest_file = max(
         files,
-        key= lambda file: file.stat().st_mtime 
+        key=lambda file: file.stat().st_mtime
     )
 
-    with open(latest_file,
-              "r",
-              encoding = "utf-8"
-              ) as file:
-        
+    with open(
+        latest_file,
+        "r",
+        encoding="utf-8"
+    ) as file:
+
         records = json.load(file)
 
     print(
-        f"reading latest {file_prefix} file",
-        f"{latest_file}.name"
+        f"\nReading latest {file_prefix} file: "
+        f"{latest_file.name}"
     )
 
-    return records 
-
-        
-
+    return records

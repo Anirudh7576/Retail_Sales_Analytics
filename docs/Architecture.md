@@ -1,7 +1,7 @@
 1. Source systems - Synthetic data generation
-                     Master data (JSON):
+                    Master data (JSON):
                      Products, Brands, Categories, Subcategories, Geography, Distributors, Retailers, Warehouses, UOM, Sales Channels
-                     Transactional data (Multiple formats):
+                    Transactional data (Multiple formats):
                      Sales (CSV), Orders (CSV), Inventory (Parquet), Shipments (JSON)
                             |
                             |

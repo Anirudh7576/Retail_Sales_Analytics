@@ -1,26 +1,27 @@
-"""
-Project : Retail Sales Analytics
 
-Author : Anirudh Krishna
-
-Purpose : Generate Category Dimension data and validate it.
 """
+Project : FMCG Sales and Supply Chain Analytics
+
+Purpose : Generate category dimension data and validate it.
+"""
+
+from scripts.common.master_data import CATEGORY_MASTER
 
 from scripts.common.constants import (
-    CATEGORY_MASTER, 
-    CATEGORY_REQUIRED_FIELDS,
+    CATEGORY_REQUIRED_FIELDS
 )
 
 from scripts.common.validation import (
     check_required_fields,
-    check_unique,
+    check_unique
 )
 
 from scripts.common.file_utils import save_json
 
-# ===================================
-# Generate Category Dimension
-# ===================================
+
+# ============================================================
+# GENERATE CATEGORY DIMENSION
+# ============================================================
 
 def generate_categories() -> list:
     """
@@ -29,7 +30,10 @@ def generate_categories() -> list:
 
     dim_category = []
 
-    for category_id, category in enumerate(CATEGORY_MASTER, start=1):
+    for category_id, category in enumerate(
+        CATEGORY_MASTER,
+        start=1
+    ):
 
         category_record = {
             "category_id": category_id,
@@ -40,55 +44,49 @@ def generate_categories() -> list:
 
     return dim_category
 
+
+# ============================================================
+# MAIN PROCESS
+# ============================================================
+
 def main():
 
-    try:
+    categories = generate_categories()
 
-        categories = generate_categories()
+    # --------------------------------------------------------
+    # VALIDATION
+    # --------------------------------------------------------
 
-        # Validation
-        check_required_fields(
-            categories,
-            CATEGORY_REQUIRED_FIELDS
-        )
+    check_required_fields(
+        categories,
+        CATEGORY_REQUIRED_FIELDS
+    )
 
-        check_unique(
-            categories,
-            "category_id"
-        )
+    check_unique(
+        categories,
+        "category_id"
+    )
 
-        check_unique(
-            categories,
-            "category_name"
-        )
+    check_unique(
+        categories,
+        "category_name"
+    )
 
-       # Save
-        save_json(
-                   categories,
-                   "categories",
-                   "generated"
-               )
-       
-    except Exception as error:
-        print(
-                   f"\n dimension categories process failed: {error}"
-               )
-       
-    # --------------------------------------------------
-    # Save rejected data ONLY if generation succeeded
-    # --------------------------------------------------
-       
-        if categories is not None:
-            save_json(
-                categories,
-                "categories",
-                "rejected")
-        
-        
-        print(
-                f"\nFACT_SALES process failed: "
-                f"{error}"
-                    )
-       
+    # --------------------------------------------------------
+    # SAVE GENERATED DATA
+    # --------------------------------------------------------
+
+    save_json(
+        categories,
+        "categories",
+        "generated"
+    )
+
+    print(
+        f"Category generation successful. "
+        f"Total records: {len(categories)}"
+    )
+
+
 if __name__ == "__main__":
-           main()
+    main()
