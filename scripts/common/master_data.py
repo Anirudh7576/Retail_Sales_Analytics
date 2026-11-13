@@ -137,7 +137,7 @@ SUBCATEGORY_MASTER = [
 ]
 
 # ============================================================
-# # FMCG BRAND MASTER DATA
+# FMCG BRAND MASTER DATA
 # ============================================================
 BRAND_MASTER = [
     {
@@ -158,4 +158,326 @@ BRAND_MASTER = [
     }
 ]
 # =======================================================================
+# FMCG UOM MASTER DATA
 # =======================================================================
+UOM_MASTER = [
+    {"uom_name": "Each", "uom_description": "Individual product unit"},
+    {"uom_name": "Bottle", "uom_description": "Bottle packaging"},
+    {"uom_name": "Pack", "uom_description": "Multi-unit product pack"},
+    {"uom_name": "Box", "uom_description": "Box packaging"},
+    {"uom_name": "Carton", "uom_description": "Bulk carton packaging"},
+    {"uom_name": "Tube", "uom_description": "Tube packaging"},
+    {"uom_name": "Sachet", "uom_description": "Single-use sachet packaging"},
+    {"uom_name": "Can", "uom_description": "Can packaging"},
+    {"uom_name": "Jar", "uom_description": "Jar packaging"},
+    {"uom_name": "Pouch", "uom_description": "Pouch packaging"}
+]
+# ========================================================================
+# FMCG GEOGRAPHY MASTER DATA
+# ========================================================================
+
+GEOGRAPHY_MASTER = [
+    # Andhra Pradesh
+    {
+        "city": "Visakhapatnam",
+        "district": "Visakhapatnam",
+        "state": "Andhra Pradesh",
+        "region": "South",
+        "country": "India",
+        "postal_code": "530001"
+    },
+    {
+        "city": "Vijayawada",
+        "district": "NTR",
+        "state": "Andhra Pradesh",
+        "region": "South",
+        "country": "India",
+        "postal_code": "520001"
+    },
+    {
+        "city": "Tirupati",
+        "district": "Tirupati",
+        "state": "Andhra Pradesh",
+        "region": "South",
+        "country": "India",
+        "postal_code": "517501"
+    },
+
+    # Telangana
+    {
+        "city": "Hyderabad",
+        "district": "Hyderabad",
+        "state": "Telangana",
+        "region": "South",
+        "country": "India",
+        "postal_code": "500001"
+    },
+    {
+        "city": "Warangal",
+        "district": "Hanumakonda",
+        "state": "Telangana",
+        "region": "South",
+        "country": "India",
+        "postal_code": "506001"
+    },
+    {
+        "city": "Karimnagar",
+        "district": "Karimnagar",
+        "state": "Telangana",
+        "region": "South",
+        "country": "India",
+        "postal_code": "505001"
+    },
+
+    # Karnataka
+    {
+        "city": "Bengaluru",
+        "district": "Bengaluru Urban",
+        "state": "Karnataka",
+        "region": "South",
+        "country": "India",
+        "postal_code": "560001"
+    },
+    {
+        "city": "Mysuru",
+        "district": "Mysuru",
+        "state": "Karnataka",
+        "region": "South",
+        "country": "India",
+        "postal_code": "570001"
+    },
+    {
+        "city": "Mangaluru",
+        "district": "Dakshina Kannada",
+        "state": "Karnataka",
+        "region": "South",
+        "country": "India",
+        "postal_code": "575001"
+    },
+
+    # Tamil Nadu
+    {
+        "city": "Chennai",
+        "district": "Chennai",
+        "state": "Tamil Nadu",
+        "region": "South",
+        "country": "India",
+        "postal_code": "600001"
+    },
+    {
+        "city": "Coimbatore",
+        "district": "Coimbatore",
+        "state": "Tamil Nadu",
+        "region": "South",
+        "country": "India",
+        "postal_code": "641001"
+    },
+    {
+        "city": "Madurai",
+        "district": "Madurai",
+        "state": "Tamil Nadu",
+        "region": "South",
+        "country": "India",
+        "postal_code": "625001"
+    },
+
+    # Kerala
+    {
+        "city": "Thiruvananthapuram",
+        "district": "Thiruvananthapuram",
+        "state": "Kerala",
+        "region": "South",
+        "country": "India",
+        "postal_code": "695001"
+    },
+    {
+        "city": "Kochi",
+        "district": "Ernakulam",
+        "state": "Kerala",
+        "region": "South",
+        "country": "India",
+        "postal_code": "682001"
+    },
+    {
+        "city": "Kozhikode",
+        "district": "Kozhikode",
+        "state": "Kerala",
+        "region": "South",
+        "country": "India",
+        "postal_code": "673001"
+    },
+
+    # Maharashtra
+    {
+        "city": "Mumbai",
+        "district": "Mumbai City",
+        "state": "Maharashtra",
+        "region": "West",
+        "country": "India",
+        "postal_code": "400001"
+    },
+    {
+        "city": "Pune",
+        "district": "Pune",
+        "state": "Maharashtra",
+        "region": "West",
+        "country": "India",
+        "postal_code": "411001"
+    },
+    {
+        "city": "Nagpur",
+        "district": "Nagpur",
+        "state": "Maharashtra",
+        "region": "West",
+        "country": "India",
+        "postal_code": "440001"
+    },
+
+    # Gujarat
+    {
+        "city": "Ahmedabad",
+        "district": "Ahmedabad",
+        "state": "Gujarat",
+        "region": "West",
+        "country": "India",
+        "postal_code": "380001"
+    },
+    {
+        "city": "Surat",
+        "district": "Surat",
+        "state": "Gujarat",
+        "region": "West",
+        "country": "India",
+        "postal_code": "395003"
+    },
+    {
+        "city": "Vadodara",
+        "district": "Vadodara",
+        "state": "Gujarat",
+        "region": "West",
+        "country": "India",
+        "postal_code": "390001"
+    },
+
+    # Rajasthan
+    {
+        "city": "Jaipur",
+        "district": "Jaipur",
+        "state": "Rajasthan",
+        "region": "North",
+        "country": "India",
+        "postal_code": "302001"
+    },
+    {
+        "city": "Jodhpur",
+        "district": "Jodhpur",
+        "state": "Rajasthan",
+        "region": "North",
+        "country": "India",
+        "postal_code": "342001"
+    },
+
+    # Delhi
+    {
+        "city": "New Delhi",
+        "district": "New Delhi",
+        "state": "Delhi",
+        "region": "North",
+        "country": "India",
+        "postal_code": "110001"
+    },
+
+    # Uttar Pradesh
+    {
+        "city": "Lucknow",
+        "district": "Lucknow",
+        "state": "Uttar Pradesh",
+        "region": "North",
+        "country": "India",
+        "postal_code": "226001"
+    },
+    {
+        "city": "Kanpur",
+        "district": "Kanpur Nagar",
+        "state": "Uttar Pradesh",
+        "region": "North",
+        "country": "India",
+        "postal_code": "208001"
+    },
+
+    # West Bengal
+    {
+        "city": "Kolkata",
+        "district": "Kolkata",
+        "state": "West Bengal",
+        "region": "East",
+        "country": "India",
+        "postal_code": "700001"
+    },
+
+    # Odisha
+    {
+        "city": "Bhubaneswar",
+        "district": "Khordha",
+        "state": "Odisha",
+        "region": "East",
+        "country": "India",
+        "postal_code": "751001"
+    },
+
+    # Bihar
+    {
+        "city": "Patna",
+        "district": "Patna",
+        "state": "Bihar",
+        "region": "East",
+        "country": "India",
+        "postal_code": "800001"
+    },
+
+    # Madhya Pradesh
+    {
+        "city": "Bhopal",
+        "district": "Bhopal",
+        "state": "Madhya Pradesh",
+        "region": "Central",
+        "country": "India",
+        "postal_code": "462001"
+    },
+
+    # Punjab
+    {
+        "city": "Ludhiana",
+        "district": "Ludhiana",
+        "state": "Punjab",
+        "region": "North",
+        "country": "India",
+        "postal_code": "141001"
+    },
+
+    # Haryana
+    {
+        "city": "Gurugram",
+        "district": "Gurugram",
+        "state": "Haryana",
+        "region": "North",
+        "country": "India",
+        "postal_code": "122001"
+    }
+]
+
+# ==============================================================
+# FMCG DISTRIBUTOR MASTER DATA
+# ==============================================================
+
+DISTRIBUTOR_MASTER = [
+    {
+        "distributor_name": f"ABC Distribution Partner {i:03d}",
+        "geography_id": ((i - 1) % len(GEOGRAPHY_MASTER)) + 1
+    }
+    for i in range(1, 101)
+]
+
+# ===============================================================
+
+

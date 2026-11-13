@@ -1,101 +1,87 @@
-"""
-Project : Retail Sales Analytics
 
-Author : Anirudh Krishna
-
-Purpose : Generate Category Dimension data and validate it.
-"""
-from scripts.common.constants import (
-    GEOGRAPHY_MASTER,
-    GEOGRAPHY_REQUIRED_FIELDS
-    )
+from scripts.common.master_data import GEOGRAPHY_MASTER
+from scripts.common.constants import GEOGRAPHY_REQUIRED_FIELDS
 from scripts.common.validation import (
-    check_required_fields, 
+    check_required_fields,
     check_unique
-    )
+)
 from scripts.common.file_utils import save_json
-from scripts.common.faker_utils import generate_postalcode
+from scripts.common.logger import logger
 
-from faker import Faker
-fake = Faker("en_IN")
 
-# =====================================================================================
-# generate geography
-# =====================================================================================
-def generate_geography():
-    dim_geography = []
+def generate_geography() -> list:
+    geography_records = []
 
-    for geography_id, location in enumerate(GEOGRAPHY_MASTER, start = 10001):
-
+    for geography_id, geography in enumerate(
+        GEOGRAPHY_MASTER, start=1
+    ):
         geography_record = {
-        "geography_id": geography_id,
-        "city": location["city"],
-        "state": location["state"],
-        "country": location["country"],
-        "region": location["region"],
-        "postal_code": generate_postalcode()
+            "geography_id": geography_id,
+            **geography
         }
 
-        dim_geography.append(geography_record)
+        geography_records.append(geography_record)
 
-    return dim_geography
+    return geography_records
 
-# =======================================================================================
-# validation
-# =======================================================================================
+
+def validate_geography(records: list) -> None:
+    # Validate required fields
+    check_required_fields(
+        records,
+        GEOGRAPHY_REQUIRED_FIELDS
+    )
+
+    # Validate unique geography IDs
+    check_unique(records, "geography_id")
+
+    # Validate unique city, district, state and PIN combinations
+    location_keys = [
+        (
+            record["city"].strip().lower(),
+            record["district"].strip().lower(),
+            record["state"].strip().lower(),
+            record["postal_code"].strip()
+        )
+        for record in records
+    ]
+
+    if len(location_keys) != len(set(location_keys)):
+        raise ValueError(
+            "Duplicate city, district, state and postal code combination found."
+        )
+
 
 def main():
-
     try:
+        logger.info("Geography generation started.")
 
-        geography = generate_geography()
+        geography_records = generate_geography()
 
-        check_required_fields(
-                geography,
-                GEOGRAPHY_REQUIRED_FIELDS
+        logger.info(
+            "Generated %s geography records.",
+            len(geography_records)
         )
 
-        check_unique(
-                geography,
-                "geography_id"
+        validate_geography(geography_records)
 
-        )
-
-        print("\n validating geography data")
+        logger.info("Geography validation successful.")
 
         save_json(
-            geography,
-            file_prefix= "geography",
-            folder_type= "generated"
+            geography_records,
+            "geography",
+            "generated",
+            "master"
         )
-        print("geography file saved")
 
-    except Exception as error:
-        if geography is not None:
-            save_json(
-                geography,
-                file_prefix= "geography",
-                folder_type= "rejected"
-            )
+        logger.info(
+            "Geography generation completed successfully."
+        )
 
-        print(f"Found an error :{error}")
+    except Exception:
+        logger.exception("Geography generation failed.")
+        raise
+
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-        
-
-        
-
-
-
-
-
-
-
-

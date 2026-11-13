@@ -1,0 +1,290 @@
+[
+    {
+        "geography_id": 1,
+        "city": "Visakhapatnam",
+        "district": "Visakhapatnam",
+        "state": "Andhra Pradesh",
+        "region": "South",
+        "country": "India",
+        "postal_code": "530001"
+    },
+    {
+        "geography_id": 2,
+        "city": "Vijayawada",
+        "district": "NTR",
+        "state": "Andhra Pradesh",
+        "region": "South",
+        "country": "India",
+        "postal_code": "520001"
+    },
+    {
+        "geography_id": 3,
+        "city": "Tirupati",
+        "district": "Tirupati",
+        "state": "Andhra Pradesh",
+        "region": "South",
+        "country": "India",
+        "postal_code": "517501"
+    },
+    {
+        "geography_id": 4,
+        "city": "Hyderabad",
+        "district": "Hyderabad",
+        "state": "Telangana",
+        "region": "South",
+        "country": "India",
+        "postal_code": "500001"
+    },
+    {
+        "geography_id": 5,
+        "city": "Warangal",
+        "district": "Hanumakonda",
+        "state": "Telangana",
+        "region": "South",
+        "country": "India",
+        "postal_code": "506001"
+    },
+    {
+        "geography_id": 6,
+        "city": "Karimnagar",
+        "district": "Karimnagar",
+        "state": "Telangana",
+        "region": "South",
+        "country": "India",
+        "postal_code": "505001"
+    },
+    {
+        "geography_id": 7,
+        "city": "Bengaluru",
+        "district": "Bengaluru Urban",
+        "state": "Karnataka",
+        "region": "South",
+        "country": "India",
+        "postal_code": "560001"
+    },
+    {
+        "geography_id": 8,
+        "city": "Mysuru",
+        "district": "Mysuru",
+        "state": "Karnataka",
+        "region": "South",
+        "country": "India",
+        "postal_code": "570001"
+    },
+    {
+        "geography_id": 9,
+        "city": "Mangaluru",
+        "district": "Dakshina Kannada",
+        "state": "Karnataka",
+        "region": "South",
+        "country": "India",
+        "postal_code": "575001"
+    },
+    {
+        "geography_id": 10,
+        "city": "Chennai",
+        "district": "Chennai",
+        "state": "Tamil Nadu",
+        "region": "South",
+        "country": "India",
+        "postal_code": "600001"
+    },
+    {
+        "geography_id": 11,
+        "city": "Coimbatore",
+        "district": "Coimbatore",
+        "state": "Tamil Nadu",
+        "region": "South",
+        "country": "India",
+        "postal_code": "641001"
+    },
+    {
+        "geography_id": 12,
+        "city": "Madurai",
+        "district": "Madurai",
+        "state": "Tamil Nadu",
+        "region": "South",
+        "country": "India",
+        "postal_code": "625001"
+    },
+    {
+        "geography_id": 13,
+        "city": "Thiruvananthapuram",
+        "district": "Thiruvananthapuram",
+        "state": "Kerala",
+        "region": "South",
+        "country": "India",
+        "postal_code": "695001"
+    },
+    {
+        "geography_id": 14,
+        "city": "Kochi",
+        "district": "Ernakulam",
+        "state": "Kerala",
+        "region": "South",
+        "country": "India",
+        "postal_code": "682001"
+    },
+    {
+        "geography_id": 15,
+        "city": "Kozhikode",
+        "district": "Kozhikode",
+        "state": "Kerala",
+        "region": "South",
+        "country": "India",
+        "postal_code": "673001"
+    },
+    {
+        "geography_id": 16,
+        "city": "Mumbai",
+        "district": "Mumbai City",
+        "state": "Maharashtra",
+        "region": "West",
+        "country": "India",
+        "postal_code": "400001"
+    },
+    {
+        "geography_id": 17,
+        "city": "Pune",
+        "district": "Pune",
+        "state": "Maharashtra",
+        "region": "West",
+        "country": "India",
+        "postal_code": "411001"
+    },
+    {
+        "geography_id": 18,
+        "city": "Nagpur",
+        "district": "Nagpur",
+        "state": "Maharashtra",
+        "region": "West",
+        "country": "India",
+        "postal_code": "440001"
+    },
+    {
+        "geography_id": 19,
+        "city": "Ahmedabad",
+        "district": "Ahmedabad",
+        "state": "Gujarat",
+        "region": "West",
+        "country": "India",
+        "postal_code": "380001"
+    },
+    {
+        "geography_id": 20,
+        "city": "Surat",
+        "district": "Surat",
+        "state": "Gujarat",
+        "region": "West",
+        "country": "India",
+        "postal_code": "395003"
+    },
+    {
+        "geography_id": 21,
+        "city": "Vadodara",
+        "district": "Vadodara",
+        "state": "Gujarat",
+        "region": "West",
+        "country": "India",
+        "postal_code": "390001"
+    },
+    {
+        "geography_id": 22,
+        "city": "Jaipur",
+        "district": "Jaipur",
+        "state": "Rajasthan",
+        "region": "North",
+        "country": "India",
+        "postal_code": "302001"
+    },
+    {
+        "geography_id": 23,
+        "city": "Jodhpur",
+        "district": "Jodhpur",
+        "state": "Rajasthan",
+        "region": "North",
+        "country": "India",
+        "postal_code": "342001"
+    },
+    {
+        "geography_id": 24,
+        "city": "New Delhi",
+        "district": "New Delhi",
+        "state": "Delhi",
+        "region": "North",
+        "country": "India",
+        "postal_code": "110001"
+    },
+    {
+        "geography_id": 25,
+        "city": "Lucknow",
+        "district": "Lucknow",
+        "state": "Uttar Pradesh",
+        "region": "North",
+        "country": "India",
+        "postal_code": "226001"
+    },
+    {
+        "geography_id": 26,
+        "city": "Kanpur",
+        "district": "Kanpur Nagar",
+        "state": "Uttar Pradesh",
+        "region": "North",
+        "country": "India",
+        "postal_code": "208001"
+    },
+    {
+        "geography_id": 27,
+        "city": "Kolkata",
+        "district": "Kolkata",
+        "state": "West Bengal",
+        "region": "East",
+        "country": "India",
+        "postal_code": "700001"
+    },
+    {
+        "geography_id": 28,
+        "city": "Bhubaneswar",
+        "district": "Khordha",
+        "state": "Odisha",
+        "region": "East",
+        "country": "India",
+        "postal_code": "751001"
+    },
+    {
+        "geography_id": 29,
+        "city": "Patna",
+        "district": "Patna",
+        "state": "Bihar",
+        "region": "East",
+        "country": "India",
+        "postal_code": "800001"
+    },
+    {
+        "geography_id": 30,
+        "city": "Bhopal",
+        "district": "Bhopal",
+        "state": "Madhya Pradesh",
+        "region": "Central",
+        "country": "India",
+        "postal_code": "462001"
+    },
+    {
+        "geography_id": 31,
+        "city": "Ludhiana",
+        "district": "Ludhiana",
+        "state": "Punjab",
+        "region": "North",
+        "country": "India",
+        "postal_code": "141001"
+    },
+    {
+        "geography_id": 32,
+        "city": "Gurugram",
+        "district": "Gurugram",
+        "state": "Haryana",
+        "region": "North",
+        "country": "India",
+        "postal_code": "122001"
+    }
+]

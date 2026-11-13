@@ -97,3 +97,23 @@ FileNotFoundError: No JSON file found for 'categories' in 'C:\Users\Anirudh Gogi
 2026-11-13 16:11:11 | INFO | fmcg_sales | Generated 4 brand records.
 2026-11-13 16:11:11 | INFO | fmcg_sales | Brand validation successful.
 2026-11-13 16:11:11 | INFO | fmcg_sales | Brand generation completed successfully.
+2026-11-13 18:41:49 | INFO | fmcg_sales | Brand generation started.
+2026-11-13 18:41:49 | INFO | fmcg_sales | Generated 4 brand records.
+2026-11-13 18:41:49 | INFO | fmcg_sales | Brand validation successful.
+2026-11-13 18:41:49 | INFO | fmcg_sales | Brand generation completed successfully.
+2026-11-13 18:46:54 | INFO | fmcg_sales | UOM generation started.
+2026-11-13 18:46:54 | INFO | fmcg_sales | Generated 10 UOM records.
+2026-11-13 18:46:54 | INFO | fmcg_sales | UOM validation successful.
+2026-11-13 18:46:54 | INFO | fmcg_sales | UOM generation completed successfully.
+2026-11-13 18:54:13 | INFO | fmcg_sales | UOM generation started.
+2026-11-13 18:54:13 | INFO | fmcg_sales | Generated 10 UOM records.
+2026-11-13 18:54:13 | INFO | fmcg_sales | UOM validation successful.
+2026-11-13 18:54:13 | INFO | fmcg_sales | UOM generation completed successfully.
+2026-11-13 18:55:11 | INFO | fmcg_sales | Geography generation started.
+2026-11-13 18:55:11 | INFO | fmcg_sales | Generated 32 geography records.
+2026-11-13 18:55:11 | INFO | fmcg_sales | Geography validation successful.
+2026-11-13 18:55:11 | INFO | fmcg_sales | Geography generation completed successfully.
+2026-11-13 19:01:54 | INFO | fmcg_sales | Distributor generation started.
+2026-11-13 19:01:54 | INFO | fmcg_sales | Generated 100 distributor records.
+2026-11-13 19:01:54 | INFO | fmcg_sales | Distributor validation successful.
+2026-11-13 19:01:54 | INFO | fmcg_sales | Distributor generation completed successfully.
