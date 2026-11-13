@@ -65,3 +65,35 @@ FACT_SALES process failed: Incorrect sales amount for SALE1. Expected: 68899.44,
 2026-11-12 13:23:46 | WARNING | fmcg_sales | Testing WARNING message.
 2026-11-12 13:23:46 | ERROR | fmcg_sales | Testing ERROR message.
 2026-11-12 13:23:46 | INFO | fmcg_sales | Logger test completed.
+2026-11-13 15:47:17 | INFO | fmcg_sales | Subcategory generation started.
+2026-11-13 15:47:17 | ERROR | fmcg_sales | Subcategory generation failed.
+Traceback (most recent call last):
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_subcategories.py", line 90, in main
+    subcategories = generate_subcategories()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_subcategories.py", line 40, in generate_subcategories
+    categories = get_latest_json(
+                 ^^^^^^^^^^^^^^^^
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\common\file_utils.py", line 151, in get_latest_json
+    raise FileNotFoundError(
+FileNotFoundError: No JSON file found for 'categories' in 'C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\data\generated\master\categories'.
+2026-11-13 15:52:11 | INFO | fmcg_sales | Subcategory generation started.
+2026-11-13 15:52:11 | ERROR | fmcg_sales | Subcategory generation failed.
+Traceback (most recent call last):
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_subcategories.py", line 90, in main
+    subcategories = generate_subcategories()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_subcategories.py", line 40, in generate_subcategories
+    categories = get_latest_json(
+                 ^^^^^^^^^^^^^^^^
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\common\file_utils.py", line 151, in get_latest_json
+    raise FileNotFoundError(
+FileNotFoundError: No JSON file found for 'categories' in 'C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\data\generated\master\categories'.
+2026-11-13 15:58:30 | INFO | fmcg_sales | Subcategory generation started.
+2026-11-13 15:58:30 | INFO | fmcg_sales | Generated 20 subcategory records.
+2026-11-13 15:58:30 | INFO | fmcg_sales | Subcategory validation successful.
+2026-11-13 15:58:30 | INFO | fmcg_sales | Subcategory generation completed successfully.
+2026-11-13 16:11:11 | INFO | fmcg_sales | Brand generation started.
+2026-11-13 16:11:11 | INFO | fmcg_sales | Generated 4 brand records.
+2026-11-13 16:11:11 | INFO | fmcg_sales | Brand validation successful.
+2026-11-13 16:11:11 | INFO | fmcg_sales | Brand generation completed successfully.

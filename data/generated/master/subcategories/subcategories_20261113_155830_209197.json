@@ -1,0 +1,122 @@
+[
+    {
+        "subcategory_id": 1,
+        "category_id": 1,
+        "subcategory_name": "Skincare",
+        "subcategory_description": "Skin care and moisturizing products"
+    },
+    {
+        "subcategory_id": 2,
+        "category_id": 1,
+        "subcategory_name": "Hair Care",
+        "subcategory_description": "Hair cleaning and conditioning products"
+    },
+    {
+        "subcategory_id": 3,
+        "category_id": 1,
+        "subcategory_name": "Oral Care",
+        "subcategory_description": "Toothpaste and oral hygiene products"
+    },
+    {
+        "subcategory_id": 4,
+        "category_id": 1,
+        "subcategory_name": "Personal Hygiene",
+        "subcategory_description": "Personal hygiene products"
+    },
+    {
+        "subcategory_id": 5,
+        "category_id": 1,
+        "subcategory_name": "Baby Care",
+        "subcategory_description": "Baby hygiene and care products"
+    },
+    {
+        "subcategory_id": 6,
+        "category_id": 2,
+        "subcategory_name": "Hand Wash",
+        "subcategory_description": "Hand washing products"
+    },
+    {
+        "subcategory_id": 7,
+        "category_id": 2,
+        "subcategory_name": "Surface Disinfectants",
+        "subcategory_description": "Surface cleaning and disinfecting products"
+    },
+    {
+        "subcategory_id": 8,
+        "category_id": 2,
+        "subcategory_name": "Toilet Cleaners",
+        "subcategory_description": "Toilet cleaning products"
+    },
+    {
+        "subcategory_id": 9,
+        "category_id": 2,
+        "subcategory_name": "Antiseptics",
+        "subcategory_description": "Antiseptic hygiene products"
+    },
+    {
+        "subcategory_id": 10,
+        "category_id": 2,
+        "subcategory_name": "Sanitizers",
+        "subcategory_description": "Hand sanitizing products"
+    },
+    {
+        "subcategory_id": 11,
+        "category_id": 3,
+        "subcategory_name": "Laundry Detergents",
+        "subcategory_description": "Laundry washing products"
+    },
+    {
+        "subcategory_id": 12,
+        "category_id": 3,
+        "subcategory_name": "Dishwashing",
+        "subcategory_description": "Dishwashing liquids and products"
+    },
+    {
+        "subcategory_id": 13,
+        "category_id": 3,
+        "subcategory_name": "Floor Cleaners",
+        "subcategory_description": "Floor cleaning products"
+    },
+    {
+        "subcategory_id": 14,
+        "category_id": 3,
+        "subcategory_name": "Fabric Care",
+        "subcategory_description": "Fabric softening and care products"
+    },
+    {
+        "subcategory_id": 15,
+        "category_id": 3,
+        "subcategory_name": "Air Care",
+        "subcategory_description": "Air freshening products"
+    },
+    {
+        "subcategory_id": 16,
+        "category_id": 4,
+        "subcategory_name": "Condoms",
+        "subcategory_description": "Condom products"
+    },
+    {
+        "subcategory_id": 17,
+        "category_id": 4,
+        "subcategory_name": "Lubricants",
+        "subcategory_description": "Personal lubricant products"
+    },
+    {
+        "subcategory_id": 18,
+        "category_id": 4,
+        "subcategory_name": "Intimate Hygiene",
+        "subcategory_description": "Intimate hygiene products"
+    },
+    {
+        "subcategory_id": 19,
+        "category_id": 4,
+        "subcategory_name": "Personal Wellness",
+        "subcategory_description": "Personal wellness products"
+    },
+    {
+        "subcategory_id": 20,
+        "category_id": 4,
+        "subcategory_name": "Intimate Care",
+        "subcategory_description": "Intimate care products"
+    }
+]

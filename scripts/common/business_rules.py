@@ -1,9 +1,7 @@
 
 from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 
-
 MONEY_PRECISION = Decimal("0.01")
-
 
 def to_decimal(value, field_name: str, sales_key: str) -> Decimal:
     """
@@ -27,7 +25,6 @@ def to_decimal(value, field_name: str, sales_key: str) -> Decimal:
             f"Invalid {field_name} for sales key {sales_key}: {value}"
         )
 
-
 def round_money(value: Decimal) -> Decimal:
     """Round a monetary value to two decimal places."""
     return value.quantize(
@@ -37,7 +34,6 @@ def round_money(value: Decimal) -> Decimal:
 
 
 def check_sales_business_rules(records: list) -> bool:
-
     required_fields = [
     "sales_key",
     "quantity",
@@ -49,6 +45,7 @@ def check_sales_business_rules(records: list) -> bool:
     "invoice_amount",
     "profit_amount"
      ]
+    
     for record in records:
 
         if not isinstance(record, dict):

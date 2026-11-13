@@ -79,7 +79,8 @@ def main():
     save_json(
         categories,
         "categories",
-        "generated"
+        "generated",
+        "master"
     )
 
     print(
@@ -90,3 +91,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
