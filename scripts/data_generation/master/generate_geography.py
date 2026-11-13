@@ -5,7 +5,6 @@ Author : Anirudh Krishna
 
 Purpose : Generate Category Dimension data and validate it.
 """
-
 from scripts.common.constants import (
     GEOGRAPHY_MASTER,
     GEOGRAPHY_REQUIRED_FIELDS

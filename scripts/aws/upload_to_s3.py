@@ -1,120 +1,120 @@
-from pathlib import Path
-import boto3
-from botocore.exceptions import ClientError
+# from pathlib import Path
+# import boto3
+# from botocore.exceptions import ClientError
 
-BUCKET_NAME = "retail-sales-analytics2"
+# BUCKET_NAME = "retail-sales-analytics2"
 
-s3 = boto3.client("s3")
+# s3 = boto3.client("s3")
 
-def upload_latest_file(local_folder: str, s3_folder: str) -> None:
+# def upload_latest_file(local_folder: str, s3_folder: str) -> None:
 
-    folder = Path(local_folder)
+#     folder = Path(local_folder)
 
-    # Find JSON files
-    files = list(folder.glob("*.json"))
+#     # Find JSON files
+#     files = list(folder.glob("*.json"))
 
-    if not files:
-        print(f"No JSON files found in {local_folder}")
-        return
+#     if not files:
+#         print(f"No JSON files found in {local_folder}")
+#         return
 
-    # Find latest file
-    latest_file = max(
-        files,
-        key=lambda file: file.stat().st_mtime
-    )
+#     # Find latest file
+#     latest_file = max(
+#         files,
+#         key=lambda file: file.stat().st_mtime
+#     )
 
-    # S3 object path
-    s3_key = f"{s3_folder}/{latest_file.name}"
+#     # S3 object path
+#     s3_key = f"{s3_folder}/{latest_file.name}"
 
-    # Check whether file already exists
-    try:
+#     # Check whether file already exists
+#     try:
 
-        s3.head_object(
-            Bucket=BUCKET_NAME,
-            Key=s3_key
-        )
+#         s3.head_object(
+#             Bucket=BUCKET_NAME,
+#             Key=s3_key
+#         )
 
-        # If no exception, file already exists
-        print(
-            f"SKIPPED: {latest_file.name} "
-            f"already exists in S3"
-        )
+#         # If no exception, file already exists
+#         print(
+#             f"SKIPPED: {latest_file.name} "
+#             f"already exists in S3"
+#         )
 
-    except ClientError as error:
+#     except ClientError as error:
 
-        error_code = error.response["Error"]["Code"]
+#         error_code = error.response["Error"]["Code"]
 
-        if error_code == "404":
+#         if error_code == "404":
 
-            # File does not exist → upload
-            s3.upload_file(
-                str(latest_file),
-                BUCKET_NAME,
-                s3_key
-            )
+#             # File does not exist → upload
+#             s3.upload_file(
+#                 str(latest_file),
+#                 BUCKET_NAME,
+#                 s3_key
+#             )
 
-            print(
-                f"UPLOADED: {latest_file.name} "
-                f"→ s3://{BUCKET_NAME}/{s3_key}"
-            )
+#             print(
+#                 f"UPLOADED: {latest_file.name} "
+#                 f"→ s3://{BUCKET_NAME}/{s3_key}"
+#             )
 
-        else:
-            raise
+#         else:
+#             raise
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-    datasets ={
+#     datasets = {
 
-        "sales": (
-            "data/generated/sales",
-            "landing/sales"
-        ),
+#         "sales": (
+#             "data/generated/sales",
+#             "landing/sales"
+#         ),
 
-        "products":(
-            "data/generated/products",
-            "landing/products"
-        ),
+#         "products":(
+#             "data/generated/products",
+#             "landing/products"
+#         ),
 
-        "categories":(
-            "data/generated/categories",
-            "landing/categories"
-        ),
+#         "categories":(
+#             "data/generated/categories",
+#             "landing/categories"
+#         ),
 
-        "subcategories":(
-            "data/generated/subcategories",
-            "landing/subcategories"
-        ),
+#         "subcategories":(
+#             "data/generated/subcategories",
+#             "landing/subcategories"
+#         ),
 
-        "dates":(
-            "data/generated/dates",
-            "landing/dates"
-        ),
+#         "dates":(
+#             "data/generated/dates",
+#             "landing/dates"
+#         ),
 
-        "geography":(
-            "data/generated/geography",
-            "landing/geography"
-        ),
+#         "geography":(
+#             "data/generated/geography",
+#             "landing/geography"
+#         ),
 
-        "payments":(
-            "data/generated/payments",
-            "landing/payments"
-        ),
+#         "payments":(
+#             "data/generated/payments",
+#             "landing/payments"
+#         ),
 
-        "customers":(
-                    "data/generated/customers",
-                    "landing/customers"
-        )
+#         "customers":(
+#                     "data/generated/customers",
+#                     "landing/customers"
+#         )
 
-    }
+#     }
 
-    for dataset, paths in datasets.items():
+#     for dataset, paths in datasets.items():
 
-        local_folder, s3_folder = paths
+#         local_folder, s3_folder = paths
 
-        print("\n uploding dataset {dataset}")
+#         print("\n uploding dataset {dataset}")
 
-        upload_latest_file(
-            local_folder,
-            s3_folder
-        )
+#         upload_latest_file(
+#             local_folder,
+#             s3_folder
+#         )
 

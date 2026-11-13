@@ -16,7 +16,7 @@ from scripts.common.validation import (
 
 from scripts.common.file_utils import save_json
 
-from scripts.data_generation.generate_subcategories import generate_subcategories 
+from scripts.data_generation.master.generate_subcategories import generate_subcategories 
 
 from faker import Faker
 import random

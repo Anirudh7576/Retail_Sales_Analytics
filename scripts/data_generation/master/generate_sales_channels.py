@@ -35,6 +35,7 @@ from datetime import date
     # =============================================================================
     # load dimension data
     # =============================================================================
+    
 def load_dimension_data():
     customers = get_latest_json(
                 "customers",
