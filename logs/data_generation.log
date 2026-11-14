@@ -117,3 +117,31 @@ FileNotFoundError: No JSON file found for 'categories' in 'C:\Users\Anirudh Gogi
 2026-11-13 19:01:54 | INFO | fmcg_sales | Generated 100 distributor records.
 2026-11-13 19:01:54 | INFO | fmcg_sales | Distributor validation successful.
 2026-11-13 19:01:54 | INFO | fmcg_sales | Distributor generation completed successfully.
+2026-11-14 09:43:59 | INFO | fmcg_sales | Retailer generation started.
+2026-11-14 09:43:59 | INFO | fmcg_sales | Generated 20000 retailer records.
+2026-11-14 09:43:59 | INFO | fmcg_sales | Retailer validation successful.
+2026-11-14 09:43:59 | INFO | fmcg_sales | Retailer generation completed successfully.
+2026-11-14 09:48:30 | INFO | fmcg_sales | Warehouse generation started.
+2026-11-14 09:48:30 | INFO | fmcg_sales | Generated 50 warehouse records.
+2026-11-14 09:48:30 | INFO | fmcg_sales | Warehouse validation successful.
+2026-11-14 09:48:30 | INFO | fmcg_sales | Warehouse generation completed successfully.
+2026-11-14 09:57:46 | INFO | fmcg_sales | Sales channel generation started.
+2026-11-14 09:57:46 | INFO | fmcg_sales | Generated 5 sales channel records.
+2026-11-14 09:57:46 | INFO | fmcg_sales | Sales channel validation successful.
+2026-11-14 09:57:46 | INFO | fmcg_sales | Sales channel generation completed successfully.
+2026-11-14 10:04:12 | INFO | fmcg_sales | Sales channel generation started.
+2026-11-14 10:04:12 | INFO | fmcg_sales | Generated 5 sales channel records.
+2026-11-14 10:04:12 | INFO | fmcg_sales | Sales channel validation successful.
+2026-11-14 10:04:12 | INFO | fmcg_sales | Sales channel generation completed successfully.
+2026-11-14 10:05:37 | INFO | fmcg_sales | Distributor-retailer mapping generation started.
+2026-11-14 10:05:37 | INFO | fmcg_sales | Generated 25000 distributor-retailer mapping records.
+2026-11-14 10:05:38 | INFO | fmcg_sales | Distributor-retailer mapping validation successful.
+2026-11-14 10:05:38 | INFO | fmcg_sales | Distributor-retailer mapping generation completed successfully.
+2026-11-14 10:16:30 | INFO | fmcg_sales | Product generation started.
+2026-11-14 10:16:30 | INFO | fmcg_sales | Generated 300 product records.
+2026-11-14 10:16:30 | INFO | fmcg_sales | Product validation successful.
+2026-11-14 10:16:30 | INFO | fmcg_sales | Product generation completed successfully.
+2026-11-14 10:27:22 | INFO | fmcg_sales | Date dimension generation started.
+2026-11-14 10:27:22 | INFO | fmcg_sales | Generated 730 date dimension records.
+2026-11-14 10:27:22 | INFO | fmcg_sales | Date dimension validation successful.
+2026-11-14 10:27:22 | INFO | fmcg_sales | Date dimension generation completed successfully.

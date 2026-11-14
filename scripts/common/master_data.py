@@ -479,5 +479,540 @@ DISTRIBUTOR_MASTER = [
 ]
 
 # ===============================================================
+# FMCG RETAIL MASTER DATA
+# ================================================================
+
+RETAILER_TYPES = [
+    "Kirana Store",
+    "Supermarket",
+    "Pharmacy",
+    "Convenience Store",
+    "Department Store"
+]
+
+RETAILER_MASTER = [
+    {
+        "retailer_name": f"ABC Retail Outlet {i:05d}",
+        "retailer_type": RETAILER_TYPES[(i - 1) % len(RETAILER_TYPES)],
+        "geography_id": ((i - 1) % len(GEOGRAPHY_MASTER)) + 1
+    }
+    for i in range(1, 20001)
+]
+
+# =======================================================
+# FMCG WAREHOUSE MASTER DATA
+# =======================================================
+
+WAREHOUSE_MASTER = [
+    {
+        "warehouse_name": f"ABC Regional Warehouse {i:03d}",
+        "geography_id": ((i - 1) % len(GEOGRAPHY_MASTER)) + 1
+    }
+    for i in range(1, 51)
+]
+# ========================================================
+# 
+# ========================================================
+
+SALES_CHANNEL_MASTER = [
+    {
+        "sales_channel_name": "General Trade",
+        "sales_channel_description": "Traditional retail outlets such as kirana stores and independent shops"
+    },
+    {
+        "sales_channel_name": "Modern Trade",
+        "sales_channel_description": "Organized retail outlets such as supermarkets and hypermarkets"
+    },
+    {
+        "sales_channel_name": "Pharmacy",
+        "sales_channel_description": "Pharmacies and medical retail outlets"
+    },
+    {
+        "sales_channel_name": "E-commerce",
+        "sales_channel_description": "Online retail and digital commerce platforms"
+    },
+    {
+        "sales_channel_name": "Institutional",
+        "sales_channel_description": "Bulk sales to institutions and business customers"
+    }
+]
+
+# ===========================================================
+# FMCG DISTRIBUTOR_RETAILER_MAPPING_MASTER DATA
+# ===========================================================
+
+DISTRIBUTOR_RETAILER_MAPPING_MASTER = [
+    {
+        "distributor_id": ((retailer_id - 1) % len(DISTRIBUTOR_MASTER)) + 1,
+        "retailer_id": retailer_id,
+        "effective_start_date": "2026-01-01",
+        "effective_end_date": "9999-12-31"
+    }
+    for retailer_id in range(1, 20001)
+] + [
+    {
+        "distributor_id": (retailer_id % len(DISTRIBUTOR_MASTER)) + 1,
+        "retailer_id": retailer_id,
+        "effective_start_date": "2025-01-01",
+        "effective_end_date": "2025-12-31"
+    }
+    for retailer_id in range(1, 5001)
+]
+
+# =======================================================
+# 
+# =======================================================
+
+# --------------------------------------------------
+# PRODUCT PACKAGING OPTIONS
+# --------------------------------------------------
+
+PRODUCT_PACKAGING_OPTIONS = {
+    1: [
+        ("1 unit", 1.0),
+        ("2 units", 1.9),
+        ("3 units", 2.7),
+        ("5 units", 4.2),
+        ("10 units", 8.0)
+    ],
+    2: [
+        ("50 ml", 0.35),
+        ("100 ml", 0.60),
+        ("200 ml", 1.0),
+        ("500 ml", 2.1),
+        ("1 L", 3.8)
+    ],
+    3: [
+        ("10 count", 0.6),
+        ("20 count", 1.0),
+        ("30 count", 1.4),
+        ("50 count", 2.1),
+        ("100 count", 3.8)
+    ],
+    4: [
+        ("1 kit", 1.0),
+        ("2 kits", 1.9),
+        ("3 kits", 2.7),
+        ("5 kits", 4.2),
+        ("10 kits", 8.0)
+    ],
+    6: [
+        ("20 g", 0.5),
+        ("50 g", 1.0),
+        ("100 g", 1.8),
+        ("150 g", 2.5),
+        ("200 g", 3.2)
+    ],
+    7: [
+        ("5 g", 0.25),
+        ("10 g", 0.45),
+        ("20 g", 0.8),
+        ("50 g", 1.6),
+        ("100 g", 2.8)
+    ],
+    8: [
+        ("100 ml", 0.6),
+        ("150 ml", 0.85),
+        ("250 ml", 1.0),
+        ("500 ml", 1.8),
+        ("1 L", 3.0)
+    ],
+    9: [
+        ("50 g", 0.5),
+        ("100 g", 0.85),
+        ("200 g", 1.0),
+        ("500 g", 2.0),
+        ("1 kg", 3.5)
+    ],
+    10: [
+        ("50 g", 0.35),
+        ("100 g", 0.6),
+        ("200 g", 1.0),
+        ("500 g", 2.1),
+        ("1 kg", 3.7)
+    ]
+}
 
 
+# --------------------------------------------------
+# PRODUCT FAMILY DEFINITIONS
+# --------------------------------------------------
+
+# Format:
+# product family, UOM ID, base MRP, shelf life days
+
+PRODUCT_FAMILIES = {
+    # Self Care
+    1: [
+        ("Face Wash", 6, 120, 730),
+        ("Moisturizer", 9, 150, 730),
+        ("Sunscreen", 6, 250, 730)
+    ],
+    2: [
+        ("Shampoo", 2, 180, 730),
+        ("Conditioner", 2, 170, 730),
+        ("Hair Oil", 2, 120, 730)
+    ],
+    3: [
+        ("Toothpaste", 6, 90, 730),
+        ("Toothbrush", 1, 40, 1095),
+        ("Mouthwash", 2, 150, 730)
+    ],
+    4: [
+        ("Body Wash", 2, 160, 730),
+        ("Deodorant", 8, 180, 1095),
+        ("Talcum Powder", 9, 100, 1095)
+    ],
+    5: [
+        ("Baby Lotion", 2, 180, 730),
+        ("Baby Shampoo", 2, 160, 730),
+        ("Baby Wipes", 3, 90, 730)
+    ],
+
+    # Germ Protection
+    6: [
+        ("Liquid Hand Wash", 2, 110, 730),
+        ("Hand Sanitizer", 2, 90, 730),
+        ("Hand Soap", 1, 45, 1095)
+    ],
+    7: [
+        ("Surface Disinfectant", 2, 140, 730),
+        ("Multipurpose Cleaner", 2, 130, 730),
+        ("Disinfectant Spray", 8, 180, 730)
+    ],
+    8: [
+        ("Toilet Cleaner", 2, 100, 730),
+        ("Toilet Blocks", 3, 80, 1095),
+        ("Toilet Gel", 2, 120, 730)
+    ],
+    9: [
+        ("Antiseptic Liquid", 2, 110, 730),
+        ("Antiseptic Cream", 6, 75, 730),
+        ("Antiseptic Spray", 8, 130, 730)
+    ],
+    10: [
+        ("Hand Sanitizer", 2, 90, 730),
+        ("Sanitizing Wipes", 3, 80, 730),
+        ("Sanitizer Refill", 10, 100, 730)
+    ],
+
+    # Household Care
+    11: [
+        ("Detergent Powder", 10, 150, 730),
+        ("Liquid Detergent", 2, 220, 730),
+        ("Detergent Bar", 1, 35, 1095)
+    ],
+    12: [
+        ("Dishwash Liquid", 2, 120, 730),
+        ("Dishwash Bar", 1, 25, 1095),
+        ("Dishwash Gel", 2, 100, 730)
+    ],
+    13: [
+        ("Floor Cleaner", 2, 140, 730),
+        ("Floor Disinfectant", 2, 130, 730),
+        ("Concentrated Floor Cleaner", 2, 180, 730)
+    ],
+    14: [
+        ("Fabric Conditioner", 2, 160, 730),
+        ("Fabric Whitener", 2, 90, 730),
+        ("Stain Remover", 2, 130, 730)
+    ],
+    15: [
+        ("Room Freshener", 8, 180, 1095),
+        ("Air Freshener Gel", 9, 120, 730),
+        ("Air Freshener Spray", 8, 200, 1095)
+    ],
+
+    # Intimate Wellness
+    16: [
+        ("Latex Condoms", 3, 120, 1095),
+        ("Non-Latex Condoms", 3, 180, 1095),
+        ("Lubricated Condoms", 3, 150, 1095)
+    ],
+    17: [
+        ("Personal Lubricant", 6, 180, 730),
+        ("Water-Based Lubricant", 6, 160, 730),
+        ("Silicone-Based Lubricant", 2, 250, 1095)
+    ],
+    18: [
+        ("Intimate Wash", 2, 150, 730),
+        ("Intimate Wipes", 3, 100, 730),
+        ("Hygiene Spray", 8, 160, 730)
+    ],
+    19: [
+        ("Wellness Care Gel", 6, 200, 730),
+        ("Personal Care Kit", 4, 350, 1095),
+        ("Wellness Wipes", 3, 100, 730)
+    ],
+    20: [
+        ("Intimate Care Cream", 6, 180, 730),
+        ("Intimate Care Wipes", 3, 110, 730),
+        ("Intimate Care Wash", 2, 150, 730)
+    ]
+}
+
+
+# --------------------------------------------------
+# PRODUCT MASTER GENERATION
+# --------------------------------------------------
+
+
+# --------------------------------------------------
+# PRODUCT PACKAGING OPTIONS
+# --------------------------------------------------
+
+PRODUCT_PACKAGING_OPTIONS = {
+    1: [
+        ("1 unit", 1.0),
+        ("2 units", 1.9),
+        ("3 units", 2.7),
+        ("5 units", 4.2),
+        ("10 units", 8.0)
+    ],
+    2: [
+        ("50 ml", 0.35),
+        ("100 ml", 0.60),
+        ("200 ml", 1.0),
+        ("500 ml", 2.1),
+        ("1 L", 3.8)
+    ],
+    3: [
+        ("10 count", 0.6),
+        ("20 count", 1.0),
+        ("30 count", 1.4),
+        ("50 count", 2.1),
+        ("100 count", 3.8)
+    ],
+    4: [
+        ("1 kit", 1.0),
+        ("2 kits", 1.9),
+        ("3 kits", 2.7),
+        ("5 kits", 4.2),
+        ("10 kits", 8.0)
+    ],
+    6: [
+        ("20 g", 0.5),
+        ("50 g", 1.0),
+        ("100 g", 1.8),
+        ("150 g", 2.5),
+        ("200 g", 3.2)
+    ],
+    7: [
+        ("5 g", 0.25),
+        ("10 g", 0.45),
+        ("20 g", 0.8),
+        ("50 g", 1.6),
+        ("100 g", 2.8)
+    ],
+    8: [
+        ("100 ml", 0.6),
+        ("150 ml", 0.85),
+        ("250 ml", 1.0),
+        ("500 ml", 1.8),
+        ("1 L", 3.0)
+    ],
+    9: [
+        ("50 g", 0.5),
+        ("100 g", 0.85),
+        ("200 g", 1.0),
+        ("500 g", 2.0),
+        ("1 kg", 3.5)
+    ],
+    10: [
+        ("50 g", 0.35),
+        ("100 g", 0.6),
+        ("200 g", 1.0),
+        ("500 g", 2.1),
+        ("1 kg", 3.7)
+    ]
+}
+
+
+# --------------------------------------------------
+# PRODUCT FAMILY DEFINITIONS
+# --------------------------------------------------
+
+# Format:
+# product family, UOM ID, base MRP, shelf life days
+
+PRODUCT_FAMILIES = {
+    # Self Care
+    1: [
+        ("Face Wash", 6, 120, 730),
+        ("Moisturizer", 9, 150, 730),
+        ("Sunscreen", 6, 250, 730)
+    ],
+    2: [
+        ("Shampoo", 2, 180, 730),
+        ("Conditioner", 2, 170, 730),
+        ("Hair Oil", 2, 120, 730)
+    ],
+    3: [
+        ("Toothpaste", 6, 90, 730),
+        ("Toothbrush", 1, 40, 1095),
+        ("Mouthwash", 2, 150, 730)
+    ],
+    4: [
+        ("Body Wash", 2, 160, 730),
+        ("Deodorant", 8, 180, 1095),
+        ("Talcum Powder", 9, 100, 1095)
+    ],
+    5: [
+        ("Baby Lotion", 2, 180, 730),
+        ("Baby Shampoo", 2, 160, 730),
+        ("Baby Wipes", 3, 90, 730)
+    ],
+
+    # Germ Protection
+    6: [
+        ("Liquid Hand Wash", 2, 110, 730),
+        ("Hand Sanitizer", 2, 90, 730),
+        ("Hand Soap", 1, 45, 1095)
+    ],
+    7: [
+        ("Surface Disinfectant", 2, 140, 730),
+        ("Multipurpose Cleaner", 2, 130, 730),
+        ("Disinfectant Spray", 8, 180, 730)
+    ],
+    8: [
+        ("Toilet Cleaner", 2, 100, 730),
+        ("Toilet Blocks", 3, 80, 1095),
+        ("Toilet Gel", 2, 120, 730)
+    ],
+    9: [
+        ("Antiseptic Liquid", 2, 110, 730),
+        ("Antiseptic Cream", 6, 75, 730),
+        ("Antiseptic Spray", 8, 130, 730)
+    ],
+    10: [
+        ("Hand Sanitizer", 2, 90, 730),
+        ("Sanitizing Wipes", 3, 80, 730),
+        ("Sanitizer Refill", 10, 100, 730)
+    ],
+
+    # Household Care
+    11: [
+        ("Detergent Powder", 10, 150, 730),
+        ("Liquid Detergent", 2, 220, 730),
+        ("Detergent Bar", 1, 35, 1095)
+    ],
+    12: [
+        ("Dishwash Liquid", 2, 120, 730),
+        ("Dishwash Bar", 1, 25, 1095),
+        ("Dishwash Gel", 2, 100, 730)
+    ],
+    13: [
+        ("Floor Cleaner", 2, 140, 730),
+        ("Floor Disinfectant", 2, 130, 730),
+        ("Concentrated Floor Cleaner", 2, 180, 730)
+    ],
+    14: [
+        ("Fabric Conditioner", 2, 160, 730),
+        ("Fabric Whitener", 2, 90, 730),
+        ("Stain Remover", 2, 130, 730)
+    ],
+    15: [
+        ("Room Freshener", 8, 180, 1095),
+        ("Air Freshener Gel", 9, 120, 730),
+        ("Air Freshener Spray", 8, 200, 1095)
+    ],
+
+    # Intimate Wellness
+    16: [
+        ("Latex Condoms", 3, 120, 1095),
+        ("Non-Latex Condoms", 3, 180, 1095),
+        ("Lubricated Condoms", 3, 150, 1095)
+    ],
+    17: [
+        ("Personal Lubricant", 6, 180, 730),
+        ("Water-Based Lubricant", 6, 160, 730),
+        ("Silicone-Based Lubricant", 2, 250, 1095)
+    ],
+    18: [
+        ("Intimate Wash", 2, 150, 730),
+        ("Intimate Wipes", 3, 100, 730),
+        ("Hygiene Spray", 8, 160, 730)
+    ],
+    19: [
+        ("Wellness Care Gel", 6, 200, 730),
+        ("Personal Care Kit", 4, 350, 1095),
+        ("Wellness Wipes", 3, 100, 730)
+    ],
+    20: [
+        ("Intimate Care Cream", 6, 180, 730),
+        ("Intimate Care Wipes", 3, 110, 730),
+        ("Intimate Care Wash", 2, 150, 730)
+    ]
+}
+
+
+# --------------------------------------------------
+# PRODUCT MASTER GENERATION
+# --------------------------------------------------
+
+def build_product_master() -> list:
+    products = []
+
+    brand_count = len(BRAND_MASTER)
+
+    if brand_count == 0:
+        raise ValueError("BRAND_MASTER cannot be empty.")
+
+    for subcategory_id, families in PRODUCT_FAMILIES.items():
+
+        for family_number, family in enumerate(
+            families, start=1
+        ):
+            product_family, uom_id, base_mrp, shelf_life_days = family
+
+            if uom_id not in PRODUCT_PACKAGING_OPTIONS:
+                raise ValueError(
+                    f"Packaging options not defined for UOM ID {uom_id}"
+                )
+
+            packaging_options = PRODUCT_PACKAGING_OPTIONS[uom_id]
+
+            for pack_number, (pack_size, multiplier) in enumerate(
+                packaging_options, start=1
+            ):
+
+                product_number = len(products) + 1
+
+                brand_id = (
+                    (product_number - 1) % brand_count
+                ) + 1
+
+                brand_name = BRAND_MASTER[brand_id - 1]["brand_name"]
+
+                mrp = round(base_mrp * multiplier, 2)
+
+                standard_cost = round(mrp * 0.65, 2)
+
+                product_record = {
+                    "subcategory_id": subcategory_id,
+                    "brand_id": brand_id,
+                    "product_name": (
+                        f"{brand_name} {product_family} {pack_size}"
+                    ),
+                    "sku": (
+                        f"FMCG-{subcategory_id:02d}-"
+                        f"{family_number:02d}-{pack_number:02d}"
+                    ),
+                    "uom_id": uom_id,
+                    "mrp": mrp,
+                    "standard_cost": standard_cost,
+                    "shelf_life_days": shelf_life_days
+                }
+
+                products.append(product_record)
+
+    return products
+
+
+PRODUCT_MASTER = build_product_master()
+
+if len(PRODUCT_MASTER) != 300:
+    raise ValueError(
+        f"Expected 300 products, generated {len(PRODUCT_MASTER)}"
+    )
+# ============================================================

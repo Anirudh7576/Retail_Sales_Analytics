@@ -1,0 +1,27 @@
+[
+    {
+        "sales_channel_id": 1,
+        "sales_channel_name": "General Trade",
+        "sales_channel_description": "Traditional retail outlets such as kirana stores and independent shops"
+    },
+    {
+        "sales_channel_id": 2,
+        "sales_channel_name": "Modern Trade",
+        "sales_channel_description": "Organized retail outlets such as supermarkets and hypermarkets"
+    },
+    {
+        "sales_channel_id": 3,
+        "sales_channel_name": "Pharmacy",
+        "sales_channel_description": "Pharmacies and medical retail outlets"
+    },
+    {
+        "sales_channel_id": 4,
+        "sales_channel_name": "E-commerce",
+        "sales_channel_description": "Online retail and digital commerce platforms"
+    },
+    {
+        "sales_channel_id": 5,
+        "sales_channel_name": "Institutional",
+        "sales_channel_description": "Bulk sales to institutions and business customers"
+    }
+]

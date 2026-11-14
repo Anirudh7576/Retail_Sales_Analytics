@@ -110,7 +110,8 @@ WAREHOUSE_REQUIRED_FIELDS = [
 
 SALES_CHANNEL_REQUIRED_FIELDS = [
     "sales_channel_id",
-    "sales_channel_name"
+    "sales_channel_name",
+    "sales_channel_description"
 ]
 
 DISTRIBUTOR_RETAILER_MAPPING_REQUIRED_FIELDS = [
@@ -120,7 +121,6 @@ DISTRIBUTOR_RETAILER_MAPPING_REQUIRED_FIELDS = [
     "effective_start_date",
     "effective_end_date"
 ]
-
 
 # ============================================================
 # DATE DIMENSION REQUIRED FIELDS
@@ -167,7 +167,8 @@ FACT_SALES_REQUIRED_FIELDS = [
     "profit_amount"
 ]
 
-
+DATE_START = "2025-01-01"
+DATE_END = "2026-12-31"
 # ============================================================
 # FACT ORDERS REQUIRED FIELDS
 # ============================================================
