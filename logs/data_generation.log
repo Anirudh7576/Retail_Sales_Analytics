@@ -145,3 +145,157 @@ FileNotFoundError: No JSON file found for 'categories' in 'C:\Users\Anirudh Gogi
 2026-11-14 10:27:22 | INFO | fmcg_sales | Generated 730 date dimension records.
 2026-11-14 10:27:22 | INFO | fmcg_sales | Date dimension validation successful.
 2026-11-14 10:27:22 | INFO | fmcg_sales | Date dimension generation completed successfully.
+2026-11-14 10:51:38 | INFO | fmcg_sales | Packaging type generation started.
+2026-11-14 10:51:38 | INFO | fmcg_sales | Generated 8 packaging type records.
+2026-11-14 10:51:38 | INFO | fmcg_sales | Packaging type validation successful.
+2026-11-14 10:51:38 | INFO | fmcg_sales | Packaging type generation completed successfully.
+2026-11-14 10:53:24 | INFO | fmcg_sales | UOM generation started.
+2026-11-14 10:53:24 | INFO | fmcg_sales | Generated 6 UOM records.
+2026-11-14 10:53:24 | INFO | fmcg_sales | UOM validation successful.
+2026-11-14 10:53:24 | INFO | fmcg_sales | UOM generation completed successfully.
+2026-11-14 11:14:42 | INFO | fmcg_sales | Product generation started.
+2026-11-14 11:14:42 | INFO | fmcg_sales | Generated 300 product records.
+2026-11-14 11:14:42 | INFO | fmcg_sales | Product validation successful.
+2026-11-14 11:14:42 | INFO | fmcg_sales | Product generation completed successfully.
+2026-11-14 11:55:30 | INFO | fmcg_sales | Product generation started.
+2026-11-14 11:55:30 | ERROR | fmcg_sales | Product generation failed.
+Traceback (most recent call last):
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 206, in main
+    products = generate_products()
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 26, in generate_products
+    products = build_product_master()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\common\master_data.py", line 1087, in build_product_master
+    for brand_id in BRAND_IDS:
+                    ^^^^^^^^^
+NameError: name 'BRAND_IDS' is not defined
+2026-11-14 11:59:44 | INFO | fmcg_sales | Product generation started.
+2026-11-14 11:59:44 | ERROR | fmcg_sales | Product generation failed.
+Traceback (most recent call last):
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 206, in main
+    products = generate_products()
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 26, in generate_products
+    products = build_product_master()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\common\master_data.py", line 1084, in build_product_master
+    raise ValueError(
+ValueError: UOM mismatch for Hand Soap: family UOM=1, profile UOM=3
+2026-11-14 12:04:42 | INFO | fmcg_sales | Product generation started.
+2026-11-14 12:04:42 | ERROR | fmcg_sales | Product generation failed.
+Traceback (most recent call last):
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 206, in main
+    products = generate_products()
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 26, in generate_products
+    products = build_product_master()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\common\master_data.py", line 1128, in build_product_master
+    raise ValueError(
+ValueError: Expected 300 products, generated 1200
+2026-11-14 12:07:59 | INFO | fmcg_sales | Product generation started.
+2026-11-14 12:07:59 | INFO | fmcg_sales | Generated 1200 product records.
+2026-11-14 12:07:59 | ERROR | fmcg_sales | Product generation failed.
+Traceback (most recent call last):
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 214, in main
+    validate_products(
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 122, in validate_products
+    check_unique(products, "product_name")
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\common\validation.py", line 97, in check_unique
+    raise ValueError(
+ValueError: Duplicate value found for 'product_name': PureShield Hand Sanitizer 100 ML bottle
+2026-11-14 12:29:36 | INFO | fmcg_sales | Product generation started.
+2026-11-14 12:29:36 | ERROR | fmcg_sales | Product generation failed.
+Traceback (most recent call last):
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 211, in main
+    products = generate_products()
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 30, in generate_products
+    validate_product_family_profiles()
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\common\master_data.py", line 939, in validate_product_family_profiles
+    raise ValueError(
+ValueError: Unused product family mappings: {'Sanitizing Hand Gel'}
+2026-11-14 12:35:05 | INFO | fmcg_sales | Product generation started.
+2026-11-14 12:35:05 | INFO | fmcg_sales | Generated 1200 product records.
+2026-11-14 12:35:05 | ERROR | fmcg_sales | Product generation failed.
+Traceback (most recent call last):
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 219, in main
+    validate_products(
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 174, in validate_products
+    raise ValueError(
+ValueError: Expected 300 products, generated 1200
+2026-11-14 12:39:35 | INFO | fmcg_sales | Product generation started.
+2026-11-14 12:39:35 | INFO | fmcg_sales | Generated 1200 product records.
+2026-11-14 12:39:35 | INFO | fmcg_sales | Product validation successful.
+2026-11-14 12:39:35 | INFO | fmcg_sales | Product generation completed successfully.
+2026-11-15 11:01:42 | INFO | fmcg_sales | Product generation started.
+2026-11-15 11:01:42 | ERROR | fmcg_sales | Product generation failed.
+Traceback (most recent call last):
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 213, in main
+    products = generate_products()
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 32, in generate_products
+    validate_product_family_profiles()
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\common\master_data.py", line 952, in validate_product_family_profiles
+    raise ValueError(
+ValueError: Missing packaging profiles: {'Personal Care Kit'}
+2026-11-15 11:09:31 | INFO | fmcg_sales | Product generation started.
+2026-11-15 11:09:31 | ERROR | fmcg_sales | Product generation failed.
+Traceback (most recent call last):
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 213, in main
+    products = generate_products()
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 33, in generate_products
+    products = build_product_master()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\common\master_data.py", line 1158, in build_product_master
+    profile = PRODUCT_PACKAGING_PROFILES[profile_key]
+              ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+KeyError: 'EA_KIT'
+2026-11-15 11:10:37 | INFO | fmcg_sales | Product generation started.
+2026-11-15 11:10:37 | INFO | fmcg_sales | Generated 1200 product records.
+2026-11-15 11:10:37 | INFO | fmcg_sales | Product validation successful.
+2026-11-15 11:10:37 | INFO | fmcg_sales | Product generation completed successfully.
+2026-11-15 11:30:09 | INFO | fmcg_sales | Product generation started.
+2026-11-15 11:30:09 | INFO | fmcg_sales | Generated 525 product records.
+2026-11-15 11:30:09 | ERROR | fmcg_sales | Product generation failed.
+Traceback (most recent call last):
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 221, in main
+    validate_products(
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 175, in validate_products
+    raise ValueError(
+ValueError: Expected 1200 products, generated 525
+2026-11-15 11:32:28 | INFO | fmcg_sales | Product generation started.
+2026-11-15 11:32:28 | INFO | fmcg_sales | Generated 525 product records.
+2026-11-15 11:32:28 | INFO | fmcg_sales | Product validation successful.
+2026-11-15 11:32:28 | INFO | fmcg_sales | Product generation completed successfully.
+2026-11-15 11:33:13 | INFO | fmcg_sales | Product generation started.
+2026-11-15 11:33:13 | INFO | fmcg_sales | Generated 525 product records.
+2026-11-15 11:33:13 | INFO | fmcg_sales | Product validation successful.
+2026-11-15 11:33:13 | INFO | fmcg_sales | Product generation completed successfully.
+2026-11-15 11:58:51 | INFO | fmcg_sales | Product generation started.
+2026-11-15 11:58:51 | INFO | fmcg_sales | Generated 525 product records.
+2026-11-15 11:58:51 | INFO | fmcg_sales | Product validation successful.
+2026-11-15 11:58:51 | INFO | fmcg_sales | Product generation completed successfully.
+2026-11-15 12:22:53 | INFO | fmcg_sales | Product generation started.
+2026-11-15 12:22:53 | ERROR | fmcg_sales | Product generation failed.
+Traceback (most recent call last):
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 213, in main
+    products = generate_products()
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 32, in generate_products
+    validate_product_family_profiles()
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\common\master_data.py", line 1001, in validate_product_family_profiles
+    raise ValueError(
+ValueError: Unknown packaging profile: G_JAR
+2026-11-15 12:27:12 | INFO | fmcg_sales | Product generation started.
+2026-11-15 12:27:12 | INFO | fmcg_sales | Generated 525 product records.
+2026-11-15 12:27:12 | INFO | fmcg_sales | Product validation successful.
+2026-11-15 12:27:12 | INFO | fmcg_sales | Product generation completed successfully.
+2026-11-15 12:57:45 | INFO | fmcg_sales | Product generation started.
+2026-11-15 12:57:45 | INFO | fmcg_sales | Generated 525 product records.
+2026-11-15 13:06:43 | INFO | fmcg_sales | Product generation started.
+2026-11-15 13:06:43 | INFO | fmcg_sales | Generated 525 product records.
+2026-11-15 13:06:43 | INFO | fmcg_sales | Product validation successful.
+2026-11-15 13:06:43 | INFO | fmcg_sales | Product generation completed successfully.

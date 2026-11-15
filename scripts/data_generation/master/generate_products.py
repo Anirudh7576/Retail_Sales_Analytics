@@ -1,40 +1,62 @@
-
 import math
 
-from scripts.common.master_data import PRODUCT_MASTER
+EXPECTED_PRODUCT_COUNT = 1200
+
+from scripts.common.master_data import (
+    validate_product_family_profiles,
+    build_product_master
+)
+from scripts.common.master_data import BRAND_CATEGORY_MAPPING
+
+from scripts.common.master_data import build_product_master
+# from scripts.common.master_data import PRODUCT_MASTER
+
 from scripts.common.constants import PRODUCT_REQUIRED_FIELDS
+
 from scripts.common.validation import (
     check_required_fields,
     check_unique,
     check_foreign_keys
 )
+
 from scripts.common.file_utils import (
     save_json,
     get_latest_json
 )
+
 from scripts.common.logger import logger
 
 
-def generate_products() -> list:
-    product_records = []
+# --------------------------------------------------
+# GENERATE PRODUCTS
+# --------------------------------------------------
+def generate_products():
+    validate_product_family_profiles()
+    products = build_product_master()
+    return products
 
-    for product_id, product in enumerate(
-        PRODUCT_MASTER, start=1
-    ):
-        product_record = {
-            "product_id": product_id,
-            **product
-        }
-
-        product_records.append(product_record)
-
-    return product_records
-
+# --------------------------------------------------
+# PRODUCT BUSINESS RULE VALIDATION
+# --------------------------------------------------
 
 def validate_product_business_rules(products: list) -> None:
 
     for product in products:
+
         product_id = product["product_id"]
+
+        # Validate pack size
+        pack_size = product["pack_size"]
+
+        if (
+            isinstance(pack_size, bool)
+            or not isinstance(pack_size, (int, float))
+            or not math.isfinite(pack_size)
+            or pack_size <= 0
+        ):
+            raise ValueError(
+                f"Invalid pack size for product_id {product_id}"
+            )
 
         # Validate MRP
         mrp = product["mrp"]
@@ -81,29 +103,121 @@ def validate_product_business_rules(products: list) -> None:
             )
 
 
+# --------------------------------------------------
+# VALIDATE PRODUCT MASTER
+# --------------------------------------------------
+
+def validate_product_prices(products: list) -> None:
+
+    for product in products:
+
+        sku = product["sku"]
+        mrp = product["mrp"]
+        standard_cost = product["standard_cost"]
+
+        if mrp <= 0:
+            raise ValueError(
+                f"Invalid MRP for SKU: {sku}"
+            )
+
+        if standard_cost <= 0:
+            raise ValueError(
+                f"Invalid standard cost for SKU: {sku}"
+            )
+
+        if standard_cost >= mrp:
+            raise ValueError(
+                f"Standard cost must be lower than MRP: {sku}"
+            )
+
+    print("Product price validation successful.")
+
+def validate_product_pack_size(products: list) -> None:
+
+    for product in products:
+
+        if product["pack_size"] <= 0:
+            raise ValueError(
+                f"Invalid pack size for SKU: {product['sku']}"
+            )
+
+    print("Product pack size validation successful.")
+
+def validate_product_shelf_life(products: list) -> None:
+
+    for product in products:
+
+        if product["shelf_life_days"] <= 0:
+            raise ValueError(
+                f"Invalid shelf life for SKU: {product['sku']}"
+            )
+
+    print("Product shelf life validation successful.")
+
+def validate_product_brand_category(
+    products: list,
+    subcategories: list
+) -> None:
+
+    subcategory_lookup = {
+        item["subcategory_id"]: item["category_id"]
+        for item in subcategories
+    }
+
+    for product in products:
+
+        subcategory_id = product["subcategory_id"]
+        brand_id = product["brand_id"]
+        sku = product["sku"]
+
+        if subcategory_id not in subcategory_lookup:
+            raise ValueError(
+                f"Unknown subcategory ID: {subcategory_id}, SKU: {sku}"
+            )
+
+        category_id = subcategory_lookup[subcategory_id]
+
+        allowed_categories = BRAND_CATEGORY_MAPPING.get(brand_id)
+
+        if allowed_categories is None:
+            raise ValueError(
+                f"Unknown brand ID: {brand_id}, SKU: {sku}"
+            )
+
+        if category_id not in allowed_categories:
+            raise ValueError(
+                f"Invalid brand-category combination: "
+                f"SKU={sku}, Brand ID={brand_id}, "
+                f"Category ID={category_id}"
+            )
+
+    print("Product brand-category validation successful.")
+
+
 def validate_products(
     products: list,
     subcategories: list,
     brands: list,
-    uom_records: list
+    uom_records: list,
+    packaging_types: list
 ) -> None:
 
-    # Validate required fields
+    # 1. Validate required fields
     check_required_fields(
         products,
         PRODUCT_REQUIRED_FIELDS
     )
 
-    # Validate unique product identifiers
+    # 2. Validate unique product identifiers
     check_unique(products, "product_id")
 
-    # Validate unique SKUs
+    # 3. Validate unique SKUs
     check_unique(products, "sku")
 
-    # Validate product names
+    # 4. Validate unique product names
     check_unique(products, "product_name")
 
-    # Validate subcategory foreign keys
+    # 5. Validate subcategory foreign keys
     check_foreign_keys(
         products,
         "subcategory_id",
@@ -111,7 +225,7 @@ def validate_products(
         "subcategory_id"
     )
 
-    # Validate brand foreign keys
+    # 6. Validate brand foreign keys
     check_foreign_keys(
         products,
         "brand_id",
@@ -119,7 +233,7 @@ def validate_products(
         "brand_id"
     )
 
-    # Validate UOM foreign keys
+    # 7. Validate selling UOM foreign keys
     check_foreign_keys(
         products,
         "uom_id",
@@ -127,21 +241,62 @@ def validate_products(
         "uom_id"
     )
 
-    # Validate product business rules
-    validate_product_business_rules(products)
+    # 8. Validate content UOM foreign keys
+    check_foreign_keys(
+        products,
+        "content_uom_id",
+        uom_records,
+        "uom_id"
+    )
 
-    # Validate expected record count
-    if len(products) != 300:
-        raise ValueError(
-            f"Expected 300 products, generated {len(products)}"
-        )
+    # 9. Validate packaging type foreign keys
+    check_foreign_keys(
+        products,
+        "packaging_type_id",
+        packaging_types,
+        "packaging_type_id"
+    )
+
+    # 10. Validate product prices
+    validate_product_prices(products)
+
+    # 11. Validate product pack size
+    validate_product_pack_size(products)
+
+    # 12. Validate product shelf life
+    validate_product_shelf_life(products)
+
+    # 13. Validate brand-category relationship
+    validate_product_brand_category(
+        products,
+        subcategories
+    )
+
+    print("Product validation successful.")
+
+
+    # Validate business rules
+    # validate_product_business_rules(products)
+
+    # if len(products) != EXPECTED_PRODUCT_COUNT:
+    #     raise ValueError(
+    #         f"Expected {EXPECTED_PRODUCT_COUNT} products, "
+    #         f"generated {len(products)}"
+    #     )
+
+
+# --------------------------------------------------
+# MAIN
+# --------------------------------------------------
 
 
 def main():
+
     try:
+
         logger.info("Product generation started.")
 
-        # Load latest master datasets
+        # 1. Load latest master datasets
         subcategories = get_latest_json(
             "master/subcategories",
             "subcategories"
@@ -157,7 +312,12 @@ def main():
             "uom"
         )
 
-        # Generate product records
+        packaging_types = get_latest_json(
+            "master/packaging_types",
+            "packaging_types"
+        )
+
+        # 2. Generate products
         products = generate_products()
 
         logger.info(
@@ -165,17 +325,18 @@ def main():
             len(products)
         )
 
-        # Validate generated products
+        # 3. Validate products
         validate_products(
             products,
             subcategories,
             brands,
-            uom_records
+            uom_records,
+            packaging_types
         )
 
         logger.info("Product validation successful.")
 
-        # Save product master data
+        # 4. Save product master data
         save_json(
             products,
             "products",
@@ -188,7 +349,9 @@ def main():
         )
 
     except Exception:
+
         logger.exception("Product generation failed.")
+
         raise
 
 

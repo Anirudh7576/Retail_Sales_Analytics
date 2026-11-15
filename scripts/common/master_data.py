@@ -17,7 +17,7 @@ CATEGORY_MASTER = [
         "category_description": "Household cleaning and maintenance products"
     },
     {
-        "category_name": "Intimate Wellness",
+        "category_name": "Personal Hygiene",
         "category_description": "Products for intimate health and wellness"
     }
 ]
@@ -110,68 +110,227 @@ SUBCATEGORY_MASTER = [
 
     # Intimate Wellness
     {
-        "category_name": "Intimate Wellness",
-        "subcategory_name": "Condoms",
-        "subcategory_description": "Condom products"
+        "category_name": "Personal Hygiene",
+        "subcategory_name": "Protective Hygiene",
+        "subcategory_description": "Personal protective and hygiene products including gloves, face masks and hygiene kits"
     },
     {
-        "category_name": "Intimate Wellness",
-        "subcategory_name": "Lubricants",
-        "subcategory_description": "Personal lubricant products"
+        "category_name": "Personal Hygiene",
+        "subcategory_name": "Skin Moisturizing Care",
+        "subcategory_description": "Skin moisturizing and hydration products including lotions and skin care gels"
     },
     {
-        "category_name": "Intimate Wellness",
-        "subcategory_name": "Intimate Hygiene",
-        "subcategory_description": "Intimate hygiene products"
+        "category_name": "Personal Hygiene",
+        "subcategory_name": "Body Hygiene",
+        "subcategory_description": "Body cleansing, personal hygiene wipes and body freshening products"
     },
     {
-        "category_name": "Intimate Wellness",
-        "subcategory_name": "Personal Wellness",
-        "subcategory_description": "Personal wellness products"
+        "category_name": "Personal Hygiene",
+        "subcategory_name": "Personal Care Essentials",
+        "subcategory_description": "Everyday personal care products including aloe vera gel, care kits and hygiene wipes"
     },
     {
-        "category_name": "Intimate Wellness",
-        "subcategory_name": "Intimate Care",
-        "subcategory_description": "Intimate care products"
+        "category_name": "Personal Hygiene",
+        "subcategory_name": "Gentle Skin Care",
+        "subcategory_description": "Gentle skin cleansing and care products including creams, wipes and cleansing washes"
     }
 ]
+
+
+# ============================================================
+# Map each brand to the categories it is allowed to sell.
+BRAND_CATEGORY_MAPPING = {
+    1: {2, 4},       # PureShield: Germ Protection, Personal Hygiene
+    2: {3},          # FreshNest: Household Care
+    3: {1, 4},       # CarePlus: Self Care, Personal Hygiene
+    4: {1, 4},       # WellSpring: Self Care, Personal Hygiene
+}
+
+# Map each subcategory to its parent category.
+SUBCATEGORY_CATEGORY_MAPPING = {
+    1: 1, 2: 1, 3: 1, 4: 1, 5: 1,
+    6: 2, 7: 2, 8: 2, 9: 2, 10: 2,
+    11: 3, 12: 3, 13: 3, 14: 3, 15: 3,
+    16: 4, 17: 4, 18: 4, 19: 4, 20: 4,
+}
 
 # ============================================================
 # FMCG BRAND MASTER DATA
 # ============================================================
+
 BRAND_MASTER = [
-    {
+    {   
+        "brand_id" :1,
         "brand_name": "PureShield",
         "brand_description": "Personal hygiene and protection products"
     },
-    {
+    {   
+        "brand_id" : 2,
         "brand_name": "FreshNest",
         "brand_description": "Household cleaning and care products"
     },
     {
+        "brand_id": 3,
         "brand_name": "CarePlus",
         "brand_description": "Personal care and wellness products"
     },
     {
+        "brand_id": 4,
         "brand_name": "WellSpring",
         "brand_description": "Health and personal wellness products"
     }
 ]
+
+BRAND_LOOKUP = {
+    brand_id: brand["brand_name"]
+    for brand_id, brand in enumerate(BRAND_MASTER, start=1)
+}
+
+# print("Brand-category mapping:")
+# for brand_id, category_ids in BRAND_CATEGORY_MAPPING.items():
+#     print(brand_id, BRAND_LOOKUP[brand_id], category_ids)
+
+# assert len(SUBCATEGORY_MASTER) == 20
+
+# assert len({
+#     item["subcategory_id"] for item in SUBCATEGORY_MASTER
+# }) == 20
+
+# assert all(
+#     item["category_id"] in CATEGORY_MASTER
+#     for item in SUBCATEGORY_MASTER
+# )
+
+# print("Subcategory master validation successful.")
 # =======================================================================
 # FMCG UOM MASTER DATA
 # =======================================================================
+
 UOM_MASTER = [
-    {"uom_name": "Each", "uom_description": "Individual product unit"},
-    {"uom_name": "Bottle", "uom_description": "Bottle packaging"},
-    {"uom_name": "Pack", "uom_description": "Multi-unit product pack"},
-    {"uom_name": "Box", "uom_description": "Box packaging"},
-    {"uom_name": "Carton", "uom_description": "Bulk carton packaging"},
-    {"uom_name": "Tube", "uom_description": "Tube packaging"},
-    {"uom_name": "Sachet", "uom_description": "Single-use sachet packaging"},
-    {"uom_name": "Can", "uom_description": "Can packaging"},
-    {"uom_name": "Jar", "uom_description": "Jar packaging"},
-    {"uom_name": "Pouch", "uom_description": "Pouch packaging"}
+    {
+        "uom_id"  : 1,
+        "uom_code": "EA",
+        "uom_name": "Each",
+        "uom_description": "Individual sellable product unit"
+    },
+    { 
+        "uom_id" : 2,
+        "uom_code": "CASE",
+        "uom_name": "Case",
+        "uom_description": "Multiple individual units grouped into a case"
+    },
+    {
+        "uom_id" : 3,
+        "uom_code": "G",
+        "uom_name": "Gram",
+        "uom_description": "Unit of mass"
+    },
+    {
+        "uom_id" : 4,
+        "uom_code": "KG",
+        "uom_name": "Kilogram",
+        "uom_description": "Unit of mass equal to 1000 grams"
+    },
+    {
+        "uom_id" : 5,
+        "uom_code": "ML",
+        "uom_name": "Millilitre",
+        "uom_description": "Unit of liquid volume"
+    },
+    {
+        "uom_id": 6,
+        "uom_code": "L",
+        "uom_name": "Litre",
+        "uom_description": "Unit of liquid volume equal to 1000 millilitres"
+    }
 ]
+
+UOM_LOOKUP = {
+    uom_id: uom["uom_code"]
+    for uom_id, uom in enumerate(UOM_MASTER, start=1)
+}
+
+# =====================================================================
+# FMCG PRODUCT BUILDER DATA
+# =====================================================================
+
+def build_product_master():
+    products = []
+    product_id = 1
+
+    for subcategory_id, families in PRODUCT_FAMILIES.items():
+        for product_family, content_uom_id, base_mrp, shelf_life_days in families:
+
+            profile_key = PRODUCT_FAMILY_PACKAGING_PROFILE[product_family]
+            profile = PRODUCT_PACKAGING_PROFILES[profile_key]
+
+            if content_uom_id != profile["content_uom_id"]:
+                raise ValueError(
+                    f"UOM mismatch for {product_family}: "
+                    f"family UOM={content_uom_id}, "
+                    f"profile UOM={profile['content_uom_id']}"
+                )
+
+            for brand_id, brand_name in BRAND_LOOKUP.items():
+
+                for pack_size, packaging_type_id, pack_label, price_factor in profile["options"]:
+
+                    mrp = round(base_mrp * price_factor, 2)
+                    standard_cost = round(mrp * 0.65, 2)
+
+                    
+                    if content_uom_id == 1:
+                        product_name = (
+                            f"{brand_name} {product_family} "
+                            f"{pack_size} count {pack_label}"
+                        )
+                    else:
+                        product_name = (
+                            f"{brand_name} {product_family} {pack_size} "
+                            f"{UOM_LOOKUP[content_uom_id]} {pack_label}"
+                        )
+
+
+                    product = {
+                        "product_id": product_id,
+                        "subcategory_id": subcategory_id,
+                        "brand_id": brand_id,
+                        "product_name": product_name,
+                        "sku": f"FMCG-{product_id:04d}",
+                        "uom_id": 1,
+                        "packaging_type_id": packaging_type_id,
+                        "pack_size": pack_size,
+                        "content_uom_id": content_uom_id,
+                        "mrp": mrp,
+                        "standard_cost": standard_cost,
+                        "shelf_life_days": shelf_life_days,
+                    }
+
+                    products.append(product)
+                    product_id += 1
+
+    if len(products) != 300:
+        raise ValueError(
+            f"Expected 300 products, generated {len(products)}"
+        )
+
+    return products
+
+# ======================================================================
+# FMCG PACKAGING_TYPE_MASTER DATA
+# ======================================================================
+
+PACKAGING_TYPE_MASTER = [
+    {"packaging_type_name": "Bottle"},
+    {"packaging_type_name": "Tube"},
+    {"packaging_type_name": "Sachet"},
+    {"packaging_type_name": "Pouch"},
+    {"packaging_type_name": "Jar"},
+    {"packaging_type_name": "Can"},
+    {"packaging_type_name": "Box"},
+    {"packaging_type_name": "Carton"}
+]
+
 # ========================================================================
 # FMCG GEOGRAPHY MASTER DATA
 # ========================================================================
@@ -511,7 +670,7 @@ WAREHOUSE_MASTER = [
     for i in range(1, 51)
 ]
 # ========================================================
-# 
+# FMCG SALES_CHANNEL_MASTER DATA
 # ========================================================
 
 SALES_CHANNEL_MASTER = [
@@ -560,459 +719,581 @@ DISTRIBUTOR_RETAILER_MAPPING_MASTER = [
 ]
 
 # =======================================================
-# 
+#  FMCG PRODUCT MASTER DATA
 # =======================================================
 
+PRODUCT_PACKAGING_PROFILES = {
+    "G_TUBE_SACHET": {
+        "content_uom_id": 3,
+        "options": [
+            (20, 3, "sachet", 0.35),
+            (50, 2, "tube", 0.72),
+            (100, 2, "tube", 1.00),
+            (150, 2, "tube", 1.35),
+            (200, 2, "tube", 1.65),
+        ],
+    },
+
+    "G_TUBE": {
+        "content_uom_id": 3,
+        "options": [
+            (20, 2, "tube", 0.35),
+            (30, 2, "tube", 0.48),
+            (50, 2, "tube", 0.72),
+            (100, 2, "tube", 1.00),
+            (150, 2, "tube", 1.35),
+        ],
+    },
+
+    "G_POWDER": {
+        "content_uom_id": 3,
+        "options": [
+            (50, 4, "pouch", 0.45),
+            (100, 4, "pouch", 0.70),
+            (200, 4, "pouch", 1.00),
+            (400, 5, "jar", 1.70),
+            (500, 5, "jar", 2.00),
+        ],
+    },
+
+    "G_DETERGENT": {
+        "content_uom_id": 3,
+        "options": [
+            (500, 4, "pouch", 0.65),
+            (1000, 4, "pouch", 1.00),
+            (2000, 4, "pouch", 1.75),
+            (3000, 8, "carton", 2.40),
+            (5000, 8, "carton", 3.60),
+        ],
+    },
+
+    "G_BAR": {
+        "content_uom_id": 3,
+        "options": [
+            (75, 7, "box", 0.80),
+            (100, 7, "box", 1.00),
+            (125, 7, "box", 1.20),
+            (150, 7, "box", 1.40),
+            (200, 7, "box", 1.75),
+        ],
+    },
+
+    "ML_BOTTLE": {
+        "content_uom_id": 5,
+        "options": [
+            (100, 1, "bottle", 0.65),
+            (200, 1, "bottle", 1.00),
+            (250, 1, "bottle", 1.20),
+            (500, 1, "bottle", 2.00),
+            (1000, 1, "bottle", 3.50),
+        ],
+    },
+
+    "ML_TUBE_BOTTLE": {
+        "content_uom_id": 5,
+        "options": [
+            (50, 2, "tube", 0.45),
+            (100, 2, "tube", 0.70),
+            (200, 1, "bottle", 1.00),
+            (500, 1, "bottle", 2.00),
+            (1000, 1, "bottle", 3.50),
+        ],
+    },
+
+    "ML_AEROSOL": {
+        "content_uom_id": 5,
+        "options": [
+            (50, 6, "can", 0.55),
+            (100, 6, "can", 0.80),
+            (150, 6, "can", 1.00),
+            (200, 6, "can", 1.25),
+            (250, 6, "can", 1.50),
+        ],
+    },
+
+    "ML_REFILL": {
+        "content_uom_id": 5,
+        "options": [
+            (200, 4, "pouch", 0.55),
+            (500, 4, "pouch", 1.00),
+            (750, 4, "pouch", 1.35),
+            (1000, 4, "pouch", 1.70),
+            (2000, 4, "pouch", 2.90),
+        ],
+    },
+
+    "WIPE_POUCH": {
+        "content_uom_id": 1,
+        "options": [
+            (10, 4, "pouch", 1.00),
+            (20, 4, "pouch", 1.70),
+            (30, 4, "pouch", 2.30),
+            (50, 4, "pouch", 3.40),
+            (72, 4, "pouch", 4.60),
+        ],
+    },
+
+    "COUNT_BOX": {
+        "content_uom_id": 1,
+        "options": [
+            (3, 7, "box", 2.80),
+            (6, 7, "box", 5.20),
+            (10, 7, "box", 8.00),
+            (12, 7, "box", 9.30),
+            (20, 8, "carton", 14.50),
+        ],
+    },
+
+    "EA_KIT": {
+        "content_uom_id": 1,
+        "options": [
+            (1, 7, "box", 1.00),
+            (2, 7, "box", 1.80),
+            (3, 7, "box", 2.50),
+            (4, 8, "carton", 3.20),
+            (5, 8, "carton", 3.80),
+        ],
+    },
+
+
+    "EA_PROTECTIVE_PACK": {
+        "content_uom_id": 1,
+        "options": [
+            (10, 7, "box", 0.30),
+            (20, 7, "box", 0.55),
+            (50, 7, "box", 1.00),
+            (100, 8, "carton", 1.85),
+            (200, 8, "carton", 3.40),
+        ],
+    },
+    
+    "G_JAR": {
+    "content_uom_id": 3,
+    "options": [
+        (50, 5, "jar", 0.65),
+        (100, 5, "jar", 1.00),
+        (200, 5, "jar", 1.75),
+        (400, 5, "jar", 2.80),
+        (500, 5, "jar", 3.30),
+      ],
+    },
+
+}
+
+
+PRODUCT_FAMILY_PACKAGING_PROFILE = {
+
+    # ==================================
+    # 1. SELF CARE
+    # ==================================
+
+    "Face Wash": "G_TUBE_SACHET",
+    "Moisturizer": "G_TUBE",
+    "Sunscreen": "G_TUBE",
+
+    "Shampoo": "ML_TUBE_BOTTLE",
+    "Conditioner": "ML_TUBE_BOTTLE",
+    "Hair Oil": "ML_BOTTLE",
+
+    "Toothpaste": "G_TUBE",
+    "Toothbrush": "COUNT_BOX",
+    "Mouthwash": "ML_BOTTLE",
+
+    "Body Wash": "ML_TUBE_BOTTLE",
+    "Deodorant": "ML_AEROSOL",
+    "Talcum Powder": "G_POWDER",
+
+    "Baby Lotion": "ML_BOTTLE",
+    "Baby Shampoo": "ML_BOTTLE",
+    "Baby Wipes": "WIPE_POUCH",
+
+    # ==================================
+    # 2. GERM PROTECTION
+    # ==================================
+
+    "Liquid Hand Wash": "ML_BOTTLE",
+    "Hand Sanitizer": "ML_BOTTLE",
+    "Hand Soap": "G_BAR",
+
+    "Surface Disinfectant": "ML_BOTTLE",
+    "Multipurpose Cleaner": "ML_BOTTLE",
+    "Disinfectant Spray": "ML_AEROSOL",
+
+    "Toilet Cleaner": "ML_BOTTLE",
+    "Toilet Blocks": "COUNT_BOX",
+    "Toilet Gel": "ML_BOTTLE",
+
+    "Antiseptic Liquid": "ML_BOTTLE",
+    "Antiseptic Cream": "G_TUBE",
+    "Antiseptic Spray": "ML_AEROSOL",
+
+    "Sanitizing Hand Gel": "ML_BOTTLE",
+    "Sanitizing Wipes": "WIPE_POUCH",
+    "Sanitizer Refill": "ML_REFILL",
+
+    # ==================================
+    # 3. HOUSEHOLD CARE
+    # ==================================
+
+    "Detergent Powder": "G_DETERGENT",
+    "Liquid Detergent": "ML_REFILL",
+    "Detergent Bar": "G_BAR",
+
+    "Dishwash Liquid": "ML_BOTTLE",
+    "Dishwash Bar": "G_BAR",
+    "Dishwash Gel": "ML_BOTTLE",
+
+    "Floor Cleaner": "ML_BOTTLE",
+    "Floor Disinfectant": "ML_BOTTLE",
+    "Concentrated Floor Cleaner": "ML_BOTTLE",
+
+    "Fabric Conditioner": "ML_BOTTLE",
+    "Fabric Whitener": "ML_BOTTLE",
+    "Stain Remover": "ML_BOTTLE",
+
+    "Room Freshener": "ML_AEROSOL",
+    "Air Freshener Gel": "G_JAR",
+    "Air Freshener Spray": "ML_AEROSOL",
+
+    # ==================================
+    # 4. PERSONAL HYGIENE
+    # ==================================
+    
+    "Hand Protection Gloves": "EA_PROTECTIVE_PACK",
+    "Disposable Face Masks": "EA_PROTECTIVE_PACK",
+    "Protective Hygiene Kits": "EA_KIT",
+    "Personal Care Kit": "EA_KIT",
+
+    "Body Lotion": "ML_BOTTLE",
+    "Moisturizing Lotion": "ML_BOTTLE",
+    "Skin Care Gel": "G_TUBE",
+
+    "Gentle Body Wash": "ML_BOTTLE",
+    "Personal Hygiene Wipes": "WIPE_POUCH",
+    "Body Freshener": "ML_AEROSOL",
+
+    "Aloe Vera Gel": "G_TUBE",
+    "Multipurpose Hygiene Wipes": "WIPE_POUCH",
+
+    "Skin Care Cream": "G_TUBE",
+    "Gentle Cleansing Wipes": "WIPE_POUCH",
+    "Gentle Cleansing Wash": "ML_BOTTLE",
+
+}
+
+# ==========================================================
+def validate_product_family_profiles():
+
+    family_details = {
+        family[0]: family[1]
+        for families in PRODUCT_FAMILIES.values()
+        for family in families
+    }
+
+    mapped_names = set(PRODUCT_FAMILY_PACKAGING_PROFILE)
+    family_names = set(family_details)
+
+    missing_profiles = family_names - mapped_names
+    unused_mappings = mapped_names - family_names
+
+    if missing_profiles:
+        raise ValueError(
+            f"Missing product mappings: {missing_profiles}"
+        )
+
+    if unused_mappings:
+        raise ValueError(
+            f"Unused product mappings: {unused_mappings}"
+        )
+
+    for family_name, profile_key in PRODUCT_FAMILY_PACKAGING_PROFILE.items():
+
+        if profile_key not in PRODUCT_PACKAGING_PROFILES:
+            raise ValueError(
+                f"Unknown packaging profile: {profile_key}"
+            )
+
+        expected_uom = family_details[family_name]
+
+        actual_uom = PRODUCT_PACKAGING_PROFILES[profile_key][
+            "content_uom_id"
+        ]
+
+        if expected_uom != actual_uom:
+            raise ValueError(
+                f"UOM mismatch for {family_name}: "
+                f"Expected {expected_uom}, got {actual_uom}"
+            )
+
+    print("Product family packaging validation successful.")
+
 # --------------------------------------------------
 # PRODUCT PACKAGING OPTIONS
 # --------------------------------------------------
-
 PRODUCT_PACKAGING_OPTIONS = {
-    1: [
-        ("1 unit", 1.0),
-        ("2 units", 1.9),
-        ("3 units", 2.7),
-        ("5 units", 4.2),
-        ("10 units", 8.0)
+
+    1: [  # EA - Countable products
+        (1, 7, "box"),
+        (2, 7, "box"),
+        (3, 7, "box"),
+        (5, 8, "carton"),
+        (10, 8, "carton")
     ],
-    2: [
-        ("50 ml", 0.35),
-        ("100 ml", 0.60),
-        ("200 ml", 1.0),
-        ("500 ml", 2.1),
-        ("1 L", 3.8)
+
+    3: [  # G - Grams
+        (20, 3, "sachet"),
+        (50, 4, "pouch"),
+        (100, 5, "jar"),
+        (150, 5, "jar"),
+        (200, 5, "jar")
     ],
-    3: [
-        ("10 count", 0.6),
-        ("20 count", 1.0),
-        ("30 count", 1.4),
-        ("50 count", 2.1),
-        ("100 count", 3.8)
+
+    4: [  # KG - Kilograms
+        (1, 4, "pouch"),
+        (2, 4, "pouch"),
+        (5, 4, "pouch"),
+        (10, 8, "carton"),
+        (20, 8, "carton")
     ],
-    4: [
-        ("1 kit", 1.0),
-        ("2 kits", 1.9),
-        ("3 kits", 2.7),
-        ("5 kits", 4.2),
-        ("10 kits", 8.0)
+
+    5: [  # ML - Millilitres
+        (50, 2, "tube"),
+        (100, 2, "tube"),
+        (200, 1, "bottle"),
+        (500, 1, "bottle"),
+        (1000, 1, "bottle")
     ],
-    6: [
-        ("20 g", 0.5),
-        ("50 g", 1.0),
-        ("100 g", 1.8),
-        ("150 g", 2.5),
-        ("200 g", 3.2)
-    ],
-    7: [
-        ("5 g", 0.25),
-        ("10 g", 0.45),
-        ("20 g", 0.8),
-        ("50 g", 1.6),
-        ("100 g", 2.8)
-    ],
-    8: [
-        ("100 ml", 0.6),
-        ("150 ml", 0.85),
-        ("250 ml", 1.0),
-        ("500 ml", 1.8),
-        ("1 L", 3.0)
-    ],
-    9: [
-        ("50 g", 0.5),
-        ("100 g", 0.85),
-        ("200 g", 1.0),
-        ("500 g", 2.0),
-        ("1 kg", 3.5)
-    ],
-    10: [
-        ("50 g", 0.35),
-        ("100 g", 0.6),
-        ("200 g", 1.0),
-        ("500 g", 2.1),
-        ("1 kg", 3.7)
+
+    6: [  # L - Litres
+        (1, 1, "bottle"),
+        (2, 1, "bottle"),
+        (5, 6, "can"),
+        (10, 6, "can"),
+        (20, 6, "can")
     ]
 }
-
 
 # --------------------------------------------------
 # PRODUCT FAMILY DEFINITIONS
 # --------------------------------------------------
 
 # Format:
-# product family, UOM ID, base MRP, shelf life days
+# product family, content UOM ID, base MRP, shelf life days
 
 PRODUCT_FAMILIES = {
     # Self Care
     1: [
-        ("Face Wash", 6, 120, 730),
-        ("Moisturizer", 9, 150, 730),
-        ("Sunscreen", 6, 250, 730)
+        ("Face Wash", 3, 120, 730),
+        ("Moisturizer", 3, 150, 730),
+        ("Sunscreen", 3, 250, 730)
     ],
     2: [
-        ("Shampoo", 2, 180, 730),
-        ("Conditioner", 2, 170, 730),
-        ("Hair Oil", 2, 120, 730)
+        ("Shampoo", 5, 180, 730),
+        ("Conditioner", 5, 170, 730),
+        ("Hair Oil", 5, 120, 730)
     ],
     3: [
-        ("Toothpaste", 6, 90, 730),
+        ("Toothpaste", 3, 90, 730),
         ("Toothbrush", 1, 40, 1095),
-        ("Mouthwash", 2, 150, 730)
+        ("Mouthwash", 5, 150, 730)
     ],
     4: [
-        ("Body Wash", 2, 160, 730),
-        ("Deodorant", 8, 180, 1095),
-        ("Talcum Powder", 9, 100, 1095)
+        ("Body Wash", 5, 160, 730),
+        ("Deodorant", 5, 180, 1095),
+        ("Talcum Powder", 3, 100, 1095)
     ],
     5: [
-        ("Baby Lotion", 2, 180, 730),
-        ("Baby Shampoo", 2, 160, 730),
-        ("Baby Wipes", 3, 90, 730)
+        ("Baby Lotion", 5, 180, 730),
+        ("Baby Shampoo", 5, 160, 730),
+        ("Baby Wipes", 1, 90, 730)
     ],
 
     # Germ Protection
     6: [
-        ("Liquid Hand Wash", 2, 110, 730),
-        ("Hand Sanitizer", 2, 90, 730),
-        ("Hand Soap", 1, 45, 1095)
+        ("Liquid Hand Wash", 5, 110, 730),
+        ("Hand Sanitizer", 5, 90, 730),
+        ("Hand Soap", 3, 45, 1095)
     ],
     7: [
-        ("Surface Disinfectant", 2, 140, 730),
-        ("Multipurpose Cleaner", 2, 130, 730),
-        ("Disinfectant Spray", 8, 180, 730)
+        ("Surface Disinfectant", 5, 140, 730),
+        ("Multipurpose Cleaner", 5, 130, 730),
+        ("Disinfectant Spray", 5, 180, 730)
     ],
     8: [
-        ("Toilet Cleaner", 2, 100, 730),
-        ("Toilet Blocks", 3, 80, 1095),
-        ("Toilet Gel", 2, 120, 730)
+        ("Toilet Cleaner", 5, 100, 730),
+        ("Toilet Blocks", 1, 80, 1095),
+        ("Toilet Gel", 5, 120, 730)
     ],
     9: [
-        ("Antiseptic Liquid", 2, 110, 730),
-        ("Antiseptic Cream", 6, 75, 730),
-        ("Antiseptic Spray", 8, 130, 730)
+        ("Antiseptic Liquid", 5, 110, 730),
+        ("Antiseptic Cream", 3, 75, 730),
+        ("Antiseptic Spray", 5, 130, 730)
     ],
     10: [
-        ("Hand Sanitizer", 2, 90, 730),
-        ("Sanitizing Wipes", 3, 80, 730),
-        ("Sanitizer Refill", 10, 100, 730)
+        ("Sanitizing Hand Gel", 5, 90, 730),
+        ("Sanitizing Wipes", 1, 80, 730),
+        ("Sanitizer Refill", 5, 100, 730),
     ],
 
     # Household Care
     11: [
-        ("Detergent Powder", 10, 150, 730),
-        ("Liquid Detergent", 2, 220, 730),
-        ("Detergent Bar", 1, 35, 1095)
+        ("Detergent Powder", 3, 150, 730),
+        ("Liquid Detergent", 5, 220, 730),
+        ("Detergent Bar", 3, 35, 1095)
     ],
     12: [
-        ("Dishwash Liquid", 2, 120, 730),
-        ("Dishwash Bar", 1, 25, 1095),
-        ("Dishwash Gel", 2, 100, 730)
+        ("Dishwash Liquid", 5, 120, 730),
+        ("Dishwash Bar", 3, 25, 1095),
+        ("Dishwash Gel", 5, 100, 730)
     ],
     13: [
-        ("Floor Cleaner", 2, 140, 730),
-        ("Floor Disinfectant", 2, 130, 730),
-        ("Concentrated Floor Cleaner", 2, 180, 730)
+        ("Floor Cleaner", 5, 140, 730),
+        ("Floor Disinfectant", 5, 130, 730),
+        ("Concentrated Floor Cleaner", 5, 180, 730)
     ],
     14: [
-        ("Fabric Conditioner", 2, 160, 730),
-        ("Fabric Whitener", 2, 90, 730),
-        ("Stain Remover", 2, 130, 730)
+        ("Fabric Conditioner", 5, 160, 730),
+        ("Fabric Whitener", 5, 90, 730),
+        ("Stain Remover", 5, 130, 730)
     ],
     15: [
-        ("Room Freshener", 8, 180, 1095),
-        ("Air Freshener Gel", 9, 120, 730),
-        ("Air Freshener Spray", 8, 200, 1095)
+        ("Room Freshener", 5, 180, 1095),
+        ("Air Freshener Gel", 3, 120, 730),
+        ("Air Freshener Spray", 5, 200, 1095)
     ],
 
     # Intimate Wellness
+    
     16: [
-        ("Latex Condoms", 3, 120, 1095),
-        ("Non-Latex Condoms", 3, 180, 1095),
-        ("Lubricated Condoms", 3, 150, 1095)
+        ("Hand Protection Gloves", 1, 120, 1095),
+        ("Disposable Face Masks", 1, 80, 1095),
+        ("Protective Hygiene Kits", 1, 250, 1095),
     ],
     17: [
-        ("Personal Lubricant", 6, 180, 730),
-        ("Water-Based Lubricant", 6, 160, 730),
-        ("Silicone-Based Lubricant", 2, 250, 1095)
+        ("Body Lotion", 5, 180, 730),
+        ("Moisturizing Lotion", 5, 160, 730),
+        ("Skin Care Gel", 3, 250, 730),
     ],
     18: [
-        ("Intimate Wash", 2, 150, 730),
-        ("Intimate Wipes", 3, 100, 730),
-        ("Hygiene Spray", 8, 160, 730)
+        ("Gentle Body Wash", 5, 150, 730),
+        ("Personal Hygiene Wipes", 1, 100, 730),
+        ("Body Freshener", 5, 160, 1095),
     ],
     19: [
-        ("Wellness Care Gel", 6, 200, 730),
-        ("Personal Care Kit", 4, 350, 1095),
-        ("Wellness Wipes", 3, 100, 730)
+        ("Aloe Vera Gel", 3, 200, 730),
+        ("Personal Care Kit", 1, 350, 1095),
+        ("Multipurpose Hygiene Wipes", 1, 100, 730),
     ],
     20: [
-        ("Intimate Care Cream", 6, 180, 730),
-        ("Intimate Care Wipes", 3, 110, 730),
-        ("Intimate Care Wash", 2, 150, 730)
+        ("Skin Care Cream", 3, 180, 730),
+        ("Gentle Cleansing Wipes", 1, 110, 730),
+        ("Gentle Cleansing Wash", 5, 150, 730),
     ]
+
 }
 
+REFERENCE_PACK_SIZE = {
+    1: 1,     # EA: price per one item
+    3: 100,   # G: price per 100 grams
+    4: 1,     # KG: price per 1 kilogram
+    5: 100,   # ML: price per 100 millilitres
+    6: 1      # L: price per 1 litre
+}
+
+CONTENT_UOM_CODES = {
+    1: "EA",
+    3: "G",
+    4: "KG",
+    5: "ML",
+    6: "L"
+}
 
 # --------------------------------------------------
 # PRODUCT MASTER GENERATION
 # --------------------------------------------------
 
 
-# --------------------------------------------------
-# PRODUCT PACKAGING OPTIONS
-# --------------------------------------------------
-
-PRODUCT_PACKAGING_OPTIONS = {
-    1: [
-        ("1 unit", 1.0),
-        ("2 units", 1.9),
-        ("3 units", 2.7),
-        ("5 units", 4.2),
-        ("10 units", 8.0)
-    ],
-    2: [
-        ("50 ml", 0.35),
-        ("100 ml", 0.60),
-        ("200 ml", 1.0),
-        ("500 ml", 2.1),
-        ("1 L", 3.8)
-    ],
-    3: [
-        ("10 count", 0.6),
-        ("20 count", 1.0),
-        ("30 count", 1.4),
-        ("50 count", 2.1),
-        ("100 count", 3.8)
-    ],
-    4: [
-        ("1 kit", 1.0),
-        ("2 kits", 1.9),
-        ("3 kits", 2.7),
-        ("5 kits", 4.2),
-        ("10 kits", 8.0)
-    ],
-    6: [
-        ("20 g", 0.5),
-        ("50 g", 1.0),
-        ("100 g", 1.8),
-        ("150 g", 2.5),
-        ("200 g", 3.2)
-    ],
-    7: [
-        ("5 g", 0.25),
-        ("10 g", 0.45),
-        ("20 g", 0.8),
-        ("50 g", 1.6),
-        ("100 g", 2.8)
-    ],
-    8: [
-        ("100 ml", 0.6),
-        ("150 ml", 0.85),
-        ("250 ml", 1.0),
-        ("500 ml", 1.8),
-        ("1 L", 3.0)
-    ],
-    9: [
-        ("50 g", 0.5),
-        ("100 g", 0.85),
-        ("200 g", 1.0),
-        ("500 g", 2.0),
-        ("1 kg", 3.5)
-    ],
-    10: [
-        ("50 g", 0.35),
-        ("100 g", 0.6),
-        ("200 g", 1.0),
-        ("500 g", 2.1),
-        ("1 kg", 3.7)
-    ]
-}
-
-
-# --------------------------------------------------
-# PRODUCT FAMILY DEFINITIONS
-# --------------------------------------------------
-
-# Format:
-# product family, UOM ID, base MRP, shelf life days
-
-PRODUCT_FAMILIES = {
-    # Self Care
-    1: [
-        ("Face Wash", 6, 120, 730),
-        ("Moisturizer", 9, 150, 730),
-        ("Sunscreen", 6, 250, 730)
-    ],
-    2: [
-        ("Shampoo", 2, 180, 730),
-        ("Conditioner", 2, 170, 730),
-        ("Hair Oil", 2, 120, 730)
-    ],
-    3: [
-        ("Toothpaste", 6, 90, 730),
-        ("Toothbrush", 1, 40, 1095),
-        ("Mouthwash", 2, 150, 730)
-    ],
-    4: [
-        ("Body Wash", 2, 160, 730),
-        ("Deodorant", 8, 180, 1095),
-        ("Talcum Powder", 9, 100, 1095)
-    ],
-    5: [
-        ("Baby Lotion", 2, 180, 730),
-        ("Baby Shampoo", 2, 160, 730),
-        ("Baby Wipes", 3, 90, 730)
-    ],
-
-    # Germ Protection
-    6: [
-        ("Liquid Hand Wash", 2, 110, 730),
-        ("Hand Sanitizer", 2, 90, 730),
-        ("Hand Soap", 1, 45, 1095)
-    ],
-    7: [
-        ("Surface Disinfectant", 2, 140, 730),
-        ("Multipurpose Cleaner", 2, 130, 730),
-        ("Disinfectant Spray", 8, 180, 730)
-    ],
-    8: [
-        ("Toilet Cleaner", 2, 100, 730),
-        ("Toilet Blocks", 3, 80, 1095),
-        ("Toilet Gel", 2, 120, 730)
-    ],
-    9: [
-        ("Antiseptic Liquid", 2, 110, 730),
-        ("Antiseptic Cream", 6, 75, 730),
-        ("Antiseptic Spray", 8, 130, 730)
-    ],
-    10: [
-        ("Hand Sanitizer", 2, 90, 730),
-        ("Sanitizing Wipes", 3, 80, 730),
-        ("Sanitizer Refill", 10, 100, 730)
-    ],
-
-    # Household Care
-    11: [
-        ("Detergent Powder", 10, 150, 730),
-        ("Liquid Detergent", 2, 220, 730),
-        ("Detergent Bar", 1, 35, 1095)
-    ],
-    12: [
-        ("Dishwash Liquid", 2, 120, 730),
-        ("Dishwash Bar", 1, 25, 1095),
-        ("Dishwash Gel", 2, 100, 730)
-    ],
-    13: [
-        ("Floor Cleaner", 2, 140, 730),
-        ("Floor Disinfectant", 2, 130, 730),
-        ("Concentrated Floor Cleaner", 2, 180, 730)
-    ],
-    14: [
-        ("Fabric Conditioner", 2, 160, 730),
-        ("Fabric Whitener", 2, 90, 730),
-        ("Stain Remover", 2, 130, 730)
-    ],
-    15: [
-        ("Room Freshener", 8, 180, 1095),
-        ("Air Freshener Gel", 9, 120, 730),
-        ("Air Freshener Spray", 8, 200, 1095)
-    ],
-
-    # Intimate Wellness
-    16: [
-        ("Latex Condoms", 3, 120, 1095),
-        ("Non-Latex Condoms", 3, 180, 1095),
-        ("Lubricated Condoms", 3, 150, 1095)
-    ],
-    17: [
-        ("Personal Lubricant", 6, 180, 730),
-        ("Water-Based Lubricant", 6, 160, 730),
-        ("Silicone-Based Lubricant", 2, 250, 1095)
-    ],
-    18: [
-        ("Intimate Wash", 2, 150, 730),
-        ("Intimate Wipes", 3, 100, 730),
-        ("Hygiene Spray", 8, 160, 730)
-    ],
-    19: [
-        ("Wellness Care Gel", 6, 200, 730),
-        ("Personal Care Kit", 4, 350, 1095),
-        ("Wellness Wipes", 3, 100, 730)
-    ],
-    20: [
-        ("Intimate Care Cream", 6, 180, 730),
-        ("Intimate Care Wipes", 3, 110, 730),
-        ("Intimate Care Wash", 2, 150, 730)
-    ]
-}
-
-
-# --------------------------------------------------
-# PRODUCT MASTER GENERATION
-# --------------------------------------------------
-
-def build_product_master() -> list:
+def build_product_master():
     products = []
-
-    brand_count = len(BRAND_MASTER)
-
-    if brand_count == 0:
-        raise ValueError("BRAND_MASTER cannot be empty.")
+    product_id = 1
 
     for subcategory_id, families in PRODUCT_FAMILIES.items():
+        for product_family, content_uom_id, base_mrp, shelf_life_days in families:
 
-        for family_number, family in enumerate(
-            families, start=1
-        ):
-            product_family, uom_id, base_mrp, shelf_life_days = family
+            # Get the packaging profile for the product family
+            profile_key = PRODUCT_FAMILY_PACKAGING_PROFILE[product_family]
+            profile = PRODUCT_PACKAGING_PROFILES[profile_key]
 
-            if uom_id not in PRODUCT_PACKAGING_OPTIONS:
+            # Validate content UOM
+            if content_uom_id != profile["content_uom_id"]:
                 raise ValueError(
-                    f"Packaging options not defined for UOM ID {uom_id}"
+                    f"UOM mismatch for {product_family}: "
+                    f"family UOM={content_uom_id}, "
+                    f"profile UOM={profile['content_uom_id']}"
                 )
 
-            packaging_options = PRODUCT_PACKAGING_OPTIONS[uom_id]
+            # Generate products for each brand
+            category_id = SUBCATEGORY_CATEGORY_MAPPING[subcategory_id]
 
-            for pack_number, (pack_size, multiplier) in enumerate(
-                packaging_options, start=1
-            ):
+            for brand_id, brand_name in BRAND_LOOKUP.items():
 
-                product_number = len(products) + 1
+                if category_id not in BRAND_CATEGORY_MAPPING[brand_id]:
+                    continue
 
-                brand_id = (
-                    (product_number - 1) % brand_count
-                ) + 1
+                for pack_size, packaging_type_id, pack_label, price_factor in profile["options"]:
 
-                brand_name = BRAND_MASTER[brand_id - 1]["brand_name"]
+                    # Calculate pricing
+                    mrp = round(base_mrp * price_factor, 2)
+                    standard_cost = round(mrp * 0.65, 2)
 
-                mrp = round(base_mrp * multiplier, 2)
+                    # Generate product name
+                    packaging_label = pack_label.strip().title()
 
-                standard_cost = round(mrp * 0.65, 2)
+                    if content_uom_id == 1:
 
-                product_record = {
-                    "subcategory_id": subcategory_id,
-                    "brand_id": brand_id,
-                    "product_name": (
-                        f"{brand_name} {product_family} {pack_size}"
-                    ),
-                    "sku": (
-                        f"FMCG-{subcategory_id:02d}-"
-                        f"{family_number:02d}-{pack_number:02d}"
-                    ),
-                    "uom_id": uom_id,
-                    "mrp": mrp,
-                    "standard_cost": standard_cost,
-                    "shelf_life_days": shelf_life_days
-                }
+                        if product_family in {
+                            "Personal Care Kit",
+                            "Protective Hygiene Kits"
+                        }:
+                            product_name = (
+                                f"{brand_name} {product_family} "
+                                f"{pack_size} Kit {packaging_label}"
+                            )
 
-                products.append(product_record)
+                        else:
+                            product_name = (
+                                f"{brand_name} {product_family} "
+                                f"{pack_size} Count {packaging_label}"
+                            )
+
+                    else:
+                        content_uom = UOM_LOOKUP[content_uom_id]
+
+                        product_name = (
+                            f"{brand_name} {product_family} "
+                            f"{pack_size} {content_uom} {packaging_label}"
+                        )
+
+                    product = {
+                        "product_id": product_id,
+                        "subcategory_id": subcategory_id,
+                        "brand_id": brand_id,
+                        "product_name": product_name,
+                        "sku": f"FMCG-{product_id:04d}",
+                        "uom_id": 1,
+                        "packaging_type_id": packaging_type_id,
+                        "pack_size": pack_size,
+                        "content_uom_id": content_uom_id,
+                        "mrp": mrp,
+                        "standard_cost": standard_cost,
+                        "shelf_life_days": shelf_life_days,
+                    }
+
+                    products.append(product)
+                    product_id += 1
 
     return products
 
+# solution = build_product_master()
+# print(solution)
 
-PRODUCT_MASTER = build_product_master()
-
-if len(PRODUCT_MASTER) != 300:
-    raise ValueError(
-        f"Expected 300 products, generated {len(PRODUCT_MASTER)}"
-    )
-# ============================================================

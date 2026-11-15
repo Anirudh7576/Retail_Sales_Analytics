@@ -14,7 +14,6 @@ DATE_END = "2026-12-31"
 # Financial precision
 DECIMAL_PLACES = 2
 
-
 # ============================================================
 # DATA GENERATION VOLUMES
 # ============================================================
@@ -24,7 +23,8 @@ DATA_VOLUME = {
     "subcategories": 20,
     "brands": 20,
     "products": 300,
-    "uom": 10,
+    "uom": 6,
+    "packaging_types": 8,
     "geography": 1000,
     "distributors": 100,
     "retailers": 20000,
@@ -68,6 +68,9 @@ PRODUCT_REQUIRED_FIELDS = [
     "product_name",
     "sku",
     "uom_id",
+    "packaging_type_id",
+    "pack_size",
+    "content_uom_id",
     "mrp",
     "standard_cost",
     "shelf_life_days"
@@ -75,6 +78,7 @@ PRODUCT_REQUIRED_FIELDS = [
 
 UOM_REQUIRED_FIELDS = [
     "uom_id",
+    "uom_code",
     "uom_name",
     "uom_description"
 ]
@@ -122,6 +126,11 @@ DISTRIBUTOR_RETAILER_MAPPING_REQUIRED_FIELDS = [
     "effective_end_date"
 ]
 
+PACKAGING_TYPE_REQUIRED_FIELDS = [
+    "packaging_type_id",
+    "packaging_type_name"
+]
+
 # ============================================================
 # DATE DIMENSION REQUIRED FIELDS
 # ============================================================
@@ -139,7 +148,6 @@ DATE_REQUIRED_FIELDS = [
     "fiscal_year",
     "fiscal_quarter"
 ]
-
 
 # ============================================================
 # FACT SALES REQUIRED FIELDS
@@ -187,7 +195,6 @@ FACT_ORDERS_REQUIRED_FIELDS = [
     "order_line_amount"
 ]
 
-
 # ============================================================
 # FACT INVENTORY REQUIRED FIELDS
 # ============================================================
@@ -203,8 +210,6 @@ FACT_INVENTORY_REQUIRED_FIELDS = [
     "adjustment_quantity",
     "closing_quantity"
 ]
-
-
 # ============================================================
 # FACT SHIPMENTS REQUIRED FIELDS
 # ============================================================
