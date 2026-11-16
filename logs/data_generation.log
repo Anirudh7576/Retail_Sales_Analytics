@@ -299,3 +299,48 @@ ValueError: Unknown packaging profile: G_JAR
 2026-11-15 13:06:43 | INFO | fmcg_sales | Generated 525 product records.
 2026-11-15 13:06:43 | INFO | fmcg_sales | Product validation successful.
 2026-11-15 13:06:43 | INFO | fmcg_sales | Product generation completed successfully.
+2026-11-16 09:37:06 | INFO | fmcg_sales | Product generation started.
+2026-11-16 09:37:07 | INFO | fmcg_sales | Generated 525 product records.
+2026-11-16 09:37:07 | INFO | fmcg_sales | Product validation successful.
+2026-11-16 09:37:07 | INFO | fmcg_sales | Product generation completed successfully.
+2026-11-16 10:06:34 | INFO | fmcg_sales | Product generation started.
+2026-11-16 10:06:34 | INFO | fmcg_sales | Generated 525 product records.
+2026-11-16 10:06:34 | ERROR | fmcg_sales | Product generation failed.
+Traceback (most recent call last):
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 332, in main
+    validate_products(
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 258, in validate_products
+    validate_category_cost_factors(
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\common\validation.py", line 179, in validate_category_cost_factors
+    item["subcategory_id"]: item["category_id"]
+    ~~~~^^^^^^^^^^^^^^^^^^
+KeyError: 'subcategory_id'
+2026-11-16 10:08:31 | INFO | fmcg_sales | Product generation started.
+2026-11-16 10:08:31 | INFO | fmcg_sales | Generated 525 product records.
+2026-11-16 10:08:31 | ERROR | fmcg_sales | Product generation failed.
+Traceback (most recent call last):
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 332, in main
+    validate_products(
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 258, in validate_products
+    validate_category_cost_factors(
+TypeError: validate_category_cost_factors() takes 1 positional argument but 2 were given
+2026-11-16 10:09:20 | INFO | fmcg_sales | Product generation started.
+2026-11-16 10:09:20 | INFO | fmcg_sales | Generated 525 product records.
+2026-11-16 10:09:20 | ERROR | fmcg_sales | Product generation failed.
+Traceback (most recent call last):
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 331, in main
+    validate_products(
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 258, in validate_products
+    validate_category_cost_factors(
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\common\validation.py", line 178, in validate_category_cost_factors
+    item["subcategory_id"]: item["category_id"]
+    ~~~~^^^^^^^^^^^^^^^^^^
+KeyError: 'subcategory_id'
+2026-11-16 10:14:44 | INFO | fmcg_sales | Product generation started.
+2026-11-16 10:14:44 | INFO | fmcg_sales | Generated 525 product records.
+2026-11-16 10:14:44 | INFO | fmcg_sales | Product validation successful.
+2026-11-16 10:14:44 | INFO | fmcg_sales | Product generation completed successfully.
+2026-11-16 10:22:31 | INFO | fmcg_sales | Product generation started.
+2026-11-16 10:22:31 | INFO | fmcg_sales | Generated 525 product records.
+2026-11-16 10:22:31 | INFO | fmcg_sales | Product validation successful.
+2026-11-16 10:22:31 | INFO | fmcg_sales | Product generation completed successfully.

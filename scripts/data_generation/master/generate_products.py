@@ -1,7 +1,5 @@
 import math
 
-EXPECTED_PRODUCT_COUNT = 1200
-
 from scripts.common.master_data import (
     validate_product_family_profiles,
     build_product_master
@@ -9,6 +7,7 @@ from scripts.common.master_data import (
 from scripts.common.master_data import BRAND_CATEGORY_MAPPING
 
 from scripts.common.master_data import build_product_master
+
 # from scripts.common.master_data import PRODUCT_MASTER
 
 from scripts.common.constants import PRODUCT_REQUIRED_FIELDS
@@ -16,7 +15,8 @@ from scripts.common.constants import PRODUCT_REQUIRED_FIELDS
 from scripts.common.validation import (
     check_required_fields,
     check_unique,
-    check_foreign_keys
+    check_foreign_keys,
+    validate_category_cost_factors
 )
 
 from scripts.common.file_utils import (
@@ -102,11 +102,9 @@ def validate_product_business_rules(products: list) -> None:
                 f"Invalid shelf life for product_id {product_id}"
             )
 
-
 # --------------------------------------------------
 # VALIDATE PRODUCT MASTER
 # --------------------------------------------------
-
 def validate_product_prices(products: list) -> None:
 
     for product in products:
@@ -255,6 +253,11 @@ def validate_products(
         "packaging_type_id",
         packaging_types,
         "packaging_type_id"
+    )
+
+    validate_category_cost_factors(
+    products,
+    subcategories
     )
 
     # 10. Validate product prices

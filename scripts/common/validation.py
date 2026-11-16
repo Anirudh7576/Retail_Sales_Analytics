@@ -4,7 +4,7 @@ Project : FMCG Sales and Supply Chain Analytics
 
 Purpose : Common data validation functions.
 """
-
+from scripts.common.master_data import CATEGORY_COST_FACTORS, SUBCATEGORY_MASTER
 
 # ============================================================
 # CHECK REQUIRED FIELDS
@@ -49,7 +49,6 @@ def check_required_fields(
                 )
 
     return True
-
 
 # ============================================================
 # CHECK UNIQUE VALUES
@@ -108,8 +107,6 @@ def check_unique(
             )
 
     return True
-
-
 # ============================================================
 # CHECK FOREIGN KEYS
 # ============================================================
@@ -172,3 +169,52 @@ def check_foreign_keys(
             )
 
     return True
+
+
+
+def validate_category_cost_factors(
+    products: list,
+    subcategories: list
+) -> None:
+
+    # Build subcategory-to-category lookup
+    subcategory_lookup = {
+        item["subcategory_id"]: item["category_id"]
+        for item in subcategories
+    }
+
+    for product in products:
+
+        subcategory_id = product["subcategory_id"]
+        sku = product["sku"]
+
+        if subcategory_id not in subcategory_lookup:
+            raise ValueError(
+                f"Unknown subcategory ID: {subcategory_id}, "
+                f"SKU: {sku}"
+            )
+
+        category_id = subcategory_lookup[subcategory_id]
+
+        cost_factor = CATEGORY_COST_FACTORS.get(category_id)
+
+        if cost_factor is None:
+            raise ValueError(
+                f"Missing cost factor for category ID: {category_id}"
+            )
+
+        expected_cost = round(
+            product["mrp"] * cost_factor, 2
+        )
+
+        if product["standard_cost"] != expected_cost:
+            raise ValueError(
+                f"Incorrect standard cost for SKU: {sku}. "
+                f"Expected: {expected_cost}, "
+                f"Actual: {product['standard_cost']}"
+            )
+
+    print("Category cost factor validation successful.")
+
+
+    # ==========================================================

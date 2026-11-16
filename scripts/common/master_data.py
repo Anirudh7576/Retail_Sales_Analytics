@@ -146,6 +146,13 @@ BRAND_CATEGORY_MAPPING = {
     4: {1, 4},       # WellSpring: Self Care, Personal Hygiene
 }
 
+CATEGORY_COST_FACTORS = {
+    1: 0.62,  # Self Care
+    2: 0.58,  # Germ Protection
+    3: 0.60,  # Household Care
+    4: 0.55,  # Personal Hygiene
+}
+
 # Map each subcategory to its parent category.
 SUBCATEGORY_CATEGORY_MAPPING = {
     1: 1, 2: 1, 3: 1, 4: 1, 5: 1,
@@ -961,7 +968,7 @@ PRODUCT_FAMILY_PACKAGING_PROFILE = {
     
     "Hand Protection Gloves": "EA_PROTECTIVE_PACK",
     "Disposable Face Masks": "EA_PROTECTIVE_PACK",
-    "Protective Hygiene Kits": "EA_KIT",
+    "Protective Hygiene Kit": "EA_KIT",
     "Personal Care Kit": "EA_KIT",
 
     "Body Lotion": "ML_BOTTLE",
@@ -1167,7 +1174,7 @@ PRODUCT_FAMILIES = {
     16: [
         ("Hand Protection Gloves", 1, 120, 1095),
         ("Disposable Face Masks", 1, 80, 1095),
-        ("Protective Hygiene Kits", 1, 250, 1095),
+        ("Protective Hygiene Kit", 1, 250, 1095),
     ],
     17: [
         ("Body Lotion", 5, 180, 730),
@@ -1244,7 +1251,8 @@ def build_product_master():
 
                     # Calculate pricing
                     mrp = round(base_mrp * price_factor, 2)
-                    standard_cost = round(mrp * 0.65, 2)
+                    cost_factor = CATEGORY_COST_FACTORS[category_id]
+                    standard_cost = round(mrp * cost_factor, 2)
 
                     # Generate product name
                     packaging_label = pack_label.strip().title()
