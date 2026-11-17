@@ -165,6 +165,16 @@ SUBCATEGORY_CATEGORY_MAPPING = {
     16: 4, 17: 4, 18: 4, 19: 4, 20: 4,
 }
 
+RETAILER_TYPE_CHANNEL_MAPPING = {
+    "Kirana Store": "General Trade",
+    "Convenience Store": "General Trade",
+    "Supermarket": "Modern Trade",
+    "Department Store": "Modern Trade",
+    "Pharmacy": "Pharmacy",
+    "Online Retailer": "E-commerce",
+    "Institutional Buyer": "Institutional"
+}
+
 # ============================================================
 # FMCG BRAND MASTER DATA
 # ============================================================
@@ -267,16 +277,18 @@ UOM_LOOKUP = {
 # ======================================================================
 
 PACKAGING_TYPE_MASTER = [
-    {"packaging_type_name": "Bottle"},
-    {"packaging_type_name": "Tube"},
-    {"packaging_type_name": "Sachet"},
-    {"packaging_type_name": "Pouch"},
-    {"packaging_type_name": "Jar"},
-    {"packaging_type_name": "Can"},
-    {"packaging_type_name": "Box"},
-    {"packaging_type_name": "Carton"}
+    {"packaging_type_id": 1, "packaging_type_name": "Bottle"},
+    {"packaging_type_id": 2, "packaging_type_name": "Tube"},
+    {"packaging_type_id": 3, "packaging_type_name": "Sachet"},
+    {"packaging_type_id": 4, "packaging_type_name": "Pouch"},
+    {"packaging_type_id": 5, "packaging_type_name": "Jar"},
+    {"packaging_type_id": 6, "packaging_type_name": "Can"},
+    {"packaging_type_id": 7, "packaging_type_name": "Box"},
+    {"packaging_type_id": 8, "packaging_type_name": "Carton"}
 ]
 
+def generate_packaging_types() -> list:
+    return [dict(record) for record in PACKAGING_TYPE_MASTER]
 # ========================================================================
 # FMCG GEOGRAPHY MASTER DATA
 # ========================================================================

@@ -390,3 +390,21 @@ ValueError: Missing case quantity for Face Wash
 2026-11-16 14:32:53 | INFO | fmcg_sales | Generated 525 product records.
 2026-11-16 14:32:53 | INFO | fmcg_sales | Product validation successful.
 2026-11-16 14:32:53 | INFO | fmcg_sales | Product generation completed successfully.
+2026-11-17 11:32:15 | INFO | fmcg_sales | Product generation started.
+2026-11-17 11:32:15 | INFO | fmcg_sales | Generated 525 product records.
+2026-11-17 11:32:15 | INFO | fmcg_sales | Product validation successful.
+2026-11-17 11:32:15 | INFO | fmcg_sales | Product generation completed successfully.
+2026-11-17 12:09:35 | INFO | fmcg_sales | Category generation started.
+2026-11-17 12:09:35 | INFO | fmcg_sales | Category generation completed. Records: 4
+2026-11-17 12:09:46 | INFO | fmcg_sales | Brand generation started.
+2026-11-17 12:09:46 | INFO | fmcg_sales | Brand generation completed. Records: 4
+2026-11-17 12:09:56 | INFO | fmcg_sales | UOM generation started.
+2026-11-17 12:09:56 | INFO | fmcg_sales | UOM generation completed. Records: 6
+2026-11-17 12:10:15 | INFO | fmcg_sales | Packaging type generation started.
+2026-11-17 12:10:15 | INFO | fmcg_sales | Packaging type generation completed. Records: 8
+2026-11-17 12:10:26 | INFO | fmcg_sales | Subcategory generation started.
+2026-11-17 12:10:26 | INFO | fmcg_sales | Subcategory generation completed. Records: 20
+2026-11-17 12:10:46 | INFO | fmcg_sales | Product generation started.
+2026-11-17 12:10:46 | INFO | fmcg_sales | Generated 525 product records.
+2026-11-17 12:10:46 | INFO | fmcg_sales | Product validation successful.
+2026-11-17 12:10:46 | INFO | fmcg_sales | Product generation completed successfully.

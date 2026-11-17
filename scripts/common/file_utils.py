@@ -16,7 +16,6 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
-
 # ============================================================
 # SAVE JSON FILE
 # ============================================================
@@ -166,3 +165,59 @@ def get_latest_json(
     )
 
     return records
+# =======================================================
+
+
+# ============================================================
+# READ EXPLICIT JSON FILE
+# ============================================================
+
+def read_json_file(file_path: str | Path) -> list:
+    """
+    Read a specific JSON file.
+
+    Unlike get_latest_json(), this function does not
+    automatically select a file.
+    """
+
+    path = Path(file_path)
+
+    if not path.is_absolute():
+        path = PROJECT_ROOT / path
+
+    if not path.exists():
+        raise FileNotFoundError(
+            f"JSON file not found: {path}"
+        )
+
+    if not path.is_file():
+        raise ValueError(
+            f"Expected a file, received: {path}"
+        )
+
+    if path.suffix.lower() != ".json":
+        raise ValueError(
+            f"Expected a JSON file: {path}"
+        )
+
+    try:
+        with path.open("r", encoding="utf-8") as file:
+            records = json.load(file)
+
+    except json.JSONDecodeError as error:
+        raise ValueError(
+            f"Invalid JSON in {path.name}: {error}"
+        ) from error
+
+    if not isinstance(records, list):
+        raise ValueError(
+            f"Expected a JSON list in {path.name}"
+        )
+
+    if not records:
+        raise ValueError(
+            f"JSON file contains no records: {path.name}"
+        )
+
+    return records
+

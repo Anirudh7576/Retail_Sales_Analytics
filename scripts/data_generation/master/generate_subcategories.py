@@ -1,15 +1,11 @@
 
 """
 Project : FMCG Sales and Supply Chain Analytics
-
-Purpose : Generate subcategory dimension data and validate it.
+Purpose : Generate and validate subcategory master data.
 """
 
 from scripts.common.master_data import SUBCATEGORY_MASTER
-
-from scripts.common.constants import (
-    SUBCATEGORY_REQUIRED_FIELDS
-)
+from scripts.common.constants import SUBCATEGORY_REQUIRED_FIELDS
 
 from scripts.common.validation import (
     check_required_fields,
@@ -25,30 +21,17 @@ from scripts.common.file_utils import (
 from scripts.common.logger import logger
 
 
-# ============================================================
-# GENERATE SUBCATEGORY DIMENSION
-# ============================================================
-
-def generate_subcategories() -> list:
+def generate_subcategories(categories: list) -> list:
     """
-    Generate subcategory dimension records.
-
-    category_id is retrieved from the latest category JSON.
+    Generate subcategories using the supplied category records.
     """
 
-    # Read latest category records
-    categories = get_latest_json(
-        "master/categories",
-        "categories"
-    )
-
-    # Create category name-to-ID mapping
     category_mapping = {
         category["category_name"]: category["category_id"]
         for category in categories
     }
 
-    dim_subcategory = []
+    subcategories = []
 
     for subcategory_id, subcategory in enumerate(
         SUBCATEGORY_MASTER,
@@ -59,11 +42,10 @@ def generate_subcategories() -> list:
 
         if category_name not in category_mapping:
             raise ValueError(
-                f"Category '{category_name}' not found "
-                f"in category master data."
+                f"Category not found: {category_name}"
             )
 
-        subcategory_record = {
+        record = {
             "subcategory_id": subcategory_id,
             "category_id": category_mapping[category_name],
             "subcategory_name": subcategory["subcategory_name"],
@@ -72,77 +54,65 @@ def generate_subcategories() -> list:
             ]
         }
 
-        dim_subcategory.append(subcategory_record)
+        subcategories.append(record)
 
-    return dim_subcategory
+    return subcategories
 
 
-# ============================================================
-# MAIN PROCESS
-# ============================================================
+def validate_subcategories(
+    subcategories: list,
+    categories: list
+) -> None:
+
+    check_required_fields(
+        subcategories,
+        SUBCATEGORY_REQUIRED_FIELDS
+    )
+
+    check_unique(
+        subcategories,
+        "subcategory_id"
+    )
+
+    unique_combinations = [
+        {
+            "category_subcategory": (
+                record["category_id"],
+                record["subcategory_name"].strip().casefold()
+            )
+        }
+        for record in subcategories
+    ]
+
+    check_unique(
+        unique_combinations,
+        "category_subcategory"
+    )
+
+    check_foreign_keys(
+        subcategories,
+        "category_id",
+        categories,
+        "category_id"
+    )
+
 
 def main():
-
     try:
-
         logger.info("Subcategory generation started.")
 
-        subcategories = generate_subcategories()
-
-        logger.info(
-            "Generated %s subcategory records.",
-            len(subcategories)
-        )
-
-        # ----------------------------------------------------
-        # VALIDATION
-        # ----------------------------------------------------
-
-        check_required_fields(
-            subcategories,
-            SUBCATEGORY_REQUIRED_FIELDS
-        )
-
-        check_unique(
-            subcategories,
-            "subcategory_id"
-        )
-
-        # Subcategory names must be unique within a category.
-        # Check the category + subcategory combination.
-        unique_subcategories = [
-            {
-                "category_subcategory": (
-                    record["category_id"],
-                    record["subcategory_name"].strip().casefold()
-                )
-            }
-            for record in subcategories
-        ]
-
-        check_unique(
-            unique_subcategories,
-            "category_subcategory"
-        )
-
-        # Validate category foreign keys
+        # Load category data only once.
         categories = get_latest_json(
             "master/categories",
             "categories"
         )
 
-        check_foreign_keys(
+        subcategories = generate_subcategories(categories)
+
+        validate_subcategories(
             subcategories,
-            "category_id",
-            categories,
-            "category_id"
+            categories
         )
-
-        logger.info("Subcategory validation successful.")
-
-        # ----------------------------------------------------
-        # SAVE GENERATED DATA
-        # ----------------------------------------------------
 
         save_json(
             subcategories,
@@ -152,7 +122,8 @@ def main():
         )
 
         logger.info(
-            "Subcategory generation completed successfully."
+            "Subcategory generation completed. Records: %s",
+            len(subcategories)
         )
 
     except Exception:
