@@ -29,9 +29,6 @@ def save_json(
 ) -> Path:
     """
     Save records as a timestamped JSON file.
-
-    Example:
-    data/generated/master/categories/categories_20261112.json
     """
 
     allowed_folders = {
@@ -123,9 +120,6 @@ def get_latest_json(
 ) -> list:
     """
     Read the latest JSON file for a given dataset.
-
-    Example:
-    get_latest_json("master/categories", "categories")
     """
 
     relative_folder = Path(folder_name)

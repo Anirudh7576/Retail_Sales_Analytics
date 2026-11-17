@@ -2,15 +2,18 @@ import math
 
 from scripts.common.master_data import (
     validate_product_family_profiles,
-    build_product_master
+    build_product_master,
+    BRAND_CATEGORY_MAPPING,
+    validate_case_quantity_mapping
 )
-from scripts.common.master_data import BRAND_CATEGORY_MAPPING
+# from scripts.common.master_data import BRAND_CATEGORY_MAPPING
 
-from scripts.common.master_data import build_product_master
+# from scripts.common.master_data import build_product_master
 
 # from scripts.common.master_data import PRODUCT_MASTER
 
 from scripts.common.constants import PRODUCT_REQUIRED_FIELDS
+
 
 from scripts.common.validation import (
     check_required_fields,
@@ -30,7 +33,9 @@ from scripts.common.logger import logger
 # --------------------------------------------------
 # GENERATE PRODUCTS
 # --------------------------------------------------
+
 def generate_products():
+    validate_case_quantity_mapping
     validate_product_family_profiles()
     products = build_product_master()
     return products
@@ -84,7 +89,7 @@ def validate_product_business_rules(products: list) -> None:
                 f"Invalid standard cost for product_id {product_id}"
             )
 
-        if standard_cost > mrp:
+        if standard_cost >= mrp:
             raise ValueError(
                 f"Standard cost cannot exceed MRP "
                 f"for product_id {product_id}"
@@ -100,6 +105,20 @@ def validate_product_business_rules(products: list) -> None:
         ):
             raise ValueError(
                 f"Invalid shelf life for product_id {product_id}"
+            )
+        
+        # Validate units per case
+        units_per_case = product.get("units_per_case")
+
+        if (
+            isinstance(units_per_case, bool)
+            or not isinstance(units_per_case, int)
+            or units_per_case <= 0
+        ):
+            raise ValueError(
+                f"Invalid units_per_case for product_id "
+                f"{product_id}: {units_per_case}. "
+                "Expected a positive integer"
             )
 
 # --------------------------------------------------
@@ -191,7 +210,8 @@ def validate_product_brand_category(
 
     print("Product brand-category validation successful.")
 
-
+# ===========================================================
+# ===========================================================
 def validate_products(
     products: list,
     subcategories: list,
@@ -260,21 +280,25 @@ def validate_products(
     subcategories
     )
 
-    # 10. Validate product prices
-    validate_product_prices(products)
 
-    # 11. Validate product pack size
-    validate_product_pack_size(products)
-
-    # 12. Validate product shelf life
-    validate_product_shelf_life(products)
-
-    # 13. Validate brand-category relationship
     validate_product_brand_category(
-        products,
-        subcategories
+            products,
+            subcategories
     )
 
+    validate_product_business_rules(products)
+
+    # # 10. Validate product prices
+    # validate_product_prices(products)
+
+    # # 11. Validate product pack size
+    # validate_product_pack_size(products)
+
+    # # 12. Validate product shelf life
+    # validate_product_shelf_life(products)
+
+    # 13. Validate brand-category relationship
+    
     print("Product validation successful.")
 
 
@@ -360,3 +384,13 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# validate_case_quantity_mapping()
+# validate_product_family_profiles()
+
+# products = build_product_master()
+
+# validate_product_business_rules(products)
+
+# print("Total products:", len(products))

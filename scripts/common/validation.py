@@ -217,4 +217,100 @@ def validate_category_cost_factors(
     print("Category cost factor validation successful.")
 
 
+def validate_unique_ids(records, id_field, master_name):
+    ids = [record.get(id_field) for record in records]
+
+    if None in ids:
+        raise ValueError(
+            f"{master_name}: Missing {id_field}"
+        )
+
+    if len(ids) != len(set(ids)):
+        raise ValueError(
+            f"{master_name}: Duplicate {id_field}"
+        )
+
+    return set(ids)
+
+def validate_foreign_keys(
+    records,
+    foreign_key,
+    valid_ids,
+    master_name
+):
+    invalid_ids = {
+        record.get(foreign_key)
+        for record in records
+        if record.get(foreign_key) not in valid_ids
+    }
+
+    if invalid_ids:
+        raise ValueError(
+            f"{master_name}: Invalid {foreign_key}: "
+            f"{invalid_ids}"
+        )
+
+def validate_product_master_relationships(
+    products,
+    subcategories,
+    brands,
+    uoms,
+    packaging_types
+):
+    subcategory_ids = validate_unique_ids(
+        subcategories,
+        "subcategory_id",
+        "Subcategory Master"
+    )
+
+    brand_ids = validate_unique_ids(
+        brands,
+        "brand_id",
+        "Brand Master"
+    )
+
+    uom_ids = validate_unique_ids(
+        uoms,
+        "uom_id",
+        "UOM Master"
+    )
+
+    packaging_ids = validate_unique_ids(
+        packaging_types,
+        "packaging_type_id",
+        "Packaging Type Master"
+    )
+
+    validate_unique_ids(
+        products,
+        "product_id",
+        "Product Master"
+    )
+
+    validate_foreign_keys(
+        products, "subcategory_id",
+        subcategory_ids, "Product Master"
+    )
+
+    validate_foreign_keys(
+        products, "brand_id",
+        brand_ids, "Product Master"
+    )
+
+    validate_foreign_keys(
+        products, "uom_id",
+        uom_ids, "Product Master"
+    )
+
+    validate_foreign_keys(
+        products, "content_uom_id",
+        uom_ids, "Product Master"
+    )
+
+    validate_foreign_keys(
+        products, "packaging_type_id",
+        packaging_ids, "Product Master"
+    )
+
+    print("Product master relationship validation successful.")
     # ==========================================================

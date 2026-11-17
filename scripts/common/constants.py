@@ -73,7 +73,8 @@ PRODUCT_REQUIRED_FIELDS = [
     "content_uom_id",
     "mrp",
     "standard_cost",
-    "shelf_life_days"
+    "shelf_life_days",
+    "units_per_case"
 ]
 
 UOM_REQUIRED_FIELDS = [

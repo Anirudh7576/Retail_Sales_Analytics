@@ -344,3 +344,49 @@ KeyError: 'subcategory_id'
 2026-11-16 10:22:31 | INFO | fmcg_sales | Generated 525 product records.
 2026-11-16 10:22:31 | INFO | fmcg_sales | Product validation successful.
 2026-11-16 10:22:31 | INFO | fmcg_sales | Product generation completed successfully.
+2026-11-16 11:48:33 | INFO | fmcg_sales | Product generation started.
+2026-11-16 11:48:33 | INFO | fmcg_sales | Generated 525 product records.
+2026-11-16 11:48:33 | INFO | fmcg_sales | Product validation successful.
+2026-11-16 11:48:33 | INFO | fmcg_sales | Product generation completed successfully.
+2026-11-16 12:34:31 | INFO | fmcg_sales | Product generation started.
+2026-11-16 12:34:31 | INFO | fmcg_sales | Generated 525 product records.
+2026-11-16 12:34:31 | INFO | fmcg_sales | Product validation successful.
+2026-11-16 12:34:31 | INFO | fmcg_sales | Product generation completed successfully.
+2026-11-16 12:45:57 | INFO | fmcg_sales | Product generation started.
+2026-11-16 12:45:57 | INFO | fmcg_sales | Generated 525 product records.
+2026-11-16 12:45:57 | INFO | fmcg_sales | Product validation successful.
+2026-11-16 12:45:57 | INFO | fmcg_sales | Product generation completed successfully.
+2026-11-16 14:20:02 | INFO | fmcg_sales | Product generation started.
+2026-11-16 14:20:02 | ERROR | fmcg_sales | Product generation failed.
+Traceback (most recent call last):
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 348, in main
+    products = generate_products()
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 40, in generate_products
+    products = build_product_master()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\common\master_data.py", line 1169, in build_product_master
+    units_per_case = get_units_per_case(product_family)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\common\master_data.py", line 1137, in get_units_per_case
+    raise ValueError(
+ValueError: Missing case quantity for Face Wash
+2026-11-16 14:20:31 | INFO | fmcg_sales | Product generation started.
+2026-11-16 14:20:31 | ERROR | fmcg_sales | Product generation failed.
+Traceback (most recent call last):
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 348, in main
+    products = generate_products()
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\data_generation\master\generate_products.py", line 40, in generate_products
+    products = build_product_master()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\common\master_data.py", line 1169, in build_product_master
+    units_per_case = get_units_per_case(product_family)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\scripts\common\master_data.py", line 1137, in get_units_per_case
+    raise ValueError(
+ValueError: Missing case quantity for Face Wash
+2026-11-16 14:32:53 | INFO | fmcg_sales | Product generation started.
+2026-11-16 14:32:53 | INFO | fmcg_sales | Generated 525 product records.
+2026-11-16 14:32:53 | INFO | fmcg_sales | Product validation successful.
+2026-11-16 14:32:53 | INFO | fmcg_sales | Product generation completed successfully.

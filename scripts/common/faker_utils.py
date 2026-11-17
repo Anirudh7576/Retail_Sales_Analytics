@@ -29,10 +29,6 @@ def set_faker_seed(seed: int) -> None:
 def generate_postalcode() -> str:
     """
     Generate a six-digit Indian PIN-code format.
-
-    Note:
-    This generates a syntactically plausible PIN code,
-    not necessarily an officially allocated PIN code.
     """
 
     first_digit = fake.random_element(
@@ -53,10 +49,6 @@ def generate_postalcode() -> str:
 def generate_phone_number() -> str:
     """
     Generate a synthetic 10-digit Indian mobile-number format.
-
-    Note:
-    Generated numbers are synthetic and should not be used
-    to contact real people.
     """
 
     first_digit = fake.random_element(

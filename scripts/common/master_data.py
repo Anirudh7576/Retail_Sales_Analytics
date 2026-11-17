@@ -17,8 +17,11 @@ CATEGORY_MASTER = [
         "category_description": "Household cleaning and maintenance products"
     },
     {
-        "category_name": "Personal Hygiene",
-        "category_description": "Products for intimate health and wellness"
+    "category_name": "Personal Hygiene",
+    "category_description": (
+        "Products for personal hygiene, skin care, "
+        "protective hygiene and everyday personal care"
+    )
     }
 ]
 
@@ -108,7 +111,7 @@ SUBCATEGORY_MASTER = [
         "subcategory_description": "Air freshening products"
     },
 
-    # Intimate Wellness
+    # Personal Hygiene
     {
         "category_name": "Personal Hygiene",
         "subcategory_name": "Protective Hygiene",
@@ -139,6 +142,7 @@ SUBCATEGORY_MASTER = [
 
 # ============================================================
 # Map each brand to the categories it is allowed to sell.
+
 BRAND_CATEGORY_MAPPING = {
     1: {2, 4},       # PureShield: Germ Protection, Personal Hygiene
     2: {3},          # FreshNest: Household Care
@@ -189,8 +193,8 @@ BRAND_MASTER = [
 ]
 
 BRAND_LOOKUP = {
-    brand_id: brand["brand_name"]
-    for brand_id, brand in enumerate(BRAND_MASTER, start=1)
+    brand["brand_id"]: brand["brand_name"]
+    for brand in BRAND_MASTER
 }
 
 # print("Brand-category mapping:")
@@ -209,6 +213,7 @@ BRAND_LOOKUP = {
 # )
 
 # print("Subcategory master validation successful.")
+
 # =======================================================================
 # FMCG UOM MASTER DATA
 # =======================================================================
@@ -253,75 +258,9 @@ UOM_MASTER = [
 ]
 
 UOM_LOOKUP = {
-    uom_id: uom["uom_code"]
-    for uom_id, uom in enumerate(UOM_MASTER, start=1)
+    uom["uom_id"]: uom["uom_code"]
+    for uom in UOM_MASTER
 }
-
-# =====================================================================
-# FMCG PRODUCT BUILDER DATA
-# =====================================================================
-
-def build_product_master():
-    products = []
-    product_id = 1
-
-    for subcategory_id, families in PRODUCT_FAMILIES.items():
-        for product_family, content_uom_id, base_mrp, shelf_life_days in families:
-
-            profile_key = PRODUCT_FAMILY_PACKAGING_PROFILE[product_family]
-            profile = PRODUCT_PACKAGING_PROFILES[profile_key]
-
-            if content_uom_id != profile["content_uom_id"]:
-                raise ValueError(
-                    f"UOM mismatch for {product_family}: "
-                    f"family UOM={content_uom_id}, "
-                    f"profile UOM={profile['content_uom_id']}"
-                )
-
-            for brand_id, brand_name in BRAND_LOOKUP.items():
-
-                for pack_size, packaging_type_id, pack_label, price_factor in profile["options"]:
-
-                    mrp = round(base_mrp * price_factor, 2)
-                    standard_cost = round(mrp * 0.65, 2)
-
-                    
-                    if content_uom_id == 1:
-                        product_name = (
-                            f"{brand_name} {product_family} "
-                            f"{pack_size} count {pack_label}"
-                        )
-                    else:
-                        product_name = (
-                            f"{brand_name} {product_family} {pack_size} "
-                            f"{UOM_LOOKUP[content_uom_id]} {pack_label}"
-                        )
-
-
-                    product = {
-                        "product_id": product_id,
-                        "subcategory_id": subcategory_id,
-                        "brand_id": brand_id,
-                        "product_name": product_name,
-                        "sku": f"FMCG-{product_id:04d}",
-                        "uom_id": 1,
-                        "packaging_type_id": packaging_type_id,
-                        "pack_size": pack_size,
-                        "content_uom_id": content_uom_id,
-                        "mrp": mrp,
-                        "standard_cost": standard_cost,
-                        "shelf_life_days": shelf_life_days,
-                    }
-
-                    products.append(product)
-                    product_id += 1
-
-    if len(products) != 300:
-        raise ValueError(
-            f"Expected 300 products, generated {len(products)}"
-        )
-
-    return products
 
 # ======================================================================
 # FMCG PACKAGING_TYPE_MASTER DATA
@@ -1034,51 +973,6 @@ def validate_product_family_profiles():
 
     print("Product family packaging validation successful.")
 
-# --------------------------------------------------
-# PRODUCT PACKAGING OPTIONS
-# --------------------------------------------------
-PRODUCT_PACKAGING_OPTIONS = {
-
-    1: [  # EA - Countable products
-        (1, 7, "box"),
-        (2, 7, "box"),
-        (3, 7, "box"),
-        (5, 8, "carton"),
-        (10, 8, "carton")
-    ],
-
-    3: [  # G - Grams
-        (20, 3, "sachet"),
-        (50, 4, "pouch"),
-        (100, 5, "jar"),
-        (150, 5, "jar"),
-        (200, 5, "jar")
-    ],
-
-    4: [  # KG - Kilograms
-        (1, 4, "pouch"),
-        (2, 4, "pouch"),
-        (5, 4, "pouch"),
-        (10, 8, "carton"),
-        (20, 8, "carton")
-    ],
-
-    5: [  # ML - Millilitres
-        (50, 2, "tube"),
-        (100, 2, "tube"),
-        (200, 1, "bottle"),
-        (500, 1, "bottle"),
-        (1000, 1, "bottle")
-    ],
-
-    6: [  # L - Litres
-        (1, 1, "bottle"),
-        (2, 1, "bottle"),
-        (5, 6, "can"),
-        (10, 6, "can"),
-        (20, 6, "can")
-    ]
-}
 
 # --------------------------------------------------
 # PRODUCT FAMILY DEFINITIONS
@@ -1169,7 +1063,7 @@ PRODUCT_FAMILIES = {
         ("Air Freshener Spray", 5, 200, 1095)
     ],
 
-    # Intimate Wellness
+    # Personal Hygiene
     
     16: [
         ("Hand Protection Gloves", 1, 120, 1095),
@@ -1199,21 +1093,131 @@ PRODUCT_FAMILIES = {
 
 }
 
-REFERENCE_PACK_SIZE = {
-    1: 1,     # EA: price per one item
-    3: 100,   # G: price per 100 grams
-    4: 1,     # KG: price per 1 kilogram
-    5: 100,   # ML: price per 100 millilitres
-    6: 1      # L: price per 1 litre
-}
+def validate_case_quantity_mapping():
 
-CONTENT_UOM_CODES = {
-    1: "EA",
-    3: "G",
-    4: "KG",
-    5: "ML",
-    6: "L"
+    product_families = {
+        family[0]
+        for families in PRODUCT_FAMILIES.values()
+        for family in families
+    }
+
+    mapped_families = set(PRODUCT_CASE_QUANTITIES)
+
+    missing_mappings = product_families - mapped_families
+    unused_mappings = mapped_families - product_families
+
+    if missing_mappings:
+        raise ValueError(
+            f"Missing case quantity mappings: {sorted(missing_mappings)}"
+        )
+
+    if unused_mappings:
+        raise ValueError(
+            f"Unused case quantity mappings: {sorted(unused_mappings)}"
+        )
+
+    print("Product case quantity mapping validation successful."
+          f"{len(mapped_families)} product families."
+          )
+# -------------------------------------------------
+#  UNITS PER CASE
+# -------------------------------------------------
+PRODUCT_CASE_QUANTITIES = {
+
+    # Self Care
+    "Face Wash": 24,
+    "Moisturizer": 24,
+    "Sunscreen": 24,
+
+    "Shampoo": 12,
+    "Conditioner": 12,
+    "Hair Oil": 12,
+
+    "Toothpaste": 24,
+    "Toothbrush": 48,
+    "Mouthwash": 12,
+
+    "Body Wash": 12,
+    "Deodorant": 24,
+    "Talcum Powder": 12,
+
+    "Baby Lotion": 12,
+    "Baby Shampoo": 12,
+    "Baby Wipes": 24,
+
+    # Germ Protection
+    "Liquid Hand Wash": 12,
+    "Hand Sanitizer": 12,
+    "Hand Soap": 48,
+
+    "Surface Disinfectant": 12,
+    "Multipurpose Cleaner": 12,
+    "Disinfectant Spray": 12,
+
+    "Toilet Cleaner": 12,
+    "Toilet Blocks": 24,
+    "Toilet Gel": 12,
+
+    "Antiseptic Liquid": 12,
+    "Antiseptic Cream": 24,
+    "Antiseptic Spray": 12,
+
+    "Sanitizing Hand Gel": 12,
+    "Sanitizing Wipes": 24,
+    "Sanitizer Refill": 12,
+
+    # Household Care
+    "Detergent Powder": 10,
+    "Liquid Detergent": 12,
+    "Detergent Bar": 48,
+
+    "Dishwash Liquid": 12,
+    "Dishwash Bar": 48,
+    "Dishwash Gel": 12,
+
+    "Floor Cleaner": 12,
+    "Floor Disinfectant": 12,
+    "Concentrated Floor Cleaner": 12,
+
+    "Fabric Conditioner": 12,
+    "Fabric Whitener": 12,
+    "Stain Remover": 12,
+
+    "Room Freshener": 12,
+    "Air Freshener Gel": 12,
+    "Air Freshener Spray": 12,
+
+    # Personal Hygiene
+    "Hand Protection Gloves": 20,
+    "Disposable Face Masks": 20,
+    "Protective Hygiene Kit": 6,
+
+    "Body Lotion": 12,
+    "Moisturizing Lotion": 12,
+    "Skin Care Gel": 24,
+
+    "Gentle Body Wash": 12,
+    "Personal Hygiene Wipes": 24,
+    "Body Freshener": 12,
+
+    "Aloe Vera Gel": 24,
+    "Personal Care Kit": 6,
+    "Multipurpose Hygiene Wipes": 24,
+
+    "Skin Care Cream": 24,
+    "Gentle Cleansing Wipes": 24,
+    "Gentle Cleansing Wash": 12
 }
+# ======================================================
+
+def get_units_per_case(product_family):
+
+    if product_family not in PRODUCT_CASE_QUANTITIES:
+        raise ValueError(
+            f"Missing case quantity for {product_family}"
+        )
+
+    return PRODUCT_CASE_QUANTITIES[product_family]
 
 # --------------------------------------------------
 # PRODUCT MASTER GENERATION
@@ -1225,13 +1229,15 @@ def build_product_master():
     product_id = 1
 
     for subcategory_id, families in PRODUCT_FAMILIES.items():
+
+        category_id = SUBCATEGORY_CATEGORY_MAPPING[subcategory_id]
+        cost_factor = CATEGORY_COST_FACTORS[category_id]
+
         for product_family, content_uom_id, base_mrp, shelf_life_days in families:
 
-            # Get the packaging profile for the product family
             profile_key = PRODUCT_FAMILY_PACKAGING_PROFILE[product_family]
             profile = PRODUCT_PACKAGING_PROFILES[profile_key]
 
-            # Validate content UOM
             if content_uom_id != profile["content_uom_id"]:
                 raise ValueError(
                     f"UOM mismatch for {product_family}: "
@@ -1239,8 +1245,7 @@ def build_product_master():
                     f"profile UOM={profile['content_uom_id']}"
                 )
 
-            # Generate products for each brand
-            category_id = SUBCATEGORY_CATEGORY_MAPPING[subcategory_id]
+            units_per_case = get_units_per_case(product_family)
 
             for brand_id, brand_name in BRAND_LOOKUP.items():
 
@@ -1249,25 +1254,21 @@ def build_product_master():
 
                 for pack_size, packaging_type_id, pack_label, price_factor in profile["options"]:
 
-                    # Calculate pricing
                     mrp = round(base_mrp * price_factor, 2)
-                    cost_factor = CATEGORY_COST_FACTORS[category_id]
                     standard_cost = round(mrp * cost_factor, 2)
 
-                    # Generate product name
                     packaging_label = pack_label.strip().title()
 
                     if content_uom_id == 1:
 
                         if product_family in {
                             "Personal Care Kit",
-                            "Protective Hygiene Kits"
+                            "Protective Hygiene Kit"
                         }:
                             product_name = (
                                 f"{brand_name} {product_family} "
-                                f"{pack_size} Kit {packaging_label}"
+                                f"{pack_size} {packaging_label}"
                             )
-
                         else:
                             product_name = (
                                 f"{brand_name} {product_family} "
@@ -1295,6 +1296,7 @@ def build_product_master():
                         "mrp": mrp,
                         "standard_cost": standard_cost,
                         "shelf_life_days": shelf_life_days,
+                        "units_per_case": units_per_case
                     }
 
                     products.append(product)
