@@ -1241,105 +1241,164 @@
 # ======================================================================================== 
 # Create reusable ETL function
 
-from io import BytesIO 
-import pandas as pd
-from snowflake.connectors.pandas_tools import write_pandas
+# from io import BytesIO 
+# import pandas as pd
 
-def extract_from_s3(s3_client, bucket_name, s3_key):
-    response = s3_client.get_object(
-        Bucket = bucket_name,
-        Key = s3_key
-    )
 
-    df = pd.read_csv(
-        BytesIO(response["body"].read())
-    )
+# def extract_from_s3(s3_client, bucket_name, s3_key):
+#     response = s3_client.get_object(
+#         Bucket = bucket_name,
+#         Key = s3_key
+#     ).\.venv\Scripts\Activate.ps1
 
-    return df
+#     df = pd.read_csv(
+#         BytesIO(response["body"].read())
+#     )
 
-def transformation(df):
+#     return df
 
-    df = df.copy()
-    df = df.drop_duplicates()
+# def transformation(df):
 
-    return df
+#     df = df.copy()
+#     df = df.drop_duplicates()
 
-def load_to_snowflake(
-        connection,
-        df,
-        table_name,
-        schema_name
-):
-    success, chunks, rows, output = write_pandas(
-        conn = connection,
-        df = df,
-        table_name = table_name,
-        schema_name = schema_name,
-        auto_create_table = False,
-        overwrite = False
+#     return df
 
-    )
+# def load_to_snowflake(
+#         connection,
+#         df,
+#         table_name,
+#         schema_name
+# ):
+#     success, chunks, rows, output = write_pandas(
+#         conn = connection,
+#         df = df,
+#         table_name = table_name,
+#         schema_name = schema_name,
+#         auto_create_table = False,
+#         overwrite = False
 
-    if not success:
-        raise RuntimeError(
-            f"failed to load data {schema_name}.{table_name}"
-        )
+#     )
 
-    print(
-        f"loaded {rows} rows into"
-        f"{schema_name}.{table_name}"
-    )
+#     if not success:
+#         raise RuntimeError(
+#             f"failed to load data {schema_name}.{table_name}"
+#         )
 
-def run_etl(       
-        s3_client,
-        snowflake_connection,
-        bucket_name,
-        s3_key,
-        table_name,
-        schema_name):
+#     print(
+#         f"loaded {rows} rows into"
+#         f"{schema_name}.{table_name}"
+#     )
 
-    print(f"extranction data from bucket name: {bucket_name}")
+# def run_etl(       
+#         s3_client,
+#         snowflake_connection,
+#         bucket_name,
+#         s3_key,
+#         table_name,
+#         schema_name):
 
-    df = extract_from_s3(
-        s3,
-        bucket,
-        key
+#     print(f"extranction data from bucket name: {bucket_name}")
 
-    )
-    print(f"extacted rows {len(df)}")
+#     df = extract_from_s3(
+#         s3,
+#         bucket,
+#         key
 
-    df = transformation(df)
+#     )
+#     print(f"extacted rows {len(df)}")
 
-    print(f"total rows tansformed {len(df)}")
+#     df = transformation(df)
 
-    load_to_snowflake(
-        connection,
-        df,
-        schema_name,
-        table_name
-    )
+#     print(f"total rows tansformed {len(df)}")
 
-    print("ETL completed succesfully")
+#     load_to_snowflake(
+#         connection,
+#         df,
+#         schema_name,
+#         table_name
+#     )
+
+#     print("ETL completed succesfully")
     
-# ========================
-import boto3
-s3 = boto3.client(
-    "s3",
-    region_name = "ap-south-1"
-)
+# # ========================
+# import boto3
+# s3 = boto3.client(
+#     "s3",
+#     region_name = "ap-south-1"
+# )
 
-run_etl(
-    s3_client = s3,
-    snowflake_connection= connection,
-    bucket_name= "name of s3 bucket",
-    s3_key= "key",
-    table_name= "SALES",
-    schema_name= "RAW"
-)
+# run_etl(
+#     s3_client = s3,
+#     snowflake_connection= connection,
+#     bucket_name= "name of s3 bucket",
+#     s3_key= "key",
+#     table_name= "SALES",
+#     schema_name= "RAW"
+# )
 
 # =========================================================================================
 # Create utility module
 # Create configuration reader
 # Create date utility functions
 # Create file loader function
+
+# Read CSV file
+
+from pathlib import Path
+import pandas as pd
+
+# file_path = Path(r"C:\Users\Anirudh Gogikar\Downloads\START-Master-Pivot-Tables.xlsx")
+
+# data = pd.read_excel(file_path,
+#                      sheet_name = "Data",
+#                      engine = "openpyxl")
+
+# print(data)
+
+# Write CSV file
+# Read JSON file
+# Write JSON file
+# Read Parquet file
+# Write Parquet file
+
+# import csv 
+# file_path = Path(r"C:\Users\Anirudh Gogikar\Desktop\START-Master-Pivot-Tables1.csv")
+# # data1 = pd.read_csv(file_path)
+# destination_path = Path(r"C:\Users\Anirudh Gogikar\Desktop\destination.csv")
+
+# with open(file_path, mode= "r", newline = "", encoding = "utf-8") as file:
+#     reader = csv.reader(file)
+
+#     for row in reader:
+#         print(row)
+
+# import csv
+
+# data = [
+#     ["customer_id", "customer_name", "city"],
+#     [101, "John", "Hyderabad"],
+#     [102, "David", "Mumbai"],
+#     [103, "Smith", "Bangalore"]
+# ]
+
+# with open("customers.csv", mode="w", newline="", encoding="utf-8") as file:
+#     writer = csv.writer(file)
+
+#     writer.writerows(data)
+
+import json
+from pathlib import Path 
+
+file_name = Path(r"C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\data\generated\master\brands\brands_20261113_161111_608471.json")
+# C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\data\generated\master\brands\brands_20261113_161111_608471.json
+
+with open(file_name, mode= "r", newline= "", encoding = "utf-8") as file:
+    reader = json.load(file)
+
+    for row in reader:
+        print(row)
+
+
+
 

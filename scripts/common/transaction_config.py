@@ -86,3 +86,10 @@ ORDER_CANCELLATION_RATE = 0.02
 # Requested delivery window after order date.
 MIN_DELIVERY_DAYS = 1
 MAX_DELIVERY_DAYS = 7
+
+# order items
+
+MAX_ORDER_QUANTITY = 24
+
+MIN_DISCOUNT_PCT = 0.00
+MAX_DISCOUNT_PCT = 20.00
