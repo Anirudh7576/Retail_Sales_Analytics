@@ -1387,18 +1387,69 @@ import pandas as pd
 
 #     writer.writerows(data)
 
-import json
-from pathlib import Path 
+# import json
+# from pathlib import Path 
 
-file_name = Path(r"C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\data\generated\master\brands\brands_20261113_161111_608471.json")
-# C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\data\generated\master\brands\brands_20261113_161111_608471.json
+# file_name = Path(r"C:\Users\Anirudh Gogikar\Desktop\Github\Retail_Sales_Analytics\data\generated\master\brands\brands_20261113_161111_608471.json")
 
-with open(file_name, mode= "r", newline= "", encoding = "utf-8") as file:
-    reader = json.load(file)
+# with open(source_path, mode= "r", newline= "", encoding = "utf-8") as file:
+#       data = json.load(file)
 
-    for row in reader:
-        print(row)
+# with open(destination_path, mode = "w", newline= "", encoding = "utf-8") as file:
+#         json.dump(data, file, indent = 4, ensure_ascii= False)
+
+from pathlib import Path
+import csv
+
+# folder_path = Path(r"C:\Users\Anirudh Gogikar\Desktop\project sample data/")
+# file_paths = folder_path.glob("*csv")
+
+# for file_path in file_paths:
+
+#     with open(file_path, mode= "r", newline = "", encoding = "utf-8") as file:
+#         reader = csv.reader(file)
+
+#         for file in reader:
+#             print(file)
 
 
+# from pathlib import Path
+# import csv
 
+# folder_path = Path(
+#     r"C:\Users\Anirudh Gogikar\Desktop\project sample data"
+# )
 
+# file_paths = list(folder_path.glob("*.csv"))
+
+# target_path = Path(
+#     r"C:\Users\Anirudh Gogikar\Desktop\project sample data\destination")
+
+# if not file_paths:
+#     print("No CSV files found")
+
+# for file_path in file_paths:
+
+#     record_count = 0
+
+#     try:
+#         with open(file_path, "r", newline="", encoding="utf-8") as file:
+
+#             reader = csv.DictReader(file)
+
+#             for row in reader:
+#                 record_count += 1
+
+#                 # Process each record here
+#                 print(file_path.name, row)
+
+#         print(f"SUCCESS: {file_path.name} - {record_count} records")
+
+#         with open(target_path, mode= "w", newline= "", encoding= "utf-8") as file1:
+#             writer = csv.DictWriter(file1,
+#                                     fieldnames= reader.fieldnames)
+
+#     except (OSError, csv.Error, UnicodeError) as error:
+#         print(f"FAILED: {file_path.name} - {error}")
+
+# =============================================================================
